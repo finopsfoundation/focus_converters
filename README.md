@@ -1,4 +1,4 @@
-# focus_converters
+# Focus Converters
 Parent repository to hold all common documentation and code samples for all FOCUS Converter projects
 
 ## Active Converter Projects
