@@ -57,7 +57,7 @@ poetry install --only main --no-root
 or for installing all `dev` dependencies
 
 ```sh
-poetry install --only main --no-root
+poetry install --no-root
 ```
 
 ## Setting Up the Development Environment
