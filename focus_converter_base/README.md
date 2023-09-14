@@ -35,7 +35,7 @@ Refer to the [official Poetry documentation](https://python-poetry.org/docs/) fo
 Clone the project repository to your local machine using the following command:
 
 ```sh
-git clone <address tbd>
+git clone https://github.com/finopsfoundation/focus_converters.git
 ```
 
 ### Step 3: Navigate to the Project Directory
