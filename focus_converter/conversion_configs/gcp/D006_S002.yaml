@@ -1,0 +1,5 @@
+plan_name: convert usage_end_time to ChargePeriodStart
+conversion_type: convert_timezone
+column: ChargePeriodEnd
+focus_column: ChargePeriodEnd
+conversion_args: UTC

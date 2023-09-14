@@ -1,0 +1,5 @@
+plan_name: convert usage_end_time to ChargePeriodEnd
+conversion_type: assign_timezone
+column: usage_end_time
+focus_column: ChargePeriodEnd
+conversion_args: America/Los_Angeles

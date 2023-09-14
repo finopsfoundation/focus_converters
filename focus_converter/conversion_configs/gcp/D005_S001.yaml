@@ -1,0 +1,5 @@
+plan_name: convert usage_start_time to ChargePeriodStart
+conversion_type: assign_timezone
+column: usage_start_time
+focus_column: ChargePeriodStart
+conversion_args: America/Los_Angeles
