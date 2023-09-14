@@ -1,0 +1,43 @@
+[tool.poetry]
+name = "focus-converter-base"
+version = "0.1.0"
+description = ""
+authors = ["Your Name <you@example.com>"]
+readme = "README.md"
+packages = [{include = "focus_converter_base"}]
+
+[tool.poetry.dependencies]
+python = "^3.8.1"
+jupyterlab = "^4.0.5"
+polars = "^0.19.2"
+jupyter = "^1.0.0"
+pydantic = "^2.1.1"
+pandas = "^2.0.3"
+pyarrow = "^12.0.1"
+black = {extras = ["jupyter"], version = "^23.7.0"}
+duckdb = "^0.8.1"
+typer = "^0.9.0"
+deltalake = "^0.10.1"
+rich = "^13.5.2"
+networkx = "^3.1"
+tqdm = "^4.66.1"
+
+
+[tool.poetry.group.dev.dependencies]
+black = {extras = ["d"], version = "^23.7.0"}
+bumpversion = "^0.6.0"
+flake8 = "^6.0.0"
+isort = "^5.12.0"
+mypy = "^1.4.1"
+pre-commit = "^3.3.3"
+pytest = "^7.4.0"
+pytest-cov = "^4.1.0"
+types-python-dateutil = "^2.8.19.14"
+types-setuptools = "^68.0.0.3"
+faker = "^19.3.1"
+matplotlib = "^3.7.2"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
