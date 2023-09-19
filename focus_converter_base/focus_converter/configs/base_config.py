@@ -29,6 +29,9 @@ CONFIG_FILE_PATTERN = re.compile("D\d{3}_S\d{3}.yaml")
 
 
 class ConversionPlan(BaseModel):
+    # config source file name
+    config_file_name: str
+
     # a friendly name helpful for debugging purposes
     plan_name: str
 
@@ -101,6 +104,7 @@ class ConversionPlan(BaseModel):
         dimension_id = config_path.name.split("_")[0].replace("D", "")
         obj["priority"] = int(priority)
         obj["dimension_id"] = int(dimension_id)
+        obj["config_file_name"] = config_path.name
 
         return ConversionPlan.model_validate(obj=obj)
 
