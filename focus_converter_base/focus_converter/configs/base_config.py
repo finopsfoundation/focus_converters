@@ -6,11 +6,11 @@ import pytz
 import yaml
 from pydantic import (
     BaseModel,
-    FilePath,
     ConfigDict,
-    field_validator,
-    ValidationError,
     Field,
+    FilePath,
+    ValidationError,
+    field_validator,
 )
 from pydantic_core.core_schema import FieldValidationInfo
 from pytz.exceptions import UnknownTimeZoneError
@@ -62,24 +62,24 @@ class ConversionPlan(BaseModel):
         conversion_type: STATIC_CONVERSION_TYPES = field_info.data.get(
             "conversion_type"
         )
-        match conversion_type:
-            case (
-                STATIC_CONVERSION_TYPES.ASSIGN_TIMEZONE
-                | STATIC_CONVERSION_TYPES.CONVERT_TIMEZONE
-            ):
-                try:
-                    pytz.timezone(v)
-                except UnknownTimeZoneError:
-                    raise ValueError(
-                        f"Invalid timezone specified in conversion_args for plan: {field_info.data}"
-                    )
-            case STATIC_CONVERSION_TYPES.SQL_CONDITION:
-                try:
-                    SQLConditionConversionArgs.model_validate(v)
-                except ValidationError:
-                    raise ValueError(
-                        f"Invalid SQL condition specified in conversion_args for plan: {field_info.data}"
-                    )
+
+        if (
+            conversion_type == STATIC_CONVERSION_TYPES.ASSIGN_TIMEZONE
+            or conversion_type == STATIC_CONVERSION_TYPES.CONVERT_TIMEZONE
+        ):
+            try:
+                pytz.timezone(v)
+            except UnknownTimeZoneError:
+                raise ValueError(
+                    f"Invalid timezone specified in conversion_args for plan: {field_info.data}"
+                )
+        elif conversion_type == STATIC_CONVERSION_TYPES.SQL_CONDITION:
+            try:
+                SQLConditionConversionArgs.model_validate(v)
+            except ValidationError:
+                raise ValueError(
+                    f"Invalid SQL condition specified in conversion_args for plan: {field_info.data}"
+                )
         return v
 
     @field_validator("column_prefix")

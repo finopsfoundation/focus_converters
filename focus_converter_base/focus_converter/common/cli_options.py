@@ -1,7 +1,7 @@
 import typer
 from typing_extensions import Annotated
 
-from focus_converter.data_loaders.data_loader import ParquetDataFormat, DataFormats
+from focus_converter.data_loaders.data_loader import DataFormats, ParquetDataFormat
 
 PROVIDER_OPTION = Annotated[
     str,
