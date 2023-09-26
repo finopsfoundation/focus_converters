@@ -35,7 +35,7 @@ class NetworkSimulator:
                 "sink": sink_column_name,
                 "focus_column_name": plan.focus_column.value,
                 "conversion_type": plan.conversion_type,
-                "file_name": plan.config_file_name
+                "file_name": plan.config_file_name,
             }
         )
 
@@ -55,14 +55,14 @@ class NetworkSimulator:
                         plan["source"],
                         plan["sink"],
                         conversion_type=plan["conversion_type"].value,
-                        file_name=plan['file_name']
+                        file_name=plan["file_name"],
                     )
                 else:
                     graph.add_edge(
                         plans[i - 1]["sink"],
                         plan["sink"],
                         conversion_type=plan["conversion_type"].value,
-                        file_name=plan['file_name']
+                        file_name=plan["file_name"],
                     )
 
         # collect all target nodes and add an edge connecting to exported dataset
@@ -74,12 +74,10 @@ class NetworkSimulator:
         graph_uml.write("graph TD;\n")
         for source, target, edge_data in graph.edges(data=True):
             if edge_data:
-                conversion_type = edge_data.get('conversion_type')
+                conversion_type = edge_data.get("conversion_type")
                 if edge_data.get("file_name"):
                     conversion_type = f"{conversion_type}:{edge_data.get('file_name')}"
-                graph_uml.write(
-                    f"\t{source}-- {conversion_type} -->{target}\n"
-                )
+                graph_uml.write(f"\t{source}-- {conversion_type} -->{target}\n")
             else:
                 graph_uml.write(f"\t{source}-->{target}\n")
 

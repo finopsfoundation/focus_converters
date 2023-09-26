@@ -4,7 +4,7 @@ version = "0.1.0"
 description = ""
 authors = ["Your Name <you@example.com>"]
 readme = "README.md"
-packages = [{include = "focus_converter_base"}]
+packages = [{include = "focus_converter"}]
 
 [tool.poetry.dependencies]
 python = "^3.8.1"
@@ -37,6 +37,10 @@ types-python-dateutil = "^2.8.19.14"
 types-setuptools = "^68.0.0.3"
 faker = "^19.3.1"
 matplotlib = "^3.7.2"
+types-pyyaml = "^6.0.12.12"
+types-pytz = "^2023.3.1.1"
+types-requests = "^2.31.0.4"
+types-tqdm = "^4.66.0.2"
 
 
 [build-system]

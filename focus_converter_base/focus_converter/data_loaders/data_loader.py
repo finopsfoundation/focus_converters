@@ -69,15 +69,14 @@ class DataLoader:
         if self.__data_format__ == DataFormats.CSV:
             yield from self.load_csv()
         elif self.__data_format__ == DataFormats.PARQUET:
-            match self.__parquet_data_format__:
-                case ParquetDataFormat.FILE:
-                    yield from self.load_parquet_file()
-                case ParquetDataFormat.DATASET:
-                    yield from self.load_pyarrow_dataset()
-                case _:
-                    raise NotImplementedError(
-                        f"Parquet format:{self.__parquet_data_format__} not implemented"
-                    )
+            if self.__parquet_data_format__ == ParquetDataFormat.FILE:
+                yield from self.load_parquet_file()
+            elif self.__parquet_data_format__ == ParquetDataFormat.DATASET:
+                yield from self.load_pyarrow_dataset()
+            else:
+                raise NotImplementedError(
+                    f"Parquet format:{self.__parquet_data_format__} not implemented"
+                )
         else:
             raise NotImplementedError(
                 f"Data format:{self.__data_format__} not implemented"

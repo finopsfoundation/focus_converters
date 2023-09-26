@@ -1,7 +1,7 @@
 import logging
 import os
 from operator import attrgetter
-from typing import List, Dict
+from typing import Dict, List
 
 import polars as pl
 from pkg_resources import resource_filename
@@ -92,57 +92,54 @@ class FocusConverter:
             # add column to plan to collect these dimensions to be added in the computed dataframe
             collected_columns.append(plan.focus_column.value)
 
-            match plan.conversion_type:
-                case STATIC_CONVERSION_TYPES.CONVERT_TIMEZONE:
-                    column_exprs.append(
-                        DateTimeConversionFunctions.convert_timezone(
-                            plan=plan, column_alias=column_alias
-                        )
+            if plan.conversion_type == STATIC_CONVERSION_TYPES.CONVERT_TIMEZONE:
+                column_exprs.append(
+                    DateTimeConversionFunctions.convert_timezone(
+                        plan=plan, column_alias=column_alias
                     )
-                case STATIC_CONVERSION_TYPES.ASSIGN_TIMEZONE:
-                    column_exprs.append(
-                        DateTimeConversionFunctions.assign_timezone(
-                            plan=plan, column_alias=column_alias
-                        )
+                )
+            elif plan.conversion_type == STATIC_CONVERSION_TYPES.ASSIGN_TIMEZONE:
+                column_exprs.append(
+                    DateTimeConversionFunctions.assign_timezone(
+                        plan=plan, column_alias=column_alias
                     )
-                case STATIC_CONVERSION_TYPES.ASSIGN_UTC_TIMEZONE:
-                    column_exprs.append(
-                        DateTimeConversionFunctions.assign_utc_timezone(
-                            plan=plan, column_alias=column_alias
-                        )
+                )
+            elif plan.conversion_type == STATIC_CONVERSION_TYPES.ASSIGN_UTC_TIMEZONE:
+                column_exprs.append(
+                    DateTimeConversionFunctions.assign_utc_timezone(
+                        plan=plan, column_alias=column_alias
                     )
-                case STATIC_CONVERSION_TYPES.RENAME_COLUMN:
-                    column_exprs.append(
-                        ColumnFunctions.rename_column_functions(
-                            plan=plan, column_alias=column_alias
-                        )
+                )
+            elif plan.conversion_type == STATIC_CONVERSION_TYPES.RENAME_COLUMN:
+                column_exprs.append(
+                    ColumnFunctions.rename_column_functions(
+                        plan=plan, column_alias=column_alias
                     )
-                case STATIC_CONVERSION_TYPES.SQL_QUERY:
-                    sql_queries.append(
-                        SQLFunctions.eval_sql_query(
-                            plan=plan, column_alias=column_alias
-                        )
+                )
+            elif plan.conversion_type == STATIC_CONVERSION_TYPES.SQL_QUERY:
+                sql_queries.append(
+                    SQLFunctions.eval_sql_query(plan=plan, column_alias=column_alias)
+                )
+            elif plan.conversion_type == STATIC_CONVERSION_TYPES.SQL_CONDITION:
+                sql_queries.append(
+                    SQLFunctions.eval_sql_conditions(
+                        plan=plan, column_alias=column_alias
                     )
-                case STATIC_CONVERSION_TYPES.SQL_CONDITION:
-                    sql_queries.append(
-                        SQLFunctions.eval_sql_conditions(
-                            plan=plan, column_alias=column_alias
-                        )
+                )
+            elif plan.conversion_type == STATIC_CONVERSION_TYPES.PARSE_DATETIME:
+                column_exprs.append(
+                    DateTimeConversionFunctions.parse_datetime(
+                        plan=plan, column_alias=column_alias
                     )
-                case STATIC_CONVERSION_TYPES.PARSE_DATETIME:
-                    column_exprs.append(
-                        DateTimeConversionFunctions.parse_datetime(
-                            plan=plan, column_alias=column_alias
-                        )
-                    )
-                case STATIC_CONVERSION_TYPES.UNNEST_COLUMN:
-                    column_exprs.append(
-                        ColumnFunctions.unnest(plan=plan, column_alias=column_alias)
-                    )
-                case _:
-                    raise NotImplementedError(
-                        f"Plan: {plan.conversion_type} not implemented"
-                    )
+                )
+            elif plan.conversion_type == STATIC_CONVERSION_TYPES.UNNEST_COLUMN:
+                column_exprs.append(
+                    ColumnFunctions.unnest(plan=plan, column_alias=column_alias)
+                )
+            else:
+                raise NotImplementedError(
+                    f"Plan: {plan.conversion_type} not implemented"
+                )
         return column_exprs
 
     @staticmethod

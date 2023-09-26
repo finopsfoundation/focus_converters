@@ -7,10 +7,10 @@ import pyarrow.parquet as pq
 import typer
 from tqdm import tqdm
 
-from tests.data_generators.aws.aws_sample_data_generator import (
-    AWSSampleDataGenerator,
-)
-from tests.data_generators.gcp.gcp_sample_data_generator import GCPSampleDataGenerator
+from tests.data_generators.aws.aws_sample_data_generator import \
+    AWSSampleDataGenerator
+from tests.data_generators.gcp.gcp_sample_data_generator import \
+    GCPSampleDataGenerator
 
 # default row group size for each fragment
 ROW_GROUP_SIZE = 50000
