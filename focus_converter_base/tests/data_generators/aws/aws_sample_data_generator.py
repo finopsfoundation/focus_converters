@@ -28,30 +28,26 @@ class AWSSampleDataGenerator:
         row_data = {}
 
         for column in AWS_COLUMNS:
-            match column:
-                case "line_item_line_item_type":
-                    sample = self.__fake__.line_item_line_item_type()
-                    row_data[column] = sample.value
-
-                case (
-                    "bill_billing_period_end_date"
-                    | "bill_billing_period_start_date"
-                    | "line_item_usage_start_date"
-                    | "line_item_usage_end_date"
-                ):
-                    row_data[column] = self.__fake__.date_time()
-
-                case (
-                    "savings_plan_total_commitment_to_date"
-                    | "savings_plan_used_commitment"
-                    | "savings_plan_savings_plan_effective_cost"
-                    | "reservation_effective_cost"
-                    | "reservation_unused_amortized_upfront_fee_for_billing_period"
-                    | "reservation_unused_recurring_fee"
-                ):
-                    row_data[column] = self.__fake__.pyfloat(min_value=0, max_value=100)
-
-                case _:
-                    row_data[column] = str(uuid4())
+            if column == "line_item_line_item_type":
+                sample = self.__fake__.line_item_line_item_type()
+                row_data[column] = sample.value
+            elif column in [
+                "bill_billing_period_end_date",
+                "bill_billing_period_start_date",
+                "line_item_usage_start_date",
+                "line_item_usage_end_date",
+            ]:
+                row_data[column] = self.__fake__.date_time()
+            elif column in [
+                "savings_plan_total_commitment_to_date",
+                "savings_plan_used_commitment",
+                "savings_plan_savings_plan_effective_cost",
+                "reservation_effective_cost",
+                "reservation_unused_amortized_upfront_fee_for_billing_period",
+                "reservation_unused_recurring_fee",
+            ]:
+                row_data[column] = self.__fake__.pyfloat(min_value=0, max_value=100)
+            else:
+                row_data[column] = str(uuid4())
 
         return row_data
