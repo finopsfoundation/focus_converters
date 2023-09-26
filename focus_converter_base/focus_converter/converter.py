@@ -24,7 +24,7 @@ BASE_CONVERSION_CONFIGS = resource_filename("focus_converter", "conversion_confi
 class FocusConverter:
     plans: Dict[str, List[ConversionPlan]]
     data_loader: DataLoader
-    data_exporter: DataExporter
+    data_exporter: DataExporter = None
 
     # set of plan variables for horizontal transformation plans
     h_collected_columns: List[str]  # collected columns
@@ -183,8 +183,21 @@ class FocusConverter:
         return lf
 
     def convert(self):
+        error = None
+
         for lf in self.data_loader.data_scanner():
-            lf = self.apply_plan(lf=lf)
-            self.data_exporter.collect(
-                lf=lf, collected_columns=list(set(self.h_collected_columns))
-            )
+            try:
+                lf = self.apply_plan(lf=lf)
+                self.data_exporter.collect(
+                    lf=lf, collected_columns=list(set(self.h_collected_columns))
+                )
+            except Exception as e:
+                error = e
+                break
+
+        if error is not None:
+            # cleanup data export now that we have to close all subprocesses
+            if self.data_exporter:
+                self.data_exporter.close()
+
+            raise error
