@@ -1,7 +1,9 @@
 from datetime import date, timedelta
+from enum import Enum
 from random import randint, random
 from uuid import uuid4
 
+import faker.providers.python
 from faker import Faker
 
 GCP_COLUMNS = [
@@ -11,7 +13,14 @@ GCP_COLUMNS = [
     "seller_name",
     "credits",
     "cost",
+    "cost_type",
 ]
+
+
+class CostType(Enum):
+    TAX = "tax"
+    REGULAR = "regular"
+    ADJUSTMENT = "adjustment"
 
 
 class GCPSampleDataGenerator:
@@ -19,6 +28,13 @@ class GCPSampleDataGenerator:
         self.__num_rows__ = num_rows
         self.__fake__ = Faker()
         self.__destination_path__ = destination_path
+        self.__add_cost_type_provider__()
+
+    def __add_cost_type_provider__(self):
+        cost_type = faker.providers.DynamicProvider(
+            provider_name="cost_type", elements=list(CostType)
+        )
+        self.__fake__.add_provider(cost_type)
 
     def generate_row(self, *_args):
         row_data = {}
@@ -60,6 +76,9 @@ class GCPSampleDataGenerator:
                 row_data["credits"] = {"amount": random()}
             elif column == "cost":
                 row_data["cost"] = random()
+            elif column == "cost_type":
+                sample = self.__fake__.cost_type()
+                row_data[column] = sample.value
             else:
                 row_data[column] = str(uuid4())
 
