@@ -1,0 +1,22 @@
+plan_name: calculate ChargeType using conditions
+column: line_item_line_item_type
+focus_column: ChargeType
+conversion_type: sql_condition
+conversion_args:
+    conditions:
+        - WHEN line_item_line_item_type = 'Tax' THEN 'Tax'
+        - WHEN line_item_line_item_type = 'Fee' THEN 'Purchase'
+        - WHEN line_item_line_item_type = 'SavingsPlanUpfrontFee' THEN 'Purchase'
+        - WHEN line_item_line_item_type = 'RIFee' THEN 'Purchase'
+        - WHEN line_item_line_item_type = 'SavingsPlanRecurringFee' THEN 'Purchase'
+        - WHEN line_item_line_item_type = 'Usage' THEN 'Usage'
+        - WHEN line_item_line_item_type = 'SavingsPlanCoveredUsage' THEN 'Usage'
+        - WHEN line_item_line_item_type = 'SavingsPlanNegation' THEN 'Usage'
+        - WHEN line_item_line_item_type = 'DiscountedUsage' THEN 'Usage'
+        - WHEN line_item_line_item_type = 'BundledDiscount' THEN 'Usage'
+        - WHEN line_item_line_item_type = 'Discount' THEN 'Usage'
+        - WHEN line_item_line_item_type = 'PrivateRateDiscount' THEN 'Usage'
+        - WHEN line_item_line_item_type = 'EdpDiscount' THEN 'Usage'
+        - WHEN line_item_line_item_type = 'Credit' THEN 'Adjustment'
+        - WHEN line_item_line_item_type = 'Refund' THEN 'Adjustment'
+    default_value: "''"

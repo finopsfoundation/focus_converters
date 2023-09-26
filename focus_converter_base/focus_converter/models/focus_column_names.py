@@ -24,5 +24,7 @@ class FocusColumnNames(Enum):
 
     REGION = "Region"
 
+    CHARGE_TYPE = "ChargeType"
+
 
 FOCUS_DATETIME_ISO_FORMAT = "%Y-%m-%dT%H:%M:%SZ"
