@@ -29,17 +29,16 @@ def generate(
 ):
     logging.warning(DATA_DISCLAIMER)
 
-    match provider:
-        case "aws":
-            generator = AWSSampleDataGenerator(
-                num_rows=num_rows, destination_path=destination_path
-            )
-        case "gcp":
-            generator = GCPSampleDataGenerator(
-                num_rows=num_rows, destination_path=destination_path
-            )
-        case _:
-            raise RuntimeError(f"Provider: {provider} not found.")
+    if provider == "aws":
+        generator = AWSSampleDataGenerator(
+            num_rows=num_rows, destination_path=destination_path
+        )
+    elif provider == "gcp":
+        generator = GCPSampleDataGenerator(
+            num_rows=num_rows, destination_path=destination_path
+        )
+    else:
+        raise RuntimeError(f"Provider: {provider} not found.")
 
     # creates pool for generating sample data in processes and then writing it as one dataset
     pool = multiprocessing.Pool(multiprocessing.cpu_count())
