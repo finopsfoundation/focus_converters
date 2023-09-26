@@ -1,4 +1,5 @@
 import polars as pl
+import sqlglot
 from jinja2 import Environment
 
 from focus_converter.configs.base_config import (
@@ -24,7 +25,14 @@ class SQLFunctions:
         return sql_context
 
     @staticmethod
-    def eval_sql_conditions(plan: ConversionPlan, column_alias):
+    def __validate_sql_query__(sql_query):
+        try:
+            sqlglot.transpile(sql_query)
+        except sqlglot.errors.ParseError:
+            raise ValueError(f"Invalid sql produced: {sql_query}")
+
+    @classmethod
+    def eval_sql_conditions(cls, plan: ConversionPlan, column_alias):
         conversion_args = SQLConditionConversionArgs.model_validate(
             plan.conversion_args
         )
@@ -35,17 +43,19 @@ class SQLFunctions:
 
         template = Environment().from_string(SQL_TEMPLATE_CONDITION_PLAN)
         sql_query = template.render(
-            CASE_CONDITIONS=",".join(case_statements),
+            CASE_CONDITIONS=" ".join(case_statements),
             DEFAULT_VALUE=conversion_args.default_value,
             NEW_COLUMN=column_alias,
             TABLE_NAME=DEFAULT_SQL_TABLE_NAME,
         )
+        cls.__validate_sql_query__(sql_query=sql_query)
         return sql_query
 
-    @staticmethod
-    def eval_sql_query(plan: ConversionPlan, column_alias):
+    @classmethod
+    def eval_sql_query(cls, plan: ConversionPlan, column_alias):
         template = Environment().from_string(plan.conversion_args)
         sql_query = template.render(
             TABLE_NAME=DEFAULT_SQL_TABLE_NAME,
         )
+        cls.__validate_sql_query__(sql_query=sql_query)
         return sql_query
