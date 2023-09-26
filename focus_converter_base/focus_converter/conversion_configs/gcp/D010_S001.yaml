@@ -1,0 +1,10 @@
+plan_name: calculate ChargeType using conditions
+column: cost_type
+focus_column: ChargeType
+conversion_type: sql_condition
+conversion_args:
+    conditions:
+        - WHEN cost_type = 'tax' THEN 'Tax'
+        - WHEN cost_type = 'regular' THEN 'Purchase'
+        - WHEN cost_type = 'adjustment' THEN 'Adjustment'
+    default_value: "'Usage'"
