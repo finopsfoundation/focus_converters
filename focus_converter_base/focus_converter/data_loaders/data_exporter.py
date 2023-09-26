@@ -40,6 +40,10 @@ class DataExporter:
         [p.start() for p in processes]
 
     def __del__(self):
+        if self.__queue__:
+            self.close()
+
+    def close(self):
         for _ in range(len(self.__processes__)):
             self.__queue__.put(None)
 
@@ -47,6 +51,7 @@ class DataExporter:
             p.join()
             p.close()
         del self.__queue__
+        self.__queue__ = None
 
     def collect(self, lf: pl.LazyFrame, collected_columns: List[str]):
         if not self.__export_include_source_columns__:
