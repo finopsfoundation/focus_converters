@@ -1,5 +1,4 @@
-plan_name: convert usage_end_time to ChargePeriodStart
-conversion_type: convert_timezone
+plan_name: Explicitly set timezone to UTC for ChargePeriodEnd
+conversion_type: assign_utc_timezone
 column: ChargePeriodEnd
 focus_column: ChargePeriodEnd
-conversion_args: UTC
