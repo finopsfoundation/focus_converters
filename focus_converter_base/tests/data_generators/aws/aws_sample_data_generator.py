@@ -5,14 +5,17 @@ from faker import Faker
 
 from tests.data_generators.aws.columns import AWS_COLUMNS
 from tests.data_generators.aws.line_item_type import LineItemType
+from tests.data_generators.base_class import BaseGenerator
 
 
-class AWSSampleDataGenerator:
+class AWSSampleDataGenerator(BaseGenerator):
     """
     TODO: Add disclaimer this being performance/testing only.
     """
 
-    def __init__(self, num_rows: int, destination_path: str):
+    def __init__(self, num_rows: int, destination_path: str, column_prefix=None):
+        super().__init__(column_prefix=column_prefix)
+
         self.__num_rows__ = num_rows
         self.__fake__ = Faker()
         self.__add_line_item_provider__()
@@ -24,7 +27,7 @@ class AWSSampleDataGenerator:
         )
         self.__fake__.add_provider(line_item_type)
 
-    def generate_row(self, *_args):
+    def __generate_row__(self):
         row_data = {}
 
         for column in AWS_COLUMNS:

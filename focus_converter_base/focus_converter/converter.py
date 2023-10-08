@@ -1,7 +1,7 @@
 import logging
 import os
 from operator import attrgetter
-from typing import Dict, List
+from typing import Dict, List, Optional
 
 import polars as pl
 from pkg_resources import resource_filename
@@ -34,9 +34,17 @@ class FocusConverter:
     # temporary columns to be removed from final dataset
     __temporary_columns__: List[str]
 
-    def __init__(self):
+    # column prefix used in source dataset
+    __column_prefix__: Optional[str] = None
+
+    # converted column prefix to be added to converted columns
+    __converted_column_prefix__: Optional[str] = None
+
+    def __init__(self, column_prefix=None, converted_column_prefix=None):
         self.__network__ = NetworkSimulator()
         self.__temporary_columns__ = []
+        self.__column_prefix__ = column_prefix
+        self.__converted_column_prefix__ = converted_column_prefix
 
     def load_provider_conversion_configs(self):
         plans = {}
@@ -155,7 +163,7 @@ class FocusConverter:
         lf: pl.LazyFrame, column_expressions: List[pl.col]
     ):
         for expr in column_expressions:
-            lf = lf.with_columns(expr)
+            lf = lf.with_columns_seq(expr)
         return lf
 
     def explain(self):
@@ -179,12 +187,34 @@ class FocusConverter:
 
         return lf
 
+    def __re_map_source_columns__(self, lf: pl.LazyFrame):
+        # helper function to re-map prefixed source columns to source columns
+        # so that conversion plans can be applied.
+
+        temporary_columns = []
+
+        column_prefix_length = len(self.__column_prefix__)
+        for column in lf.columns:
+            if column.startswith(self.__column_prefix__):
+                orig_column_name = column[column_prefix_length:]
+                lf = lf.with_columns_seq(pl.col(column).alias(orig_column_name))
+
+                # add remapped column to temporary columns list so that it can be dropped later
+                self.__temporary_columns__.append(orig_column_name)
+        return lf
+
+    def __process_lazy_frame__(self, lf: pl.LazyFrame):
+        # prepares lazyframe for the operations to be applied on the lazy loaded polars dataframe
+        if self.__column_prefix__ is not None:
+            lf = self.__re_map_source_columns__(lf=lf)
+        return self.apply_plan(lf=lf)
+
     def convert(self):
         error = None
 
         for lf in self.data_loader.data_scanner():
             try:
-                lf = self.apply_plan(lf=lf)
+                lf = self.__process_lazy_frame__(lf=lf)
                 self.data_exporter.collect(
                     lf=lf, collected_columns=list(set(self.h_collected_columns))
                 )
