@@ -8,6 +8,7 @@ class DateTimeConversionFunctions:
     def convert_timezone(plan: ConversionPlan, column_alias) -> pl.col:
         return (
             pl.col(plan.column)
+            .dt.cast_time_unit("ms")
             .dt.convert_time_zone(plan.conversion_args)
             .alias(column_alias)
         )
@@ -16,18 +17,25 @@ class DateTimeConversionFunctions:
     def assign_timezone(plan: ConversionPlan, column_alias) -> pl.col:
         return (
             pl.col(plan.column)
+            .dt.cast_time_unit("ms")
             .dt.replace_time_zone(plan.conversion_args, ambiguous="earliest")
             .alias(column_alias)
         )
 
     @staticmethod
     def assign_utc_timezone(plan: ConversionPlan, column_alias) -> pl.col:
-        return pl.col(plan.column).dt.replace_time_zone("UTC").alias(column_alias)
+        return (
+            pl.col(plan.column)
+            .dt.cast_time_unit("ms")
+            .dt.replace_time_zone("UTC")
+            .alias(column_alias)
+        )
 
     @staticmethod
     def parse_datetime(plan: ConversionPlan, column_alias) -> pl.col:
         return (
             pl.col(plan.column)
             .str.strptime(pl.Datetime, plan.conversion_args)
+            .dt.cast_time_unit("ms")
             .alias(column_alias)
         )
