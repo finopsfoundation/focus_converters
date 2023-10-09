@@ -19,13 +19,29 @@ def main(
     data_path: DATA_PATH,
     parquet_data_format: PARQUET_DATA_FORMAT_OPTION = None,
     export_include_source_columns: EXPORT_INCLUDE_SOURCE_COLUMNS = True,
+    column_prefix: Annotated[
+        str,
+        typer.Option(
+            help="Optional prefix to add to generated column names",
+            rich_help_panel="Column Prefix",
+        ),
+    ] = (None,),
+    converted_column_prefix: Annotated[
+        str,
+        typer.Option(
+            help="Optional prefix to add to generated column names",
+            rich_help_panel="Column Prefix",
+        ),
+    ] = ((None,),),
 ):
     # compute function for conversion
 
     if data_format == DataFormats.PARQUET and parquet_data_format is None:
         raise typer.BadParameter("parquet_data_format required")
 
-    converter = FocusConverter()
+    converter = FocusConverter(
+        column_prefix=column_prefix, converted_column_prefix=converted_column_prefix
+    )
     converter.load_provider_conversion_configs()
     converter.load_data(
         data_path=data_path,

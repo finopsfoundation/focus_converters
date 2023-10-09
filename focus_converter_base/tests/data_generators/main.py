@@ -1,5 +1,6 @@
 import logging
 import multiprocessing
+from typing import Annotated
 
 import pandas as pd
 import pyarrow as pa
@@ -7,10 +8,8 @@ import pyarrow.parquet as pq
 import typer
 from tqdm import tqdm
 
-from tests.data_generators.aws.aws_sample_data_generator import \
-    AWSSampleDataGenerator
-from tests.data_generators.gcp.gcp_sample_data_generator import \
-    GCPSampleDataGenerator
+from tests.data_generators.aws.aws_sample_data_generator import AWSSampleDataGenerator
+from tests.data_generators.gcp.gcp_sample_data_generator import GCPSampleDataGenerator
 
 # default row group size for each fragment
 ROW_GROUP_SIZE = 50000
@@ -26,16 +25,24 @@ def generate(
     provider: str = typer.Option(help="Target provider"),
     num_rows: int = typer.Option(help="Number of rows to generate"),
     destination_path: str = typer.Option(help="Destination path to write dataframe"),
+    column_prefix: Annotated[
+        str,
+        typer.Option(help="Optional prefix to add to generated column names"),
+    ] = None,
 ):
     logging.warning(DATA_DISCLAIMER)
 
     if provider == "aws":
         generator = AWSSampleDataGenerator(
-            num_rows=num_rows, destination_path=destination_path
+            num_rows=num_rows,
+            destination_path=destination_path,
+            column_prefix=column_prefix,
         )
     elif provider == "gcp":
         generator = GCPSampleDataGenerator(
-            num_rows=num_rows, destination_path=destination_path
+            num_rows=num_rows,
+            destination_path=destination_path,
+            column_prefix=column_prefix,
         )
     else:
         raise RuntimeError(f"Provider: {provider} not found.")

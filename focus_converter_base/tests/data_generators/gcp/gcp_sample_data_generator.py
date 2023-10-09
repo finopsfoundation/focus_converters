@@ -6,6 +6,8 @@ from uuid import uuid4
 import faker.providers.python
 from faker import Faker
 
+from tests.data_generators.base_class import BaseGenerator
+
 GCP_COLUMNS = [
     "invoice",
     "billing_account_id",
@@ -23,8 +25,10 @@ class CostType(Enum):
     ADJUSTMENT = "adjustment"
 
 
-class GCPSampleDataGenerator:
-    def __init__(self, num_rows: int, destination_path: str):
+class GCPSampleDataGenerator(BaseGenerator):
+    def __init__(self, num_rows: int, destination_path: str, column_prefix=None):
+        super().__init__(column_prefix=column_prefix)
+
         self.__num_rows__ = num_rows
         self.__fake__ = Faker()
         self.__destination_path__ = destination_path
@@ -36,7 +40,7 @@ class GCPSampleDataGenerator:
         )
         self.__fake__.add_provider(cost_type)
 
-    def generate_row(self, *_args):
+    def __generate_row__(self):
         row_data = {}
 
         for column in GCP_COLUMNS:
