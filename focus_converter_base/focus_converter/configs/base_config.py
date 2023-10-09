@@ -1,6 +1,6 @@
 import re
 from pathlib import Path
-from typing import Any, List, Optional
+from typing import Any, List, Optional, Union
 
 import pytz
 import yaml
@@ -42,6 +42,10 @@ class ValueMapConversionArgs(BaseModel):
 
     # flag decides if default value should be applied on null values or leave it null if false
     apply_default_if_null: Optional[bool] = True
+
+
+class StaticValueConversionArgs(BaseModel):
+    static_value: Any
 
 
 CONFIG_FILE_PATTERN = re.compile("D\d{3}_S\d{3}.yaml")
@@ -113,6 +117,13 @@ class ConversionPlan(BaseModel):
             except ValidationError as e:
                 raise ValueError(
                     e, f"Missing or bad mapping value argument: {field_info.data}"
+                )
+        elif conversion_type == STATIC_CONVERSION_TYPES.ASSIGN_STATIC_VALUE:
+            try:
+                StaticValueConversionArgs.model_validate(v)
+            except ValidationError as e:
+                raise ValueError(
+                    e, f"Missing or bad static value argument: {field_info.data}"
                 )
         return v
 

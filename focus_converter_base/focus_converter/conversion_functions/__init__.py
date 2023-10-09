@@ -24,6 +24,9 @@ class STATIC_CONVERSION_TYPES(Enum):
     # value mapping function
     MAP_VALUES = "map_values"
 
+    # allows setting static values
+    ASSIGN_STATIC_VALUE = "static_value"
+
 
 __all__ = [
     "STATIC_CONVERSION_TYPES",
