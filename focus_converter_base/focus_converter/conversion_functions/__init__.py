@@ -21,6 +21,9 @@ class STATIC_CONVERSION_TYPES(Enum):
     # lookup operation
     LOOKUP = "lookup"
 
+    # value mapping function
+    MAP_VALUES = "map_values"
+
 
 __all__ = [
     "STATIC_CONVERSION_TYPES",
