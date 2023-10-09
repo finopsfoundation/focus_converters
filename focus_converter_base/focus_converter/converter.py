@@ -151,10 +151,9 @@ class FocusConverter:
         return column_exprs
 
     @staticmethod
-    def __apply_sql_queries__(
-        lf: pl.LazyFrame, sql_context: pl.SQLContext, sql_queries
-    ):
+    def __apply_sql_queries__(lf: pl.LazyFrame, sql_queries):
         for sql_query in sql_queries:
+            sql_context = SQLFunctions.create_sql_context(lf=lf)
             lf = sql_context.execute(sql_query, eager=False)
         return lf
 
@@ -177,10 +176,7 @@ class FocusConverter:
             lf=lf, column_expressions=self.h_column_exprs
         )
 
-        sql_context = SQLFunctions.create_sql_context(lf=lf)
-        lf = self.__apply_sql_queries__(
-            lf=lf, sql_context=sql_context, sql_queries=self.h_sql_queries
-        )
+        lf = self.__apply_sql_queries__(lf=lf, sql_queries=self.h_sql_queries)
 
         # drop temporary columns from the final dataset
         lf = lf.drop(self.__temporary_columns__)
