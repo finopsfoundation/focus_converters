@@ -1,0 +1,212 @@
+product_code,aws_category
+AWSCleanRooms,Analytics
+AWSDataExchange,Analytics
+AWSGlueElasticViews,Analytics
+AWSGlue,Analytics
+AWSLakeFormation,Analytics
+AmazonAthena,Analytics
+AmazonCloudSearch,Analytics
+AmazonES,Analytics
+AmazonFinSpace,Analytics
+AmazonKinesisAnalytics,Analytics
+AmazonKinesisFirehose,Analytics
+AmazonKinesis,Analytics
+AWSCloudMap,Networking & Content Delivery
+AmazonMSK,Analytics
+AWSCloudWAN,Networking
+AmazonQuickSight,Analytics
+ElasticMapReduce,Analytics
+datapipeline,Analytics
+AWSQueueService,Application Integration
+AmazonMQ,Application Integration
+AmazonMWAA,Application Integration
+AmazonSNS,Application Integration
+AmazonStates,Application Integration
+AWSDataTransfer,Networking & Content Delivery
+AppFlow,Application Integration
+Amazon EventBridge,Application Integration
+AmazonManagedBlockchain,Blockchain
+AmazonQLDB,Blockchain
+AWSDirectConnect,Networking & Content Delivery
+A4B,Business Applications
+AWSELB,Networking & Content Delivery
+AWSSupplyChain,Business Applications
+AWSWickr,Business Applications
+AWSWisdom,Business Applications
+AmazonChimeBusinessCalling,Business Applications
+AmazonChimeCallMeAMCS,Business Applications
+AmazonChimeCallMe,Business Applications
+AmazonChimeDialInAMCS,Business Applications
+AmazonChimeDialin,Business Applications
+AmazonChimeFeatures,Business Applications
+AmazonChimeServices,Business Applications
+AWSGlobalAccelerator,Networking & Content Delivery
+AmazonChimeVoiceConnector,Business Applications
+AmazonChime,Business Applications
+AmazonHoneycode,Business Applications
+AmazonPinpoint,Business Applications
+AmazonSES,Business Applications
+AmazonSWF,Business Applications
+AmazonWAM,Business Applications
+AmazonWorkDocs,Business Applications
+AmazonWorkLink,Business Applications
+AmazonWorkMail,Business Applications
+AmazonWorkSpacesWeb,Business Applications
+End User Computing,Business Applications
+ContactLensAmazonConnect,Business Applications
+CustomerProfiles,Business Applications
+AWSBudgets,Cloud Financial Management
+AWSCostExplorer,Cloud Financial Management
+Savings Plans*,Cloud Financial Management
+AWSNetworkFirewall,Networking & Content Delivery
+Reserved Instance (RI) Reporting*,Cloud Financial Management
+AWSPrivate5G,Networking & Content Delivery
+AWS Cost and Usage Report*,Cloud Financial Management
+AWSAppRunner,Compute
+AWSLambda,Compute
+AWSOutposts,Compute
+AmazonEC2,Compute
+AmazonLightsail,Compute
+SimSpaceWeaver,Compute
+VMwareCloudOnAWS,Compute
+AWS Compute Optimizer*,Compute
+AWS Serverless Application Repository*,Compute
+AWS EC2 Auto Scaling*,Compute
+AWS Local Zones*,Compute
+AWS Elastic Beanstalk*,Compute
+AWS Batch*,Compute
+AWS Auto Scaling*,Compute
+Amazon EC2 Spot Instances*,Compute
+AWS Wavelength*,Compute
+AmazonECRPublic,Containers
+AmazonECR,Containers
+AmazonECS,Containers
+AmazonEKS,Containers
+AmazonApiGateway,Networking & Content Delivery
+AWS Fargate*,Containers
+Red Hat OpenShift Service on AWS*,Containers
+AWS App2Container*,Containers
+AWS Copilot*,Containers
+AmazonDocDB,Databases
+AmazonDynamoDB,Databases
+AmazonElastiCache,Databases
+AmazonMCS,Databases
+AmazonMemoryDB,Databases
+AmazonNeptune,Databases
+AmazonRDS,Databases
+AmazonRedshift,Databases
+AmazonTimestream,Databases
+AmazonCloudFront,Networking & Content Delivery
+AWSAmplify,Developer Tools
+AWSAppSync,Developer Tools
+AWSCodeArtifact,Developer Tools
+AWSCodeCommit,Developer Tools
+AWSCodeDeploy,Developer Tools
+AWSCodePipeline,Developer Tools
+AWSDeviceFarm,Developer Tools
+CodeBuild,Developer Tools
+CodeCatalyst,Developer Tools
+CodeGuru,Developer Tools
+AmazonAppStream,End User Computing
+AWSAppFabric,Integration
+AWSGreengrass,Internet of Things
+AWSIoT1Click,Internet of Things
+AWSIoTAnalytics,Internet of Things
+AWSIoTEvents,Internet of Things
+AWSIoTFleetWise,Internet of Things
+AWSIoTSiteWise,Internet of Things
+AWSIoTThingsGraph,Internet of Things
+AWSIoT,Internet of Things
+IoTDeviceDefender,Internet of Things
+IoTDeviceManagement,Internet of Things
+IoTTwinMaker,Internet of Things
+AWSDeepRacer,Machine Learning
+AmazonA2I,Machine Learning
+AmazonCodeWhisperer,Machine Learning
+AmazonDevOpsGuru,Machine Learning
+AmazonEI,Machine Learning
+AmazonForecast,Machine Learning
+AmazonFraudDetector,Machine Learning
+AmazonHealthLake,Machine Learning
+AmazonKendra,Machine Learning
+AmazonLex,Machine Learning
+AmazonLookoutEquipment,Machine Learning
+AmazonLookoutMetrics,Machine Learning
+AmazonLookoutVision,Machine Learning
+AmazonMonitron,Machine Learning
+AmazonOmics,Machine Learning
+AmazonPersonalize,Machine Learning
+AmazonPolly,Machine Learning
+AmazonRekognition,Machine Learning
+AmazonSageMaker,Machine Learning
+AmazonTextract,Machine Learning
+comprehend,Machine Learning
+transcribe,Machine Learning
+translate,Machine Learning
+AWSCloudFormation,Management & Governance
+AWSCloudTrail,Management & Governance
+AWSConfig,Management & Governance
+AWSResilienceHub,Management & Governance
+AWSServiceCatalog,Management & Governance
+AWSSystemsManager,Management & Governance
+AmazonCloudWatch,Management & Governance
+AmazonGrafana,Management & Governance
+AmazonPrometheus,Management & Governance
+OpsWorks,Management & Governance
+AmazonRoute53,Networking & Content Delivery
+AmazonVPC,Networking & Content Delivery
+AWSBillingConductor,Management & Governance
+AWSElementalMediaConvert,Media Services
+AWSElementalMediaLive,Media Services
+AWSElementalMediaPackage,Media Services
+AWSElementalMediaStore,Media Services
+AWSElementalMediaTailor,Media Services
+AWSMediaConnect,Media Services
+AmazonETS,Media Services
+AmazonIVS,Media Services
+AmazonKinesisVideo,Media Services
+nimble,Media Services
+AWSApplicationMigrationSvc,Migration & Transfer
+AWSDataSync,Migration & Transfer
+AWSDatabaseMigrationSvc,Migration & Transfer
+AWSM2,Migration & Transfer
+AWSTransfer,Migration & Transfer
+AmazonBraket,Quantum Technologies
+AWSRoboMaker,Robotics
+AWSGroundStation,Satelite
+AWSCertificateManager,"Security, Identity, & Compliance"
+AWSDirectoryService,"Security, Identity, & Compliance"
+AWSFMS,"Security, Identity, & Compliance"
+AWSSecretsManager,"Security, Identity, & Compliance"
+AWSSecurityHub,"Security, Identity, & Compliance"
+AWSShield,"Security, Identity, & Compliance"
+AmazonCognitoSync,"Security, Identity, & Compliance"
+AmazonCognito,"Security, Identity, & Compliance"
+AmazonDetective,"Security, Identity, & Compliance"
+AmazonGuardDuty,"Security, Identity, & Compliance"
+AmazonInspectorV2,"Security, Identity, & Compliance"
+AmazonInspector,"Security, Identity, & Compliance"
+AmazonMacie,"Security, Identity, & Compliance"
+AmazonSecurityLake,"Security, Identity, & Compliance"
+AmazonVerifiedPermissions,"Security, Identity, & Compliance"
+CloudHSM,"Security, Identity, & Compliance"
+auditmanager,"Security, Identity, & Compliance"
+awskms,"Security, Identity, & Compliance"
+awswaf,"Security, Identity, & Compliance"
+AWSBackup,Storage
+AWSElasticDisasterRecovery,Storage
+AWSStorageGatewayDeepArchive,Storage
+AWSStorageGateway,Storage
+AmazonEBS,Storage
+AmazonEFS,Storage
+AmazonFSx,Storage
+AmazonGlacier,Storage
+AmazonS3GlacierDeepArchive,Storage
+AmazonS3,Storage
+AWS App Mesh*,Networking & Content Delivery
+AWS PrivateLink*,Networking & Content Delivery
+AWS Transit Gateway*,Networking & Content Delivery
+AWS Verified Access*,Networking & Content Delivery
+AWS VPN*,Networking & Content Delivery
+IngestionServiceSnowball,Storage
+SnowballExtraDays,Storage
