@@ -15,11 +15,24 @@ class ColumnFunctions:
 
     @staticmethod
     def unnest(plan: ConversionPlan, column_alias) -> pl.col:
+        default_struct_field_type = pl.Utf8
+        if plan.conversion_args and plan.conversion_args.get("struct_field_type"):
+            # if struct field type is configured, add it to the schema in case struct is not defined
+            struct_field_type = plan.conversion_args.get("struct_field_type")
+            if struct_field_type == "int":
+                default_struct_field_type = pl.Int64
+            elif struct_field_type == "float":
+                default_struct_field_type = pl.Float64
+            else:
+                raise ValueError(f"Invalid struct field type: {struct_field_type}")
+
         # split column name by dots to find nested structs
         field_depths = plan.column.split(".")
 
         # start with first value as column predicate and add rest of the children as struct fields
-        predicate = pl.col(field_depths[0])
+        predicate = pl.struct(
+            field_depths[0], schema={field_depths[1]: default_struct_field_type}
+        )
 
         for children in field_depths[1:]:
             predicate = predicate.struct.field(children)
