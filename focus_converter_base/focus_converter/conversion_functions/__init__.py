@@ -18,6 +18,9 @@ class STATIC_CONVERSION_TYPES(Enum):
     # unnest operation
     UNNEST_COLUMN = "unnest"
 
+    # lookup operation
+    LOOKUP = "lookup"
+
 
 __all__ = [
     "STATIC_CONVERSION_TYPES",

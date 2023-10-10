@@ -13,6 +13,7 @@ from focus_converter.conversion_functions.column_functions import ColumnFunction
 from focus_converter.conversion_functions.datetime_functions import (
     DateTimeConversionFunctions,
 )
+from focus_converter.conversion_functions.lookup_function import LookupFunction
 from focus_converter.conversion_functions.sql_functions import SQLFunctions
 from focus_converter.data_loaders.data_exporter import DataExporter
 from focus_converter.data_loaders.data_loader import DataLoader
@@ -84,6 +85,9 @@ class FocusConverter:
         # sql queries collected to be applied on the lazy frame
         self.h_sql_queries = sql_queries = []
 
+        # lookup lazyframes arguments to be assembled later on the final source lazyframe
+        self.lookup_reference_args = []
+
         # add provider by default to our column expressions
         column_exprs.append(ColumnFunctions.add_provider(provider=provider))
 
@@ -144,6 +148,12 @@ class FocusConverter:
                 column_exprs.append(
                     ColumnFunctions.unnest(plan=plan, column_alias=column_alias)
                 )
+            elif plan.conversion_type == STATIC_CONVERSION_TYPES.LOOKUP:
+                self.lookup_reference_args.append(
+                    LookupFunction.map_values_using_lookup(
+                        plan=plan, column_alias=column_alias
+                    )
+                )
             else:
                 raise NotImplementedError(
                     f"Plan: {plan.conversion_type} not implemented"
@@ -164,6 +174,12 @@ class FocusConverter:
     ):
         for expr in column_expressions:
             lf = lf.with_columns_seq(expr)
+        return lf
+
+    @staticmethod
+    def __apply_lookup_reference_plans__(lf: pl.LazyFrame, lookup_args):
+        for lookup_arg in lookup_args:
+            lf = lf.join(**lookup_arg)
         return lf
 
     def explain(self):
