@@ -31,6 +31,19 @@ class LookupConversionArgs(BaseModel):
     destination_value: str
 
 
+class ValueMapItemConversionArgs(BaseModel):
+    key: str
+    value: str
+
+
+class ValueMapConversionArgs(BaseModel):
+    value_list: List[ValueMapItemConversionArgs]
+    default_value: str
+
+    # flag decides if default value should be applied on null values or leave it null if false
+    apply_default_if_null: Optional[bool] = True
+
+
 CONFIG_FILE_PATTERN = re.compile("D\d{3}_S\d{3}.yaml")
 
 
@@ -93,6 +106,13 @@ class ConversionPlan(BaseModel):
                 raise ValueError(
                     e,
                     f"Invalid lookup arg specified in conversion_args for plan: {field_info.data}",
+                )
+        elif conversion_type == STATIC_CONVERSION_TYPES.MAP_VALUES:
+            try:
+                ValueMapConversionArgs.model_validate(v)
+            except ValidationError as e:
+                raise ValueError(
+                    e, f"Missing or bad mapping value argument: {field_info.data}"
                 )
         return v
 

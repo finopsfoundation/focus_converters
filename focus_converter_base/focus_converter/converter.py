@@ -154,6 +154,10 @@ class FocusConverter:
                         plan=plan, column_alias=column_alias
                     )
                 )
+            elif plan.conversion_type == STATIC_CONVERSION_TYPES.MAP_VALUES:
+                column_exprs.append(
+                    ColumnFunctions.map_values(plan=plan, column_alias=column_alias)
+                )
             else:
                 raise NotImplementedError(
                     f"Plan: {plan.conversion_type} not implemented"

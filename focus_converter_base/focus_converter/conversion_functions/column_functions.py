@@ -1,6 +1,9 @@
 import polars as pl
 
-from focus_converter.configs.base_config import ConversionPlan
+from focus_converter.configs.base_config import (
+    ConversionPlan,
+    ValueMapConversionArgs,
+)
 from focus_converter.models.focus_column_names import FocusColumnNames
 
 
@@ -38,3 +41,25 @@ class ColumnFunctions:
             predicate = predicate.struct.field(children)
 
         return predicate.alias(column_alias)
+
+    @staticmethod
+    def map_values(plan: ConversionPlan, column_alias):
+        # Converts values for a given dimension using a map. This map must also provide a default value.
+
+        conversion_args = ValueMapConversionArgs.model_validate(plan.conversion_args)
+
+        map_dict = {}
+        for value_obj in conversion_args.value_list:
+            map_dict.update({value_obj.key: value_obj.value})
+
+        # if flag set, allow null value to be mapped to default value
+        if conversion_args.apply_default_if_null:
+            map_dict.update({None: conversion_args.default_value})
+        else:
+            map_dict.update({None: None})
+
+        return (
+            pl.col(plan.column)
+            .map_dict(map_dict, default=conversion_args.default_value)
+            .alias(column_alias)
+        )
