@@ -3,6 +3,7 @@ import polars as pl
 from focus_converter.configs.base_config import (
     ConversionPlan,
     ValueMapConversionArgs,
+    StaticValueConversionArgs,
 )
 from focus_converter.models.focus_column_names import FocusColumnNames
 
@@ -63,3 +64,10 @@ class ColumnFunctions:
             .map_dict(map_dict, default=conversion_args.default_value)
             .alias(column_alias)
         )
+
+    @staticmethod
+    def assign_static_value(plan: ConversionPlan, column_alias) -> pl.col:
+        conversion_args: StaticValueConversionArgs = (
+            StaticValueConversionArgs.model_validate(plan.conversion_args)
+        )
+        return pl.lit(conversion_args.static_value).alias(column_alias)
