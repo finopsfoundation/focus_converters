@@ -8,10 +8,10 @@ from pydantic import (
     BaseModel,
     ConfigDict,
     Field,
-    FilePath,
     ValidationError,
     field_validator,
 )
+from pydantic import FilePath
 from pydantic_core.core_schema import FieldValidationInfo
 from pytz.exceptions import UnknownTimeZoneError
 from typing_extensions import Annotated
@@ -23,6 +23,12 @@ from focus_converter.models.focus_column_names import FocusColumnNames
 class SQLConditionConversionArgs(BaseModel):
     conditions: List[str]
     default_value: Any
+
+
+class LookupConversionArgs(BaseModel):
+    reference_dataset_path: FilePath
+    source_value: str
+    destination_value: str
 
 
 CONFIG_FILE_PATTERN = re.compile("D\d{3}_S\d{3}.yaml")
@@ -58,7 +64,7 @@ class ConversionPlan(BaseModel):
 
     @field_validator("conversion_args")
     @classmethod
-    def double(cls, v: Any, field_info: FieldValidationInfo) -> str:
+    def conversion_args_validation(cls, v: Any, field_info: FieldValidationInfo) -> str:
         conversion_type: STATIC_CONVERSION_TYPES = field_info.data.get(
             "conversion_type"
         )
@@ -79,6 +85,14 @@ class ConversionPlan(BaseModel):
             except ValidationError:
                 raise ValueError(
                     f"Invalid SQL condition specified in conversion_args for plan: {field_info.data}"
+                )
+        elif conversion_type == STATIC_CONVERSION_TYPES.LOOKUP:
+            try:
+                LookupConversionArgs.model_validate(v)
+            except ValidationError as e:
+                raise ValueError(
+                    e,
+                    f"Invalid lookup arg specified in conversion_args for plan: {field_info.data}",
                 )
         return v
 
