@@ -4,6 +4,7 @@ from focus_converter.configs.base_config import (
     ConversionPlan,
     ValueMapConversionArgs,
     StaticValueConversionArgs,
+    UnnestValueConversionArgs,
 )
 from focus_converter.models.focus_column_names import FocusColumnNames
 
@@ -19,28 +20,48 @@ class ColumnFunctions:
 
     @staticmethod
     def unnest(plan: ConversionPlan, column_alias) -> pl.col:
-        default_struct_field_type = pl.Utf8
-        if plan.conversion_args and plan.conversion_args.get("struct_field_type"):
-            # if struct field type is configured, add it to the schema in case struct is not defined
-            struct_field_type = plan.conversion_args.get("struct_field_type")
-            if struct_field_type == "int":
-                default_struct_field_type = pl.Int64
-            elif struct_field_type == "float":
-                default_struct_field_type = pl.Float64
-            else:
-                raise ValueError(f"Invalid struct field type: {struct_field_type}")
+        # validate conversion args
+        if plan.conversion_args:
+            conversion_args = UnnestValueConversionArgs.model_validate(
+                plan.conversion_args
+            )
+        else:
+            conversion_args = UnnestValueConversionArgs()
 
         # split column name by dots to find nested structs
         field_depths = plan.column.split(".")
 
-        # start with first value as column predicate and add rest of the children as struct fields
-        predicate = pl.struct(
-            field_depths[0], schema={field_depths[1]: default_struct_field_type}
-        )
+        if conversion_args.children_type == "struct":
+            predicate = pl.col(field_depths[0])
+            for children in field_depths[1:]:
+                predicate = predicate.struct.field(children)
+        elif conversion_args.children_type == "list":
+            # base predicate acts on each list element and collect child value
+            # required base operation like min,max,sum etc can be applied on this base predicate.
+            predicate = pl.col(field_depths[0]).list.eval(
+                pl.element().struct.field(field_depths[1])
+            )
 
-        for children in field_depths[1:]:
-            predicate = predicate.struct.field(children)
-
+            if conversion_args.aggregation_operation == "first":
+                predicate = predicate.list.first()
+            elif conversion_args.aggregation_operation == "last":
+                predicate = predicate.list.last()
+            elif conversion_args.aggregation_operation == "sum":
+                predicate = predicate.list.sum()
+            elif conversion_args.aggregation_operation == "mean":
+                predicate = predicate.list.mean()
+            elif conversion_args.aggregation_operation == "min":
+                predicate = predicate.list.min()
+            elif conversion_args.aggregation_operation == "max":
+                predicate = predicate.list.max()
+            else:
+                raise RuntimeError(
+                    f"Unknown aggregation_operation type: {conversion_args.aggregation_operation}"
+                )
+        else:
+            raise RuntimeError(
+                "Unknown children type: {}".format(conversion_args.children_type)
+            )
         return predicate.alias(column_alias)
 
     @staticmethod
