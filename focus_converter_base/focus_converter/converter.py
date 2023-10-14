@@ -56,6 +56,10 @@ class FocusConverter:
 
             provider_base_path = os.path.join(BASE_CONVERSION_CONFIGS, provider)
             for provider_config_name in os.listdir(provider_base_path):
+                if not provider_config_name.endswith(".yaml"):
+                    # ignores non yaml files, which may be reference datasets
+                    continue
+
                 provider_config_path = os.path.join(
                     provider_base_path, provider_config_name
                 )
@@ -200,6 +204,11 @@ class FocusConverter:
 
         lf = self.__apply_column_expressions__(
             lf=lf, column_expressions=self.h_column_exprs
+        )
+
+        # apply lazyframe joins
+        lf = self.__apply_lookup_reference_plans__(
+            lf=lf, lookup_args=self.lookup_reference_args
         )
 
         lf = self.__apply_sql_queries__(lf=lf, sql_queries=self.h_sql_queries)

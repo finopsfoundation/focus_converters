@@ -1,3 +1,4 @@
+import importlib.resources
 import re
 from pathlib import Path
 from typing import Any, List, Optional, Union
@@ -11,7 +12,7 @@ from pydantic import (
     ValidationError,
     field_validator,
 )
-from pydantic import FilePath
+from pydantic import FilePath, field_validator
 from pydantic_core.core_schema import FieldValidationInfo
 from pytz.exceptions import UnknownTimeZoneError
 from typing_extensions import Annotated
@@ -26,9 +27,24 @@ class SQLConditionConversionArgs(BaseModel):
 
 
 class LookupConversionArgs(BaseModel):
+    reference_path_in_package: bool = True
     reference_dataset_path: FilePath
     source_value: str
     destination_value: str
+
+    @field_validator("reference_dataset_path", mode="before")
+    def __validate_reference_dataset_path__(
+        cls, reference_dataset_path, field_info: FieldValidationInfo
+    ):
+        reference_path_in_package = field_info.data.get("reference_path_in_package")
+        if reference_path_in_package:
+            return (
+                importlib.resources.files("focus_converter")
+                .joinpath(reference_dataset_path)
+                .as_posix()
+            )
+        else:
+            return reference_dataset_path
 
 
 class ValueMapItemConversionArgs(BaseModel):
