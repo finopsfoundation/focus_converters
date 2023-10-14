@@ -1,5 +1,6 @@
-from focus_converter.configs.base_config import ConversionPlan, LookupConversionArgs
 import polars as pl
+
+from focus_converter.configs.base_config import ConversionPlan, LookupConversionArgs
 
 
 class LookupFunction:
