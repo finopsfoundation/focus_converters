@@ -1,7 +1,7 @@
 import importlib.resources
 import re
 from pathlib import Path
-from typing import Any, List, Optional, Union
+from typing import Any, List, Optional, Literal
 
 import pytz
 import yaml
@@ -62,6 +62,16 @@ class ValueMapConversionArgs(BaseModel):
 
 class StaticValueConversionArgs(BaseModel):
     static_value: Any
+
+
+class UnnestValueConversionArgs(BaseModel):
+    # child element type, could be a struct or a list of structs
+    children_type: Literal["list", "struct"] = "struct"
+
+    # default behaviour to return first value, since we don't know what is the datatype
+    aggregation_operation: Optional[
+        Literal["first", "last", "sum", "mean", "min", "max"]
+    ] = "first"
 
 
 CONFIG_FILE_PATTERN = re.compile("D\d{3}_S\d{3}.yaml")
