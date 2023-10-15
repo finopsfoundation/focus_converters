@@ -1,0 +1,126 @@
+ConsumedService,ServiceCategory
+Directions API,Integration
+Distance Matrix API,Integration
+Maps Elevation API,Integration
+Geocoding API,Integration
+Geolocation API,Integration
+Google Maps Mobile SDK,Integration
+Roads API,Integration
+Maps Static API,Integration
+Time Zone API,Integration
+Custom Search,Integration
+Places API,Integration
+Prediction,AI and Machine Learning
+Street View Static API,Integration
+Translate,Developer Tools
+App Engine,Compute
+BigQuery,Databases
+Cloud DNS,Networking
+Cloud SQL,Databases
+Cloud Storage,Storage
+Compute Engine,Compute
+Actifio GO,Security
+Vertex AI,AI and Machine Learning
+Anthos,Compute
+Anthos Config Management,Compute
+API Gateway,Integration
+Google Cloud Platform Apigee team Apigee Developer Portal,Integration
+Artifact Registry,Compute
+Cloud AutoML,AI and Machine Learning
+BigQuery BI Engine,Analytics
+BigQuery Data Transfer Service,Migration
+BigQuery Reservation API,Analytics
+BigQuery Storage API,Storage
+Cloud Bigtable,Databases
+Networking,Networking
+Binary Authorization,Security
+Cloud Build,Developer Tools
+Cloud Functions,Compute
+Cloud IoT Core,Internet of Things
+Cloud Key Management Service (KMS),Security
+Cloud Optimization,AI and Machine Learning
+Cloud Scheduler,Developer Tools
+Cloud Tasks,Developer Tools
+Stackdriver Trace,Compute
+Cloud Composer,Analytics
+Confidential Computing,Compute
+Contact Center AI Insights,AI and Machine Learning
+Kubernetes Engine,Compute
+Container Registry Vulnerability Scanning,Security
+Data Catalog,Analytics
+Cloud Dataflow,Analytics
+Cloud Data Fusion,Analytics
+Cloud Data Labeling Service,AI and Machine Learning
+Google Cloud Platform Financial Services team Datashare,Management and Governance
+Datastream,Databases
+Cloud Dialogflow API,Integration
+Cloud Data Loss Prevention,Security
+Cloud Document API,Integration
+Cloud Document AI API,Integration
+Cloud Domains,Web
+Enterprise Agreement,Management and Governance
+Elastifile Cloud File System,Storage
+Cloud Filestore,Storage
+Firebase,Mobile
+Firebase Auth,Security
+Firebase Realtime Database,Databases
+Firebase Hosting,Mobile
+Game Services API,Integration
+Google Quickstart Simple pre-configured Debian VM,Compute
+Genomics,AI and Machine Learning
+Backup for GKE,Storage
+Cloud Healthcare,Integration
+BeyondCorp Enterprise,Security
+Identity Platform,Security
+Cloud IDS,Security
+Cloud Talent Solution,AI and Machine Learning
+Cloud Natural Language,AI and Machine Learning
+Live Stream API,Integration
+Cloud Logging,Management and Governance
+Looker Data Platform SaaS,Analytics
+Maps Embed API,Integration
+Cloud Media Translation API,Integration
+Cloud Memorystore for Memcached,Databases
+Anthos Service Mesh,Management and Governance
+Dataproc Metastore,Storage
+Cloud Machine Learning Engine,AI and Machine Learning
+Stackdriver Monitoring,Compute
+MultiClusterIngress,Compute
+Notebooks,AI and Machine Learning
+Google Cloud Vision OCR On-Prem,AI and Machine Learning
+On-Demand Scanning,Security
+VM Manager,Compute
+Certificate Authority Service,Security
+Programmable Search Element,Integration
+Cloud Pub/Sub,Integration
+Pub/Sub Lite,Integration
+reCAPTCHA Enterprise,Security
+Recommendations AI,AI and Machine Learning
+Cloud Memorystore for Redis,Databases
+Remote Build Execution,Developer Tools
+Cloud Run,Compute
+Secret Manager,Security
+Security Command Center,Security
+Google Service Control,Networking
+Source Repository,Developer Tools
+Cloud Spanner,Databases
+Speaker ID,AI and Machine Learning
+Cloud Speech API,Integration
+Transfer Service,Storage
+Google Click to Deploy Deep Learning VM,AI and Machine Learning
+Firebase Test Lab,Mobile
+Cloud Text-to-Speech API,Integration
+Cloud TPU,AI and Machine Learning
+Transcode API,Integration
+Transcoder API,Integration
+Transfer Appliance,Migration
+Maps SDK for Unity,Integration
+Cloud Video Intelligence API,Integration
+Video Stitcher API,Integration
+Cloud Vision API,Integration
+VMware Engine,Compute
+Web Risk,Security
+Workflows,Developer Tools
+Zync,Media
+Cloud CDN,Networking
+Stackdriver,Management and Governance
