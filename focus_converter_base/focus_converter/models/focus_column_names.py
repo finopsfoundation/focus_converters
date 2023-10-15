@@ -26,5 +26,7 @@ class FocusColumnNames(Enum):
 
     CHARGE_TYPE = "ChargeType"
 
+    SERVICE_CATEGORY = "ServiceCategory"
+
 
 FOCUS_DATETIME_ISO_FORMAT = "%Y-%m-%dT%H:%M:%SZ"
