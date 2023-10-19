@@ -7,7 +7,7 @@ readme = "README.md"
 packages = [{ include = "focus_converter" }]
 
 [tool.poetry.dependencies]
-python = "^3.8.1"
+python = "^3.8.3"
 jupyterlab = "^4.0.5"
 polars = "^0.19.2"
 jupyter = "^1.0.0"
@@ -22,7 +22,7 @@ rich = "^13.5.2"
 networkx = "^3.1"
 tqdm = "^4.66.1"
 sqlglot = "^18.7.0"
-focus-spec-validator = { git = "https://github.com/varunmittal91/focus-spec-validator.git", branch = "add-support-for-v2-pydantic" }
+focus-spec-validator = ">=0.5.2.dev1,<0.6.0"
 
 
 [tool.poetry.group.dev.dependencies]
