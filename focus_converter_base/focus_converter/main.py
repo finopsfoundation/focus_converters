@@ -1,7 +1,9 @@
 import io
 import json
+import os
 
 from PIL import Image
+from focus_validator.validator import Validator
 from rich import print
 
 from focus_converter.common.cli_options import *
@@ -33,6 +35,13 @@ def main(
             rich_help_panel="Column Prefix",
         ),
     ] = ((None,),),
+    validate: Annotated[
+        bool,
+        typer.Option(
+            help="Validate generated data to match FOCUS spec.",
+            rich_help_panel="Validation",
+        ),
+    ] = False,
 ):
     # compute function for conversion
 
@@ -54,6 +63,19 @@ def main(
     )
     converter.prepare_horizontal_conversion_plan(provider=provider)
     converter.convert()
+
+    if validate:
+        for segment_file_name in os.listdir(export_path):
+            file_path = os.path.join(export_path, segment_file_name)
+            print(file_path)
+            validator = Validator(
+                data_filename=file_path,
+                output_type="console",
+                output_destination=None,
+            )
+            validator.load()
+            validator.validate()
+            break
 
 
 @app.command("explain")
