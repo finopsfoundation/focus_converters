@@ -4,17 +4,17 @@ version = "0.1.0"
 description = ""
 authors = ["Your Name <you@example.com>"]
 readme = "README.md"
-packages = [{include = "focus_converter"}]
+packages = [{ include = "focus_converter" }]
 
 [tool.poetry.dependencies]
-python = "^3.8.1"
+python = "^3.8.3"
 jupyterlab = "^4.0.5"
 polars = "^0.19.2"
 jupyter = "^1.0.0"
 pydantic = "^2.1.1"
 pandas = "^2.0.3"
 pyarrow = "^12.0.1"
-black = {extras = ["jupyter"], version = "^23.7.0"}
+black = { extras = ["jupyter"], version = "^23.7.0" }
 duckdb = "^0.8.1"
 typer = "^0.9.0"
 deltalake = "^0.10.1"
@@ -22,10 +22,11 @@ rich = "^13.5.2"
 networkx = "^3.1"
 tqdm = "^4.66.1"
 sqlglot = "^18.7.0"
+focus-spec-validator = ">=0.5.2.dev1,<0.6.0"
 
 
 [tool.poetry.group.dev.dependencies]
-black = {extras = ["d"], version = "^23.7.0"}
+black = { extras = ["d"], version = "^23.7.0" }
 bumpversion = "^0.6.0"
 flake8 = "^6.0.0"
 isort = "^5.12.0"
