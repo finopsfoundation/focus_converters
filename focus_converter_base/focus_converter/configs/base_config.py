@@ -1,7 +1,7 @@
 import importlib.resources
 import re
 from pathlib import Path
-from typing import Any, List, Optional, Literal
+from typing import Any, List, Literal, Optional
 
 import pytz
 import yaml
@@ -9,11 +9,11 @@ from pydantic import (
     BaseModel,
     ConfigDict,
     Field,
+    FilePath,
     ValidationError,
     field_validator,
 )
-from pydantic import FilePath, field_validator
-from pydantic_core.core_schema import FieldValidationInfo
+from pydantic_core.core_schema import ValidationInfo
 from pytz.exceptions import UnknownTimeZoneError
 from typing_extensions import Annotated
 
@@ -34,15 +34,21 @@ class LookupConversionArgs(BaseModel):
 
     @field_validator("reference_dataset_path", mode="before")
     def __validate_reference_dataset_path__(
-        cls, reference_dataset_path, field_info: FieldValidationInfo
+        cls, reference_dataset_path, field_info: ValidationInfo
     ):
         reference_path_in_package = field_info.data.get("reference_path_in_package")
         if reference_path_in_package:
-            return (
-                importlib.resources.files("focus_converter")
-                .joinpath(reference_dataset_path)
-                .as_posix()
-            )
+            try:
+                return (
+                    importlib.resources.files("focus_converter")
+                    .joinpath(reference_dataset_path)
+                    .as_posix()
+                )
+            except AttributeError:
+                # for older python versions wheres .files api is not available
+                from pkg_resources import resource_filename
+
+                return resource_filename("focus_converter", reference_dataset_path)
         else:
             return reference_dataset_path
 
@@ -107,7 +113,7 @@ class ConversionPlan(BaseModel):
 
     @field_validator("conversion_args")
     @classmethod
-    def conversion_args_validation(cls, v: Any, field_info: FieldValidationInfo) -> str:
+    def conversion_args_validation(cls, v: Any, field_info: ValidationInfo) -> str:
         conversion_type: STATIC_CONVERSION_TYPES = field_info.data.get(
             "conversion_type"
         )

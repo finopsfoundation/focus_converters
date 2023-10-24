@@ -22,6 +22,7 @@ conversion_args:
     reference_dataset_path: {{ test_reference_dataset_path }}
     source_value: {{ source_value }}
     destination_value: {{ destination_value }}
+    reference_path_in_package: false
 """
 
 
