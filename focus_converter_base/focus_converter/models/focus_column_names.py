@@ -16,17 +16,28 @@ class FocusColumnNames(Enum):
 
     PROVIDER = "Provider"
     PUBLISHER = "Publisher"
+    INVOICE_ISSUER = "InvoiceIssuer"
 
     BILLING_ACCOUNT_ID = "BillingAccountId"
+    BILLING_ACCOUNT_NAME = "BillingAccountName"
 
     AMORTISED_COST = "AmortisedCost"
     BILLED_COST = "BilledCost"
+    BILLED_CURRENCY = "BilledCurrency"
 
     REGION = "Region"
 
     CHARGE_TYPE = "ChargeType"
 
     SERVICE_CATEGORY = "ServiceCategory"
+    SERVICE_NAME = "ServiceName"
+
+    SUB_ACCOUNT_NAME = "SubAccountName"
+
+    AVAILABILITY_ZONE = "AvailibityZone"
+
+    RESOURCE_NAME = "ResourceName"
+    RESOURCE_ID = "ResourceID"
 
 
 FOCUS_DATETIME_ISO_FORMAT = "%Y-%m-%dT%H:%M:%SZ"
