@@ -33,11 +33,12 @@ class FocusColumnNames(Enum):
     SERVICE_NAME = "ServiceName"
 
     SUB_ACCOUNT_NAME = "SubAccountName"
+    SUB_ACCOUNT_ID = "SubAccountId"
 
     AVAILABILITY_ZONE = "AvailibityZone"
 
     RESOURCE_NAME = "ResourceName"
-    RESOURCE_ID = "ResourceID"
+    RESOURCE_ID = "ResourceId"
 
 
 FOCUS_DATETIME_ISO_FORMAT = "%Y-%m-%dT%H:%M:%SZ"
