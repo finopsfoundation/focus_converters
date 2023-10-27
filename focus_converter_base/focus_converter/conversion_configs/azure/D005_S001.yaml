@@ -1,0 +1,4 @@
+plan_name: convert ResourceLocation to Region
+conversion_type: rename_column
+column: ResourceLocation
+focus_column: Region
