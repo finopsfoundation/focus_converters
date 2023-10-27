@@ -17,7 +17,7 @@ jobs:
 
     strategy:
       matrix:
-        python-version: [ "3.8", "3.9", "3.10", "3.11", "3.12" ]
+        python-version: [ "3.8", "3.9", "3.10", "3.11" ]
 
     steps:
       - uses: actions/checkout@v3
@@ -38,7 +38,7 @@ jobs:
         name: Define a cache for the virtual environment based on the dependencies lock file
         with:
           path: ./.venv
-          key: venv-${{ hashFiles('poetry.lock') }}
+          key: venv-${{ hashFiles('poetry.lock') }}-${{ matrix.python-version }}
       - name: Install dependencies
         run: |
           poetry install
