@@ -1,0 +1,4 @@
+plan_name: convert BillingCurrencyCode to BillingCurrency
+conversion_type: rename_column
+column: BillingCurrencyCode
+focus_column: BillingCurrency

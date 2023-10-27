@@ -34,7 +34,7 @@ Parent repository to hold all common documentation and code samples for all FinO
 * Code - *The open source code of this project*
 * Conversion Rules - *Programic definitions of the translation process*
 
-In order to adhear to the principle of modular design each layer in the design elements should not have a hard dependancy on the specific implementation of the layer below. By this we mean that you should not have to deploy your Kubernetes cluster using the provided terraform or your Helm package does not need to be deployed onto a specific Kubernetes implementation like (EKS, AKS, etc) and most importantly there would be nothing stopping someone from using the provided source code in their own deployment architecture.
+In order to adhere to the principle of modular design each layer in the design elements should not have a hard dependancy on the specific implementation of the layer below. By this we mean that you should not have to deploy your Kubernetes cluster using the provided terraform or your Helm package does not need to be deployed onto a specific Kubernetes implementation like (EKS, AKS, etc) and most importantly there would be nothing stopping someone from using the provided source code in their own deployment architecture.
 
 In this first cut design for the converter projects we have three main stages:
 
