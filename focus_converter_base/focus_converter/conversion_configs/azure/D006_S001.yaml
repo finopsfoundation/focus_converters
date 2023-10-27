@@ -1,0 +1,4 @@
+plan_name: convert SubscriptionName to SubAccountName
+conversion_type: rename_column
+column: SubscriptionName
+focus_column: SubAccountName
