@@ -2,8 +2,8 @@ import io
 import json
 import os
 
-from PIL import Image
 from focus_validator.validator import Validator
+from PIL import Image
 from rich import print
 
 from focus_converter.common.cli_options import *

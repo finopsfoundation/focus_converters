@@ -22,6 +22,7 @@ conversion_args:
     reference_dataset_path: {{ test_reference_dataset_path }}
     source_value: {{ source_value }}
     destination_value: {{ destination_value }}
+    reference_path_in_package: false
 """
 
 
@@ -154,3 +155,26 @@ class TestMappingFunction(TestCase):
                         raise self.failureException(
                             f"Invalid value, map function not mapped, key: {index_value}, value: {mapped_value}"
                         )
+
+    def test_lookup_file_from_package(self):
+        # This tests the lookup function with a file from the package ensuring that the path is correctly resolved
+        lookup_config = """
+        plan_name: sample
+        priority: 1
+        column: aws_product_code
+        conversion_type: lookup
+        focus_column: Region
+        conversion_args:
+            reference_dataset_path: conversion_configs/aws/mapping_files/aws_catergory_mapping.csv
+            source_value: a
+            destination_value: b
+            reference_path_in_package: true
+        """
+
+        with tempfile.TemporaryDirectory() as temp_dir:
+            sample_file_path = os.path.join(temp_dir, "D001_S001.yaml")
+
+            with open(sample_file_path, "w") as fd:
+                fd.write(lookup_config)
+
+            conversion_plan = ConversionPlan.load_yaml(sample_file_path)

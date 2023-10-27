@@ -92,9 +92,6 @@ class FocusConverter:
         # lookup lazyframes arguments to be assembled later on the final source lazyframe
         self.lookup_reference_args = []
 
-        # add provider by default to our column expressions
-        column_exprs.append(ColumnFunctions.add_provider(provider=provider))
-
         for plan in self.plans[provider]:
             # column name generated with temporary prefix
             if plan.column_prefix:
