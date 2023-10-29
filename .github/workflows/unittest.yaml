@@ -1,11 +1,11 @@
-name: Python version check
+name: Unittest
 
 on:
   push:
     branches:
       - main
       - dev
-      - issues/*
+      - issue/**
   pull_request:
     branches:
       - main
@@ -14,10 +14,11 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+
     strategy:
-      fail-fast: true
       matrix:
         python-version: [ "3.8", "3.9", "3.10", "3.11" ]
+
     steps:
       - uses: actions/checkout@v3
       - name: Copy converter_base to current director
@@ -43,4 +44,4 @@ jobs:
           poetry install
       - name: Test with pytest
         run: |
-          poetry run python -m focus_converter.main list-providers
+          poetry run pytest

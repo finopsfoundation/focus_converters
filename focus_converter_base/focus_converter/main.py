@@ -2,6 +2,7 @@ import io
 import json
 import os
 
+from focus_validator.validator import Validator
 from PIL import Image
 from focus_validator.validator import Validator
 from rich import print
