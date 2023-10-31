@@ -1,0 +1,6 @@
+plan_name: Assign provider
+conversion_type: static_value
+conversion_args:
+    static_value: Oracle
+column: NA
+focus_column: Provider
