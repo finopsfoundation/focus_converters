@@ -1,0 +1,4 @@
+plan_name: Explicitly set timezone to UTC for ChargePeriodStart
+conversion_type: assign_utc_timezone
+column: ChargePeriodStart
+focus_column: ChargePeriodStart

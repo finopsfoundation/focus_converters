@@ -1,0 +1,8 @@
+plan_name: calculate amortised cost
+conversion_type: sql_condition
+conversion_args:
+    conditions:
+        - WHEN line_item_line_item_type = 'SavingsPlanCoveredUsage' THEN savings_plan_savings_plan_effective_cost
+    default_value: 0
+column: bill_payer_account_id
+focus_column: AmortisedCost

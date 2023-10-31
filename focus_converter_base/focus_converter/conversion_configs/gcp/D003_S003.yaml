@@ -1,0 +1,5 @@
+plan_name: set BillingPeriodEnd as PST
+conversion_type: assign_timezone
+column: BillingPeriodEnd
+focus_column: BillingPeriodEnd
+conversion_args: America/Los_Angeles

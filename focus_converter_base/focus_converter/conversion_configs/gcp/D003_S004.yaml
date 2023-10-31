@@ -1,0 +1,5 @@
+plan_name: convert BillingPeriodEnd to UTC
+conversion_type: convert_timezone
+column: BillingPeriodEnd
+focus_column: BillingPeriodEnd
+conversion_args: UTC

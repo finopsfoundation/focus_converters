@@ -1,0 +1,4 @@
+plan_name: convert invoice.month to BillingPeriodStart
+conversion_type: unnest
+column: invoice.month
+focus_column: BillingPeriodStart

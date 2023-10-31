@@ -1,0 +1,5 @@
+plan_name: parse YYYYmm from BillingPeriodStart
+conversion_type: parse_datetime
+column: BillingPeriodStart
+focus_column: BillingPeriodStart
+conversion_args: "%Y%m"

@@ -1,0 +1,5 @@
+plan_name: convert location.region to tmp_Region for XORing Region/Location
+conversion_type: unnest
+column: location.region
+focus_column: Region
+column_prefix: tmp_region

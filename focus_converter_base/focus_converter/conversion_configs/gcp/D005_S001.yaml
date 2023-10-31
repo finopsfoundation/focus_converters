@@ -1,0 +1,4 @@
+plan_name: convert usage_start_time to ChargePeriodStart
+conversion_type: rename_column
+column: usage_start_time
+focus_column: ChargePeriodStart

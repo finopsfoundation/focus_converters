@@ -1,0 +1,4 @@
+plan_name: convert line_item_usage_start_date to ChargePeriodStart
+conversion_type: assign_utc_timezone
+column: line_item_usage_start_date
+focus_column: ChargePeriodStart

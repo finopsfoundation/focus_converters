@@ -1,0 +1,5 @@
+plan_name: compute billed_cost
+conversion_type: sql_query
+column: tmp_credits_amount_BilledCost
+focus_column: BilledCost
+conversion_args: SELECT *, (cost + tmp_credits_amount_BilledCost) AS BilledCost from {{ TABLE_NAME }}
