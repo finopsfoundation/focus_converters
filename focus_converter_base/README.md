@@ -12,104 +12,31 @@ data into smaller chunks that can be processed out of memory.
 Also, the reference implementation uses an abstraction layer called fsspec, which abstracts
 reading writing from object stores like S3, GCS etc.
 
-## Prerequisites
-
-- Python 3.8 or later
-- Poetry
-
 ## Installation
 
-### Step 1: Install Poetry
+### With pip for modifying conversion plans|configs (recommended)
 
-Poetry is a tool for dependency management and packaging in Python. To install Poetry, open your terminal and run the
-following command:
+[Instructions for installing with pip.](docs/installation/with_pip.md)
 
-#### Linux and MacOS
+### With poetry for modifying conversion functions
 
-```sh
-curl -sSL https://install.python-poetry.org | python3 -
-```
+[Instructions for installing with poetry.](docs/installation/with_poetry.md)
 
-#### Windows
+## Usage
 
-Install python from [Microsoft store](https://apps.microsoft.com/store/detail/python-311/9NRWMJP3717K).
-
-* Note: Installing from python.org also requires addition `certifi` package for SSL certs.
-
-Install poetry
-
-```shell
-(Invoke-WebRequest -Uri https://install.python-poetry.org -UseBasicParsing).Content | py -
-```
-
-From Powershell to allow poetry shell
-
-```shell
-Set-ExecutionPolicy -ExecutionPolicy RemoteSigned
-```
-
-* Note poetry would have to be added to PATH so that it can be used in steps below.
-* Also running commands through poetry take care off env params,
-  e.g. ```poetry run python -m focus_converter.main --help```
-
-Refer to the [official Poetry documentation](https://python-poetry.org/docs/) for more installation options and details.
-
-### Step 2: Clone the Project Repository
-
-Clone the project repository to your local machine using the following command:
-
-```sh
-git clone https://github.com/finopsfoundation/focus_converters.git
-```
-
-### Step 3: Navigate to the Project Directory
-
-Change your current directory to the project's directory:
-
-```sh
-cd focus_converter_base
-```
-
-### Step 4: Install Project Dependencies
-
-Install the project's dependencies using Poetry:
-
-```sh
-poetry install --only main --no-root
-```
-
-or for installing all `dev` dependencies
-
-```sh
-poetry install --no-root
-```
-
-## Setting Up the Development Environment
-
-Once you have installed the necessary dependencies, you can set up the development environment using the following
-steps:
-
-### Step 1: Activate the Poetry Environment
-
-Activate the Poetry virtual environment:
-
-```sh
-poetry shell
-```
-
-### Step 2: List available providers
+### Step 1: List available providers
 
 ```bash
 python -m focus_converter.main list-providers
 ```
 
-### Step 3: Generate test aws data
+### Step 2: Generate test aws data
 
 ```bash
 python -m tests.data_generators.main  --provider aws --num-rows 1000000 --destination-path samples/test_mil
 ```
 
-### Step 4: Convert data
+### Step 3: Convert data
 
 ```bash
 python -m focus_converter.main convert --provider aws --data-path samples/test_mil/ --data-format parquet --parquet-data-format dataset --export-path samples/output/
