@@ -1,0 +1,4 @@
+plan_name: convert BillingPeriodStart to BillingPeriodStart
+conversion_type: rename_column
+column: BillingPeriodStart
+focus_column: BillingPeriodStart

@@ -1,4 +1,5 @@
-plan_name: convert Date to ChargePeriodEnd
-conversion_type: rename_column
+plan_name: parse mm/dd/YYYY from Date
+conversion_type: parse_datetime
 column: Date
 focus_column: ChargePeriodEnd
+conversion_args: "%m/%d/%Y"
