@@ -1,0 +1,4 @@
+plan_name: convert cost/subscriptionId to BillingAccountID
+conversion_type: rename_column
+column: cost/subscriptionId
+focus_column: BillingAccountId
