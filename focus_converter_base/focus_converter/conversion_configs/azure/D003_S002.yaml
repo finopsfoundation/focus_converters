@@ -1,0 +1,4 @@
+plan_name: convert ChargePeriodEnd to ChargePeriodEnd
+conversion_type: assign_utc_timezone
+column: ChargePeriodEnd
+focus_column: ChargePeriodEnd

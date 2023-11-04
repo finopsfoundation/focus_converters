@@ -1,4 +1,5 @@
-plan_name: convert BillingPeriodStartDate to BillingPeriodStart
-conversion_type: rename_column
+plan_name: parse mm/dd/YYYY from BillingPeriodStartDate
+conversion_type: parse_datetime
 column: BillingPeriodStartDate
 focus_column: BillingPeriodStart
+conversion_args: "%m/%d/%Y"
