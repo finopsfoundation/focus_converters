@@ -26,3 +26,11 @@ PARQUET_DATA_FORMAT_OPTION = Annotated[
     ParquetDataFormat,
     typer.Option(help="Parquet data format", rich_help_panel="Source Data"),
 ]
+
+PLAN_GRAPH_PATH = Annotated[
+    str,
+    typer.Option(
+        help="Path to save plan graph",
+        rich_help_panel="Plan Graph",
+    ),
+]
