@@ -1,0 +1,4 @@
+plan_name: convert line_item_product_code to InvoiceIssuer
+conversion_type: rename_column
+column: line_item_product_code
+focus_column: ServiceName

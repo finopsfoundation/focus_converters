@@ -36,7 +36,7 @@ class FocusColumnNames(Enum):
     SUB_ACCOUNT_NAME = "SubAccountName"
     SUB_ACCOUNT_ID = "SubAccountId"
 
-    AVAILABILITY_ZONE = "AvailibityZone"
+    AVAILABILITY_ZONE = "AvailabilityZone"
 
     RESOURCE_NAME = "ResourceName"
     RESOURCE_ID = "ResourceId"
