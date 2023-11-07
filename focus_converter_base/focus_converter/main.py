@@ -2,8 +2,8 @@ import io
 import json
 import os
 
-from focus_validator.validator import Validator
 from PIL import Image
+from focus_validator.validator import Validator
 from rich import print
 
 from focus_converter.common.cli_options import *
@@ -13,7 +13,7 @@ from focus_converter.data_loaders.data_loader import DataFormats
 app = typer.Typer(name="FOCUS converters", add_completion=False)
 
 
-@app.command("convert")
+@app.command("convert", help="Converts source cost data to FOCUS format")
 def main(
     provider: PROVIDER_OPTION,
     export_path: EXPORT_PATH_OPTION,
@@ -78,20 +78,18 @@ def main(
             break
 
 
-@app.command("explain")
-def explain(
-    provider: PROVIDER_OPTION,
-):
+@app.command("explain", help="Show conversion plan and saves a graph as an image")
+def explain(provider: PROVIDER_OPTION, image_path: PLAN_GRAPH_PATH):
     # function to show conversion plan
     converter = FocusConverter()
     converter.load_provider_conversion_configs()
     converter.prepare_horizontal_conversion_plan(provider=provider)
 
     image = Image.open(io.BytesIO(converter.explain()))
-    image.show()
+    image.save(image_path)
 
 
-@app.command("list-providers")
+@app.command("list-providers", help="List available providers")
 def list_providers():
     converter = FocusConverter()
     converter.load_provider_conversion_configs()
