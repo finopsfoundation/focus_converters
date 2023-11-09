@@ -1,6 +1,7 @@
 from enum import Enum
 from typing import Iterable
 
+import pandas as pd
 import polars as pl
 import pyarrow.dataset as ds
 from tqdm import tqdm
@@ -60,7 +61,7 @@ class DataLoader:
     def load_csv(self) -> Iterable[pl.LazyFrame]:
         # reads csv from data path and returns a lazy object
 
-        yield pl.read_csv(self.__data_path__).lazy()
+        yield pl.read_csv(self.__data_path__, try_parse_dates=True).lazy()
 
     def data_scanner(self) -> Iterable[pl.LazyFrame]:
         # helper function to read from different data formats and create an iterator of lazy frames
