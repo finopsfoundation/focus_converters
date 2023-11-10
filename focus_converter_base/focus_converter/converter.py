@@ -7,7 +7,6 @@ import polars as pl
 from pkg_resources import resource_filename
 
 from focus_converter.configs.base_config import ConversionPlan
-from focus_converter.configs.network_simulator import NetworkSimulator
 from focus_converter.conversion_functions import STATIC_CONVERSION_TYPES
 from focus_converter.conversion_functions.column_functions import ColumnFunctions
 from focus_converter.conversion_functions.datetime_functions import (
@@ -43,7 +42,6 @@ class FocusConverter:
     __converted_column_prefix__: Optional[str] = None
 
     def __init__(self, column_prefix=None, converted_column_prefix=None):
-        self.__network__ = NetworkSimulator()
         self.__temporary_columns__ = []
         self.__column_prefix__ = column_prefix
         self.__converted_column_prefix__ = converted_column_prefix
@@ -103,8 +101,6 @@ class FocusConverter:
                 self.__temporary_columns__.append(column_alias)
             else:
                 column_alias = plan.focus_column.value
-
-            self.__network__.add_conversion_node(plan=plan)
 
             # add column to plan to collect these dimensions to be added in the computed dataframe
             collected_columns.append(plan.focus_column.value)
@@ -230,7 +226,7 @@ class FocusConverter:
 
     def explain(self):
         # get batched data lazy frame, build the plan and then break
-        return self.__network__.show_graph()
+        return self.__column_validator__.generate_uml_graph()
 
     def apply_plan(self, lf: pl.LazyFrame) -> pl.LazyFrame:
         # creates lazy frame using the config, actual computation happens in collect

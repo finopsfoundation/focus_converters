@@ -1,7 +1,9 @@
+import base64
 import io
 
 import networkx as nx
 import polars as pl
+import requests
 import sqlglot
 
 from focus_converter.configs.base_config import ConversionPlan
@@ -9,6 +11,16 @@ from focus_converter.configs.base_config import ConversionPlan
 SOURCE_COLUMN_NAME = "SOURCE"
 SINK_COLUMN_NAME = "FOCUS_DATASET"
 STATIC_VALUE_COLUMN = "STATIC_VALUE"
+
+
+def mm(graph):
+    # generates UML using mermaid's public api
+    # TODO: Find a robust local graph draw
+
+    graphbytes = graph.encode("ascii")
+    base64_bytes = base64.b64encode(graphbytes)
+    base64_string = base64_bytes.decode("ascii")
+    return requests.get(f"https://mermaid.ink/img/{base64_string}").content
 
 
 class ColumnValidator:
@@ -141,3 +153,7 @@ class ColumnValidator:
 
         graph_uml.seek(0)
         return graph_uml.read()
+
+    def generate_uml_graph(self):
+        mermaid_graph = self.generate_mermaid_uml()
+        return mm(mermaid_graph)
