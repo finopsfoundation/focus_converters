@@ -15,6 +15,7 @@ from focus_converter.conversion_functions.datetime_functions import (
 )
 from focus_converter.conversion_functions.lookup_function import LookupFunction
 from focus_converter.conversion_functions.sql_functions import SQLFunctions
+from focus_converter.conversion_functions.validations import ColumnValidator
 from focus_converter.data_loaders.data_exporter import DataExporter
 from focus_converter.data_loaders.data_loader import DataLoader
 
@@ -46,6 +47,9 @@ class FocusConverter:
         self.__temporary_columns__ = []
         self.__column_prefix__ = column_prefix
         self.__converted_column_prefix__ = converted_column_prefix
+
+        # ColumnValidator, used to validate column names in sql queries and transformations
+        self.__column_validator__ = ColumnValidator()
 
     def load_provider_conversion_configs(self):
         plans = {}
@@ -108,67 +112,96 @@ class FocusConverter:
             if plan.conversion_type == STATIC_CONVERSION_TYPES.CONVERT_TIMEZONE:
                 column_exprs.append(
                     DateTimeConversionFunctions.convert_timezone(
-                        plan=plan, column_alias=column_alias
+                        plan=plan,
+                        column_alias=column_alias,
+                        column_validator=self.__column_validator__,
                     )
                 )
             elif plan.conversion_type == STATIC_CONVERSION_TYPES.ASSIGN_TIMEZONE:
                 column_exprs.append(
                     DateTimeConversionFunctions.assign_timezone(
-                        plan=plan, column_alias=column_alias
+                        plan=plan,
+                        column_alias=column_alias,
+                        column_validator=self.__column_validator__,
                     )
                 )
             elif plan.conversion_type == STATIC_CONVERSION_TYPES.ASSIGN_UTC_TIMEZONE:
                 column_exprs.append(
                     DateTimeConversionFunctions.assign_utc_timezone(
-                        plan=plan, column_alias=column_alias
+                        plan=plan,
+                        column_alias=column_alias,
+                        column_validator=self.__column_validator__,
                     )
                 )
             elif plan.conversion_type == STATIC_CONVERSION_TYPES.RENAME_COLUMN:
                 column_exprs.append(
                     ColumnFunctions.rename_column_functions(
-                        plan=plan, column_alias=column_alias
+                        plan=plan,
+                        column_alias=column_alias,
+                        column_validator=self.__column_validator__,
                     )
                 )
             elif plan.conversion_type == STATIC_CONVERSION_TYPES.SQL_QUERY:
                 sql_queries.append(
-                    SQLFunctions.eval_sql_query(plan=plan, column_alias=column_alias)
+                    SQLFunctions.eval_sql_query(
+                        plan=plan,
+                        column_alias=column_alias,
+                        column_validator=self.__column_validator__,
+                    )
                 )
             elif plan.conversion_type == STATIC_CONVERSION_TYPES.SQL_CONDITION:
                 sql_queries.append(
                     SQLFunctions.eval_sql_conditions(
-                        plan=plan, column_alias=column_alias
+                        plan=plan,
+                        column_alias=column_alias,
+                        column_validator=self.__column_validator__,
                     )
                 )
             elif plan.conversion_type == STATIC_CONVERSION_TYPES.PARSE_DATETIME:
                 column_exprs.append(
                     DateTimeConversionFunctions.parse_datetime(
-                        plan=plan, column_alias=column_alias
+                        plan=plan,
+                        column_alias=column_alias,
+                        column_validator=self.__column_validator__,
                     )
                 )
             elif plan.conversion_type == STATIC_CONVERSION_TYPES.UNNEST_COLUMN:
                 column_exprs.append(
-                    ColumnFunctions.unnest(plan=plan, column_alias=column_alias)
+                    ColumnFunctions.unnest(
+                        plan=plan,
+                        column_alias=column_alias,
+                        column_validator=self.__column_validator__,
+                    )
                 )
             elif plan.conversion_type == STATIC_CONVERSION_TYPES.LOOKUP:
                 self.lookup_reference_args.append(
                     LookupFunction.map_values_using_lookup(
-                        plan=plan, column_alias=column_alias
+                        plan=plan,
+                        column_alias=column_alias,
+                        column_validator=self.__column_validator__,
                     )
                 )
             elif plan.conversion_type == STATIC_CONVERSION_TYPES.MAP_VALUES:
                 column_exprs.append(
-                    ColumnFunctions.map_values(plan=plan, column_alias=column_alias)
+                    ColumnFunctions.map_values(
+                        plan=plan,
+                        column_alias=column_alias,
+                        column_validator=self.__column_validator__,
+                    )
                 )
             elif plan.conversion_type == STATIC_CONVERSION_TYPES.ASSIGN_STATIC_VALUE:
                 column_exprs.append(
                     ColumnFunctions.assign_static_value(
-                        plan=plan, column_alias=column_alias
+                        plan=plan,
+                        column_alias=column_alias,
+                        column_validator=self.__column_validator__,
                     )
                 )
             else:
                 raise NotImplementedError(
                     f"Plan: {plan.conversion_type} not implemented"
                 )
+
         return column_exprs
 
     @staticmethod
@@ -219,8 +252,6 @@ class FocusConverter:
         # helper function to re-map prefixed source columns to source columns
         # so that conversion plans can be applied.
 
-        temporary_columns = []
-
         column_prefix_length = len(self.__column_prefix__)
         for column in lf.columns:
             if column.startswith(self.__column_prefix__):
@@ -235,6 +266,10 @@ class FocusConverter:
         # prepares lazyframe for the operations to be applied on the lazy loaded polars dataframe
         if self.__column_prefix__ is not None:
             lf = self.__re_map_source_columns__(lf=lf)
+
+        # validate all source columns exist in the lazy frame
+        self.__column_validator__.validate_lazy_frame_columns(lf=lf)
+
         return self.apply_plan(lf=lf)
 
     def convert(self):

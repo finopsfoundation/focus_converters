@@ -10,6 +10,7 @@ from pydantic import ValidationError
 
 from focus_converter.configs.base_config import ConversionPlan
 from focus_converter.conversion_functions.column_functions import ColumnFunctions
+from focus_converter.conversion_functions.validations import ColumnValidator
 
 VALUE_MAPPING_SAMPLE_TEMPLATE_YAML_JINJA = """
 plan_name: sample
@@ -102,7 +103,9 @@ class TestMappingFunction(TestCase):
 
             conversion_plan = ConversionPlan.load_yaml(sample_file_path)
             sample_col = ColumnFunctions.map_values(
-                plan=conversion_plan, column_alias=random_column_alias
+                plan=conversion_plan,
+                column_alias=random_column_alias,
+                column_validator=ColumnValidator(),
             )
 
             modified_pl_df = pl_df.with_columns([sample_col]).collect()
@@ -150,7 +153,9 @@ class TestMappingFunction(TestCase):
 
             conversion_plan = ConversionPlan.load_yaml(sample_file_path)
             sample_col = ColumnFunctions.map_values(
-                plan=conversion_plan, column_alias=generated_random_column_alias
+                plan=conversion_plan,
+                column_alias=generated_random_column_alias,
+                column_validator=ColumnValidator(),
             )
 
             modified_pl_df = pl_df.with_columns([sample_col]).collect()

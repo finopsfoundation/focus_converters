@@ -10,6 +10,7 @@ from pydantic import ValidationError
 
 from focus_converter.configs.base_config import ConversionPlan
 from focus_converter.conversion_functions.lookup_function import LookupFunction
+from focus_converter.conversion_functions.validations import ColumnValidator
 from focus_converter.converter import FocusConverter
 
 VALUE_LOOKUP_SAMPLE_TEMPLATE_YAML_JINJA = """
@@ -129,7 +130,9 @@ class TestMappingFunction(TestCase):
 
                 conversion_plan = ConversionPlan.load_yaml(sample_file_path)
                 conversion_lookup_args = LookupFunction.map_values_using_lookup(
-                    plan=conversion_plan, column_alias=random_focus_colum
+                    plan=conversion_plan,
+                    column_alias=random_focus_colum,
+                    column_validator=ColumnValidator(),
                 )
 
                 modified_pl_df = FocusConverter.__apply_lookup_reference_plans__(

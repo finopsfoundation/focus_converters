@@ -10,6 +10,7 @@ from pydantic import ValidationError
 
 from focus_converter.configs.base_config import ConversionPlan
 from focus_converter.conversion_functions.column_functions import ColumnFunctions
+from focus_converter.conversion_functions.validations import ColumnValidator
 
 STATIC_VALUE_SAMPLE_TEMPLATE_YAML = """
 plan_name: sample
@@ -78,7 +79,9 @@ class TestStaticValuePlan(TestCase):
 
             conversion_plan = ConversionPlan.load_yaml(sample_file_path)
             sample_col = ColumnFunctions.assign_static_value(
-                plan=conversion_plan, column_alias=random_column_alias
+                plan=conversion_plan,
+                column_alias=random_column_alias,
+                column_validator=ColumnValidator(),
             )
 
             modified_pl_df = pl_df.with_columns([sample_col]).collect()

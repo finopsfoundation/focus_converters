@@ -5,6 +5,7 @@ import pandas as pd
 from focus_converter.configs.base_config import ConversionPlan
 from focus_converter.conversion_functions import STATIC_CONVERSION_TYPES
 from focus_converter.conversion_functions.column_functions import ColumnFunctions
+from focus_converter.conversion_functions.validations import ColumnValidator
 from focus_converter.models.focus_column_names import FocusColumnNames
 import polars as pl
 
@@ -29,6 +30,7 @@ class TestUnnestOperation(TestCase):
                 focus_column=FocusColumnNames.PROVIDER,
             ),
             column_alias="unnested",
+            column_validator=ColumnValidator(),
         )
         pl_df = pl_df.with_columns(expr)
 
@@ -54,6 +56,7 @@ class TestUnnestOperation(TestCase):
                 conversion_args={"children_type": "list"},
             ),
             column_alias="unnested",
+            column_validator=ColumnValidator(),
         )
         pl_df = pl_df.with_columns(expr).collect()
         unnested_values = list(pl_df["unnested"])
@@ -83,6 +86,7 @@ class TestUnnestOperation(TestCase):
                 },
             ),
             column_alias="unnested",
+            column_validator=ColumnValidator(),
         )
         pl_df = pl_df.with_columns(expr).collect()
         unnested_values = list(pl_df["unnested"])
@@ -112,6 +116,7 @@ class TestUnnestOperation(TestCase):
                 },
             ),
             column_alias="unnested",
+            column_validator=ColumnValidator(),
         )
         pl_df = pl_df.with_columns(expr).collect()
         unnested_values = list(pl_df["unnested"])
@@ -141,6 +146,7 @@ class TestUnnestOperation(TestCase):
                 },
             ),
             column_alias="unnested",
+            column_validator=ColumnValidator(),
         )
         pl_df = pl_df.with_columns(expr).collect()
         unnested_values = list(pl_df["unnested"])
@@ -170,6 +176,7 @@ class TestUnnestOperation(TestCase):
                 },
             ),
             column_alias="unnested",
+            column_validator=ColumnValidator(),
         )
         pl_df = pl_df.with_columns(expr).collect()
         unnested_values = list(pl_df["unnested"])
@@ -199,6 +206,7 @@ class TestUnnestOperation(TestCase):
                 },
             ),
             column_alias="unnested",
+            column_validator=ColumnValidator(),
         )
         pl_df = pl_df.with_columns(expr).collect()
         unnested_values = list(pl_df["unnested"])
@@ -228,6 +236,7 @@ class TestUnnestOperation(TestCase):
                 },
             ),
             column_alias="unnested",
+            column_validator=ColumnValidator(),
         )
         pl_df = pl_df.with_columns(expr).collect()
         unnested_values = list(pl_df["unnested"])
