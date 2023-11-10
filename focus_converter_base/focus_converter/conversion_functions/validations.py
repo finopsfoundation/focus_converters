@@ -40,26 +40,39 @@ class ColumnValidator:
         :param plan: ConversionPlan, plan to be added to the graph
         """
 
-        source_columns = set(
-            [
-                column.alias_or_name
-                for column in sqlglot.parse_one(sql_query).find_all(sqlglot.exp.Column)
-            ]
+        # generate a list of all columns that are aliased
+        source_columns = sorted(
+            set(
+                [
+                    column.alias_or_name
+                    for column in sqlglot.parse_one(sql_query).find_all(
+                        sqlglot.exp.Column
+                    )
+                ]
+            )
         )
         self.__validate_column_names__(plan=plan, column_names=source_columns)
 
-        target_columns = set(
-            [
-                column.alias_or_name
-                for column in sqlglot.parse_one(sql_query).find_all(sqlglot.exp.Alias)
-            ]
+        # generate sorted list of target columns from the query
+        target_columns = sorted(
+            set(
+                [
+                    column.alias_or_name
+                    for column in sqlglot.parse_one(sql_query).find_all(
+                        sqlglot.exp.Alias
+                    )
+                ]
+            )
         )
 
         for source_column in source_columns:
             for target_column in target_columns:
                 self.__network_graph__.add_edge(source_column, target_column, plan=plan)
 
-        self.__add_sink_node__(focus_column=plan.focus_column.value)
+        # analyze target_columns that are focus columns and automatically add sink node
+        for target_column in target_columns:
+            if target_column == plan.focus_column.value:
+                self.__add_sink_node__(focus_column=target_column)
 
     def map_non_sql_plan(
         self, plan: ConversionPlan, column_alias, source_column: str = None
@@ -87,9 +100,27 @@ class ColumnValidator:
             column for column in self.__network_graph__.successors(SOURCE_COLUMN_NAME)
         ]
 
-        for source_columns in source_columns:
-            if source_columns not in lf.columns:
-                raise ValueError(f"Column {source_columns} not found in data")
+        columns_missing = sorted(set(source_columns) - set(lf.columns))
+        if columns_missing:
+            raise ValueError(
+                f"Column(s) '{', '.join(columns_missing)}' not found in data"
+            )
+
+    def validate_graph_is_connected(self):
+        """
+        Validates that the graph is connected
+        """
+
+        graph = self.__network_graph__
+
+        sink_nodes = [node for node in graph.nodes() if graph.out_degree(node) == 0]
+        sink_nodes = set(sink_nodes) - {SOURCE_COLUMN_NAME, SINK_COLUMN_NAME}
+
+        if len(sink_nodes) > 0:
+            raise ValueError(
+                "Following sink nodes are not connected, potentially missing transform steps",
+                sink_nodes,
+            )
 
     def generate_mermaid_uml(self):
         """
@@ -98,6 +129,7 @@ class ColumnValidator:
 
         graph_uml = io.StringIO()
         graph_uml.write("graph TD;\n")
+
         for source, target, edge_data in self.__network_graph__.edges(data=True):
             plan: ConversionPlan = edge_data.get("plan")
             if plan:

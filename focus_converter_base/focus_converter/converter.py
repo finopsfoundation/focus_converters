@@ -202,6 +202,9 @@ class FocusConverter:
                     f"Plan: {plan.conversion_type} not implemented"
                 )
 
+        # apply the plan to the lazy frame
+        self.__column_validator__.validate_graph_is_connected()
+
         return column_exprs
 
     @staticmethod
