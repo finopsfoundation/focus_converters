@@ -7,8 +7,8 @@ from focus_converter.configs.base_config import (
     ValueMapConversionArgs,
 )
 from focus_converter.conversion_functions.validations import (
-    ColumnValidator,
     STATIC_VALUE_COLUMN,
+    ColumnValidator,
 )
 from focus_converter.models.focus_column_names import FocusColumnNames
 
