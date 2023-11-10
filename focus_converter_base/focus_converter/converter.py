@@ -165,6 +165,15 @@ class FocusConverter:
                         plan=plan, column_alias=column_alias
                     )
                 )
+            elif (
+                plan.conversion_type
+                == STATIC_CONVERSION_TYPES.CHANGE_NULL_VALUES_TO_LITERAL_NULL
+            ):
+                column_exprs.append(
+                    ColumnFunctions.convert_null_values_to_null_literal(
+                        plan=plan, column_alias=column_alias
+                    )
+                )
             else:
                 raise NotImplementedError(
                     f"Plan: {plan.conversion_type} not implemented"

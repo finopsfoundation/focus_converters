@@ -27,6 +27,9 @@ class STATIC_CONVERSION_TYPES(Enum):
     # allows setting static values
     ASSIGN_STATIC_VALUE = "static_value"
 
+    # allows setting static NULL literal where values are null as defined in FOCUS spec
+    CHANGE_NULL_VALUES_TO_LITERAL_NULL = "apply_null_literal"
+
 
 __all__ = [
     "STATIC_CONVERSION_TYPES",

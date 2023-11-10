@@ -92,3 +92,14 @@ class ColumnFunctions:
             StaticValueConversionArgs.model_validate(plan.conversion_args)
         )
         return pl.lit(conversion_args.static_value).alias(column_alias)
+
+    @staticmethod
+    def convert_null_values_to_null_literal(
+        plan: ConversionPlan, column_alias
+    ) -> pl.col:
+        return (
+            pl.when(pl.col(plan.column).is_null())
+            .then(pl.lit("NULL"))
+            .otherwise(pl.col(plan.column))
+            .alias(column_alias)
+        )
