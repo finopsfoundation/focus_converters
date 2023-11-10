@@ -1,4 +1,5 @@
 import os
+import pathlib
 import tempfile
 from unittest import TestCase
 from uuid import uuid4
@@ -8,7 +9,7 @@ import polars as pl
 from jinja2 import Template
 from pydantic import ValidationError
 
-from focus_converter.configs.base_config import ConversionPlan
+from focus_converter.configs.base_config import ConversionPlan, LookupConversionArgs
 from focus_converter.conversion_functions.lookup_function import LookupFunction
 from focus_converter.conversion_functions.validations import ColumnValidator
 from focus_converter.converter import FocusConverter
@@ -180,4 +181,12 @@ class TestMappingFunction(TestCase):
             with open(sample_file_path, "w") as fd:
                 fd.write(lookup_config)
 
+            # ensures that the file is found
             conversion_plan = ConversionPlan.load_yaml(sample_file_path)
+
+            conversion_args = LookupConversionArgs.model_validate(
+                conversion_plan.conversion_args
+            )
+            self.assertTrue(
+                pathlib.Path(conversion_args.reference_dataset_path).is_file()
+            )

@@ -1,11 +1,9 @@
 from unittest import TestCase
-from unittest.mock import patch, PropertyMock
 
 import pandas as pd
 import polars as pl
 
 from focus_converter.configs.base_config import ConversionPlan
-from focus_converter.conversion_functions.column_functions import ColumnFunctions
 from focus_converter.converter import FocusConverter
 
 

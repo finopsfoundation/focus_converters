@@ -2,9 +2,9 @@ import polars as pl
 
 from focus_converter.configs.base_config import (
     ConversionPlan,
-    StaticValueConversionArgs,
     LookupConversionArgs,
     SQLConditionConversionArgs,
+    StaticValueConversionArgs,
 )
 from focus_converter.conversion_functions import STATIC_CONVERSION_TYPES
 from focus_converter.converter import FocusConverter
