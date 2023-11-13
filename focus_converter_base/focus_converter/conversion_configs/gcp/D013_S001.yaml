@@ -1,0 +1,4 @@
+plan_name: unnest location.zone to AvailabilityZone
+conversion_type: unnest
+column: location.zone
+focus_column: AvailabilityZone

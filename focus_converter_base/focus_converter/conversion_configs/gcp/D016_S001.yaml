@@ -1,0 +1,4 @@
+plan_name: unnest resource.global_name to ResourceId
+conversion_type: unnest
+column: resource.global_name
+focus_column: ResourceId
