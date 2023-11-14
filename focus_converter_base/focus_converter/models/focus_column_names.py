@@ -41,5 +41,7 @@ class FocusColumnNames(Enum):
     RESOURCE_NAME = "ResourceName"
     RESOURCE_ID = "ResourceId"
 
+    COMMITMENT_DISCOUNT_ID = "CommitmentDiscountId"
+
 
 FOCUS_DATETIME_ISO_FORMAT = "%Y-%m-%dT%H:%M:%SZ"
