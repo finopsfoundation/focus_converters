@@ -106,6 +106,11 @@ class ColumnValidator:
         )
         self.__add_sink_node__(focus_column=plan.focus_column.value)
 
+    def map_static_default_value_if_not_present(
+        self, plan: ConversionPlan, column_alias
+    ):
+        self.__network_graph__.add_edge(SOURCE_COLUMN_NAME, plan.column, plan=plan)
+
     def validate_lazy_frame_columns(self, lf: pl.LazyFrame):
         # get all columns that have edge from source
         source_columns = [
