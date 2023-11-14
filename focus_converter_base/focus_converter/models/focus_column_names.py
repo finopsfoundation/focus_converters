@@ -55,5 +55,8 @@ class FocusColumnNames(Enum):
     SKU_ID = "SKUId"
     SKU_PRICE_ID = "SKUPriceId"
 
+    LIST_UNIT_PRICE = "ListUnitPrice"
+    LIST_COST = "ListCost"
+
 
 FOCUS_DATETIME_ISO_FORMAT = "%Y-%m-%dT%H:%M:%SZ"
