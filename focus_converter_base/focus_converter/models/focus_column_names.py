@@ -58,5 +58,7 @@ class FocusColumnNames(Enum):
     LIST_UNIT_PRICE = "ListUnitPrice"
     LIST_COST = "ListCost"
 
+    USAGE_QUANTITY = "UsageQuantity"
+
 
 FOCUS_DATETIME_ISO_FORMAT = "%Y-%m-%dT%H:%M:%SZ"
