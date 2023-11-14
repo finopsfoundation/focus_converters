@@ -26,6 +26,7 @@ class FocusColumnNames(Enum):
     BILLED_COST = "BilledCost"
     BILLED_CURRENCY = "BilledCurrency"
     BILLING_CURRENCY = "BillingCurrency"
+    EFFECTIVE_COST = "EffectiveCost"
 
     REGION = "Region"
 
