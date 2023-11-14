@@ -46,6 +46,7 @@ class FocusColumnNames(Enum):
     COMMITMENT_DISCOUNT_CATEGORY = "CommitmentDiscountCategory"
 
     PRICING_QUANTITY = "PricingQuantity"
+    PRICING_UNIT = "PricingUnit"
 
 
 FOCUS_DATETIME_ISO_FORMAT = "%Y-%m-%dT%H:%M:%SZ"
