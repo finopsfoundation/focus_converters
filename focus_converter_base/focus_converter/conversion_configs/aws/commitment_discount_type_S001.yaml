@@ -1,0 +1,10 @@
+# fails if the column is not present, TODO: add a default value
+plan_name: convert ReservationARN/SavingsPlanArn to CommitmentDiscountType
+conversion_type: sql_condition
+conversion_args:
+    conditions:
+        - WHEN savings_plan_savings_plan_arn is not null THEN 'Savings Plan'
+        - WHEN reservation_reservation_arn is not null THEN 'Reserved Instances (RI)'
+    default_value: "null"
+column: NA
+focus_column: CommitmentDiscountType
