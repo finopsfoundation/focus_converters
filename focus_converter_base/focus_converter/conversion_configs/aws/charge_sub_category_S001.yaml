@@ -9,7 +9,7 @@ conversion_args:
         - WHEN ChargeType = 'Adjustment' AND line_item_line_item_type = 'Discount' THEN 'Credit'
         - WHEN ChargeType = 'Adjustment' AND line_item_line_item_type = 'DiscountedUsage' THEN 'Credit'
         - WHEN ChargeType = 'Adjustment' AND line_item_line_item_type = 'Refund' THEN 'Refund'
-        - WHEN ChargeType = 'Adjustment' AND THEN 'General Adjustment'
+        - WHEN ChargeType = 'Adjustment' THEN 'General Adjustment'
     default_value: "NULL"
 column: NA
 focus_column: ChargeSubCategory
