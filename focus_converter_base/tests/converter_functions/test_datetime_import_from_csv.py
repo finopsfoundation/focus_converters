@@ -5,8 +5,8 @@ import pandas as pd
 from polars import Datetime
 
 from focus_converter.data_loaders.data_loader import (
-    DataLoader,
     DataFormats,
+    DataLoader,
     ParquetDataFormat,
 )
 

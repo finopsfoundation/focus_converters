@@ -6,20 +6,31 @@ from focus_converter.configs.base_config import (
     UnnestValueConversionArgs,
     ValueMapConversionArgs,
 )
+from focus_converter.conversion_functions.validations import (
+    STATIC_VALUE_COLUMN,
+    ColumnValidator,
+)
 from focus_converter.models.focus_column_names import FocusColumnNames
 
 
 class ColumnFunctions:
     @staticmethod
-    def rename_column_functions(plan: ConversionPlan, column_alias) -> pl.col:
+    def rename_column_functions(
+        plan: ConversionPlan, column_alias, column_validator: ColumnValidator
+    ) -> pl.col:
+        # add to column validator and check if source column exists
+        column_validator.map_non_sql_plan(plan=plan, column_alias=column_alias)
+
         return pl.col(plan.column).alias(column_alias)
 
     @staticmethod
-    def add_provider(provider) -> pl.col:
+    def add_provider(provider, column_validator: ColumnValidator) -> pl.col:
         return pl.lit(provider).alias(FocusColumnNames.PROVIDER.value)
 
     @staticmethod
-    def unnest(plan: ConversionPlan, column_alias) -> pl.col:
+    def unnest(
+        plan: ConversionPlan, column_alias, column_validator: ColumnValidator
+    ) -> pl.col:
         # validate conversion args
         if plan.conversion_args:
             conversion_args = UnnestValueConversionArgs.model_validate(
@@ -62,10 +73,18 @@ class ColumnFunctions:
             raise RuntimeError(
                 "Unknown children type: {}".format(conversion_args.children_type)
             )
+
+        # add to column validator and check if source column exists
+        column_validator.map_non_sql_plan(
+            plan=plan, column_alias=column_alias, source_column=field_depths[0]
+        )
+
         return predicate.alias(column_alias)
 
     @staticmethod
-    def map_values(plan: ConversionPlan, column_alias):
+    def map_values(
+        plan: ConversionPlan, column_alias, column_validator: ColumnValidator
+    ):
         # Converts values for a given dimension using a map. This map must also provide a default value.
 
         conversion_args = ValueMapConversionArgs.model_validate(plan.conversion_args)
@@ -80,6 +99,9 @@ class ColumnFunctions:
         else:
             map_dict.update({None: None})
 
+        # add to column validator and check if source column exists
+        column_validator.map_non_sql_plan(plan=plan, column_alias=column_alias)
+
         return (
             pl.col(plan.column)
             .map_dict(map_dict, default=conversion_args.default_value)
@@ -87,8 +109,16 @@ class ColumnFunctions:
         )
 
     @staticmethod
-    def assign_static_value(plan: ConversionPlan, column_alias) -> pl.col:
+    def assign_static_value(
+        plan: ConversionPlan, column_alias, column_validator: ColumnValidator
+    ) -> pl.col:
         conversion_args: StaticValueConversionArgs = (
             StaticValueConversionArgs.model_validate(plan.conversion_args)
         )
+
+        # add to column validator and check if source column exists
+        column_validator.map_non_sql_plan(
+            plan=plan, column_alias=column_alias, source_column=STATIC_VALUE_COLUMN
+        )
+
         return pl.lit(conversion_args.static_value).alias(column_alias)

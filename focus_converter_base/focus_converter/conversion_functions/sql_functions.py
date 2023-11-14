@@ -6,6 +6,7 @@ from focus_converter.configs.base_config import (
     ConversionPlan,
     SQLConditionConversionArgs,
 )
+from focus_converter.conversion_functions.validations import ColumnValidator
 
 # used in sql queries
 # TODO: Make it configurable according to context if needed
@@ -32,7 +33,9 @@ class SQLFunctions:
             raise ValueError(f"Invalid sql produced: {sql_query}")
 
     @classmethod
-    def eval_sql_conditions(cls, plan: ConversionPlan, column_alias):
+    def eval_sql_conditions(
+        cls, plan: ConversionPlan, column_alias, column_validator: ColumnValidator
+    ):
         conversion_args = SQLConditionConversionArgs.model_validate(
             plan.conversion_args
         )
@@ -48,14 +51,28 @@ class SQLFunctions:
             NEW_COLUMN=column_alias,
             TABLE_NAME=DEFAULT_SQL_TABLE_NAME,
         )
+
+        # validate sql query structure
         cls.__validate_sql_query__(sql_query=sql_query)
+
+        # destructure sql query and validate column names
+        column_validator.map_sql_query(sql_query=sql_query, plan=plan)
+
         return sql_query
 
     @classmethod
-    def eval_sql_query(cls, plan: ConversionPlan, column_alias):
+    def eval_sql_query(
+        cls, plan: ConversionPlan, column_alias, column_validator: ColumnValidator
+    ):
         template = Environment().from_string(plan.conversion_args)
         sql_query = template.render(
             TABLE_NAME=DEFAULT_SQL_TABLE_NAME,
         )
+
+        # validate sql query structure
         cls.__validate_sql_query__(sql_query=sql_query)
+
+        # destructure sql query and validate column names
+        column_validator.map_sql_query(sql_query=sql_query, plan=plan)
+
         return sql_query
