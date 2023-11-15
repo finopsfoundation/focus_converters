@@ -1,8 +1,8 @@
 [tool.poetry]
 name = "focus-converter-base"
-version = "0.1.0"
+version = "1.0.0"
 description = ""
-authors = ["Your Name <you@example.com>"]
+authors = ["Varun Mittal <varunmittal91@gmail.com>"]
 readme = "README.md"
 packages = [{ include = "focus_converter" }]
 
@@ -22,6 +22,7 @@ rich = "^13.5.2"
 networkx = "^3.1"
 tqdm = "^4.66.1"
 sqlglot = "^18.7.0"
+# TODO(joshk): Change this to ^1 after release of the validator.
 focus-spec-validator = ">=0.5.2.dev1,<0.6.0"
 
 
@@ -47,3 +48,6 @@ types-tqdm = "^4.66.0.2"
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.scripts]
+focus-converter = "focus_converter.main:app"

@@ -1,68 +1,67 @@
-# Focus Converters
-Parent repository to hold all common documentation and code samples for all FinOps Foundation managed FOCUS Converter projects.
+# FOCUS Converter
 
-## Active Converter Projects
+The FOCUS Converter is a command-line utility to convert billing data files from popular public cloud providers,
+such as **Amazon Web Services**, **Microsoft Azure**, **Google Cloud** and **Oracle Cloud**, into the common
+schema known as FOCUS. You can read the specification at [FinOps-Open-Cost-and-Usage-Spec/FOCUS_Spec].
 
-* [FOCUS Converter for AWS](https://github.com/finopsfoundation/focus_converter_aws)
-* [FOCUS Converter for Azure](https://github.com/finopsfoundation/focus_converter_azure)
-* [FOCUS Converter for Google Cloud](https://github.com/finopsfoundation/focus_converter_googlecloud)
-* [FOCUS Converter for Oracle Cloud](https://github.com/finopsfoundation/focus_converter_oraclecloud)
+The converter is optimized for:
 
-## Principles
+* Ability to act on the large files and wire formats provided by cloud providers.
+* Comprehensibility of the conversion process which encodes _an_ understanding of the specification as-written.
+* Best-effort conversion where the appropriate data for FOCUS does not exist in the provider's data file.
+* Modularity so that new types of billing data can be supported.
 
-* **Documentation is most important**
- <br/>*Ensure the conversion is not a black box to users*
-* **This is an implementation, not The Implementation of a converter**
-<br/>*We expect others will implement their own solutions. This project provides a great example and reuseable parts*
-* **Modular by design, allow replacing parts to best fit the users needs**
-<br/>*Avoid a complete rework in order to support one small difference in deployment*
+## Currently Supported Cloud Providers
 
-## Converter Project High Level Design
+* [Amazon Web Services]
+* [Google Cloud]
+* [Microsoft Azure]
+* [Oracle Cloud]
 
-> **_NOTE:_**  This initial design is likely to be updated and refined as the converter projects progress in development, but ultimatley we would like all converter projects to follow a similar design pattern for ease of use.
+Want to add your own? See [CONTRIBUTING.md]
 
-| ![Converter High Level Design](images/FOCUS_converter_design.png) |
-|:--:|
-| *Figure 1 - FOCUS Project High Level Design* |
+## Installation
 
-### Planned Design Elements
-* [Terraform](https://www.terraform.io) - *Full stack deployment for those without K8s*
-* [Kubernetes](https://kubernetes.io) - *Container Orchestration for Job exection*
-* [Helm](https://helm.sh) - *Kubernetes package for deployment onto K8s*
-* [Argo](https://argoproj.github.io/argo-workflows/) - *Job Workflow Definition*
-* [Images](https://www.docker.com) - *Packaged code into a container image for deployment*
-* Code - *The open source code of this project*
-* Conversion Rules - *Programic definitions of the translation process*
+The FOCUS converter supports Python 3.9 and above. If you meet these requirements, you can install with pip:
 
-In order to adhere to the principle of modular design each layer in the design elements should not have a hard dependancy on the specific implementation of the layer below. By this we mean that you should not have to deploy your Kubernetes cluster using the provided terraform or your Helm package does not need to be deployed onto a specific Kubernetes implementation like (EKS, AKS, etc) and most importantly there would be nothing stopping someone from using the provided source code in their own deployment architecture.
+```sh
+pip install focus_converter
+```
 
-In this first cut design for the converter projects we have three main stages:
+After this, you will have a script called `focus-converter` in your path.
 
-The first stage is to assess what needs to be converted and to slice this work up into parts that can be parallel executed. An example of this would be individual files for a file based converter or LIMIT/OFFSETs for a SQL based datastore.
+## Example Usage
 
-The second stage is a group of parallel executed jobs, each job takes part of the source data and applies the set of rules to convert the format of the input data into FOCUS compatible data.
+```bash
+focus-converter convert --provider aws --data-path path/to/aws/parquet/cur/ --data-format parquet --parquet-data-format dataset --export-path /tmp/output/
+```
 
-The last step in the execution will be a post processing step that can join the parts of processed data, load into an output datastore and initialise partitions, etc.
+Use `focus-converter list-providers` to see the other providers that are supported.
 
-The code based loaded into each of these steps will be the same code, but different entrypoints will be supported allowing the different modes of opperations.
+## Development setup
 
-If an individual converter project needs to widely deviate from this planned structure then the members of that project should first get community understanding and agreement with the plan before progressing.
+1. Clone this repository.
+2. [Install Poetry] if you don't have it.
+3. Run the following shell snippet:
 
-## Conversions
+```sh
+cd focus_converter_base/
+poetry install --only main --no-root
+```
 
-The ideal structure for the conversion process is to have a set of supported conversions and a set of rules that apply to the source data in order to complete the conversion into the FOCUS format. The supported conversions will include items such as:
+From here, you can use `python -m focus_converter.main` as a substitute for running the pre-installed `focus-converter` script, and test any changes in your copy of the repository.
 
-| Conversion Type          | Source           | Destination           | Conditionals  | Description                                                              |
-|:-------------------------|:-----------------|:----------------------|:--------------|:-------------------------------------------------------------------------|
-| Rename                   | Source Dimension | Destination Dimension | N/A           | Rename existing column to name of dimension in FOCUS Spec                |
-| Conditional Copy         | Source Dimension | Destination Dimension | Condition Set | Conditionally copy contents of source dimension to destination column    |
-| Static Value w/Condition | Source Dimension | Destination Dimension | Condition Set | Conditionally set dimension to static value                              |
-| Delete                   | Source Dimension | N/A                   | N/A           | Delete dimemsion                                                         |
-| Translation              | Source Dimension | Destination Dimension | Translation   | Translate the value from source dimension to destination                 |
-| Mapping                  | Source Dimension | Destination Dimension | Mapping       | Use source dimension as a key to a mapping lookup, store value in destination|
+## License
 
-Rules will ideally be stored in a programmically consumable format like YAML and will describe the individual conversions that need to be applied to the source data and the order they must be applied.
+This project is licensed under the terms of the MIT license.
 
 ## Contributing
 
-See: [CONTRIBUTING.md](CONTRIBUTING.md) for details.
+We're excited to work together. Please see [CONTRIBUTING.md] for information on how to get started.
+
+[CONTRIBUTING.md]: CONTRIBUTING.md
+
+[Amazon Web Services]: https://github.com/finopsfoundation/focus_converters/tree/master/focus_converter_base/conversion_configs/aws
+[Google Cloud]: https://github.com/finopsfoundation/focus_converters/tree/master/focus_converter_base/conversion_configs/gcp
+[Microsoft Azure]: https://github.com/finopsfoundation/focus_converters/tree/master/focus_converter_base/conversion_configs/azure
+[Oracle Cloud]: https://github.com/finopsfoundation/focus_converters/tree/master/focus_converter_base/conversion_configs/oci
