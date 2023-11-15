@@ -12,4 +12,4 @@ conversion_args:
         - WHEN ChargeType = 'Adjustment' THEN 'General Adjustment'
     default_value: "NULL"
 column: NA
-focus_column: ChargeSubCategory
+focus_column: ChargeSubcategory

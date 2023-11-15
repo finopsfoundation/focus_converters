@@ -1,4 +1,4 @@
-plan_name: convert Product/sku to SKUId
+plan_name: convert Product/sku to SkuId
 conversion_type: rename_column
 column: product_sku
-focus_column: SKUId
+focus_column: SkuId

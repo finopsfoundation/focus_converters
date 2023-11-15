@@ -8,10 +8,12 @@ class FocusColumnNames(Enum):
     Focus column names as described in https://focus.finops.org/#specification
     """
 
+    PLACE_HOLDER = "PlaceHolder"
+
     CHARGE_PERIOD_START = "ChargePeriodStart"
     CHARGE_PERIOD_END = "ChargePeriodEnd"
     CHARGE_FREQUENCY = "ChargeFrequency"
-    CHARGE_SUB_CATEGORY = "ChargeSubCategory"
+    CHARGE_SUB_CATEGORY = "ChargeSubcategory"
     CHARGE_DESCRIPTION = "ChargeDescription"
 
     BILLING_PERIOD_START = "BillingPeriodStart"
@@ -52,8 +54,8 @@ class FocusColumnNames(Enum):
     PRICING_QUANTITY = "PricingQuantity"
     PRICING_UNIT = "PricingUnit"
 
-    SKU_ID = "SKUId"
-    SKU_PRICE_ID = "SKUPriceId"
+    SKU_ID = "SkuId"
+    SKU_PRICE_ID = "SkuPriceId"
 
     LIST_UNIT_PRICE = "ListUnitPrice"
     LIST_COST = "ListCost"
