@@ -61,7 +61,9 @@ class DataLoader:
     def load_csv(self) -> Iterable[pl.LazyFrame]:
         # reads csv from data path and returns a lazy object
 
-        yield pl.read_csv(self.__data_path__, try_parse_dates=True).lazy()
+        yield pl.read_csv(
+            self.__data_path__, try_parse_dates=True, ignore_errors=True
+        ).lazy()
 
     def data_scanner(self) -> Iterable[pl.LazyFrame]:
         # helper function to read from different data formats and create an iterator of lazy frames
