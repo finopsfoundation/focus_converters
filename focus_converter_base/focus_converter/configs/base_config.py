@@ -80,6 +80,20 @@ class UnnestValueConversionArgs(BaseModel):
     ] = "first"
 
 
+class MissingColumnDType(BaseModel):
+    data_type: Literal["string", "float", "int"]
+
+
+class DTypeConversionArg(BaseModel):
+    column_name: str
+    dtype: Literal["string", "float", "int"]
+    strict: bool = False
+
+
+class SetColumnDTypesConversionArgs(BaseModel):
+    dtype_args: List[DTypeConversionArg]
+
+
 CONFIG_FILE_PATTERN = re.compile("(.+)_S\d{3}.yaml")
 
 
@@ -156,6 +170,20 @@ class ConversionPlan(BaseModel):
             except ValidationError as e:
                 raise ValueError(
                     e, f"Missing or bad static value argument: {field_info.data}"
+                )
+        elif conversion_type == STATIC_CONVERSION_TYPES.APPLY_DEFAULT_IF_COLUMN_MISSING:
+            try:
+                MissingColumnDType.model_validate(v)
+            except ValidationError as e:
+                raise ValueError(
+                    e, f"Missing or bad unnest value argument: {field_info.data}"
+                )
+        elif conversion_type == STATIC_CONVERSION_TYPES.SET_COLUMN_DTYPES:
+            try:
+                SetColumnDTypesConversionArgs.model_validate(v)
+            except ValidationError as e:
+                raise ValueError(
+                    e, f"Missing or bad set column dtype argument: {field_info.data}"
                 )
         return v
 

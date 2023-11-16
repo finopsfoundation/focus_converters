@@ -50,6 +50,7 @@ class TestDefaultValueIfNotPresent(TestCase):
             conversion_type=STATIC_CONVERSION_TYPES.APPLY_DEFAULT_IF_COLUMN_MISSING,
             focus_column=FocusColumnNames.PROVIDER,
             column_prefix="tmp_prefill",
+            conversion_args={"data_type": "string"},
         )
 
         focus_converter = FocusConverter(column_prefix=None)
@@ -85,6 +86,7 @@ class TestDefaultValueIfNotPresent(TestCase):
             conversion_type=STATIC_CONVERSION_TYPES.APPLY_DEFAULT_IF_COLUMN_MISSING,
             focus_column=FocusColumnNames.PROVIDER,
             column_prefix="tmp_prefill",
+            conversion_args={"data_type": "string"},
         )
 
         focus_converter = FocusConverter(column_prefix=None)
@@ -109,6 +111,7 @@ class TestDefaultValueIfNotPresent(TestCase):
             conversion_type=STATIC_CONVERSION_TYPES.APPLY_DEFAULT_IF_COLUMN_MISSING,
             focus_column=FocusColumnNames.PROVIDER,
             column_prefix="tmp_prefill",
+            conversion_args={"data_type": "string"},
         )
 
         sample_provider_name = str(uuid4())

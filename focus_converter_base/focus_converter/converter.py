@@ -1,7 +1,7 @@
 import logging
 import os
 from operator import attrgetter
-from typing import Dict, List, Optional, Tuple
+from typing import Dict, List, Optional
 
 import polars as pl
 from pkg_resources import resource_filename
@@ -12,11 +12,15 @@ from focus_converter.conversion_functions.column_functions import ColumnFunction
 from focus_converter.conversion_functions.datetime_functions import (
     DateTimeConversionFunctions,
 )
+from focus_converter.conversion_functions.deferred_column_functions import (
+    DeferredColumnFunctions,
+)
 from focus_converter.conversion_functions.lookup_function import LookupFunction
 from focus_converter.conversion_functions.sql_functions import SQLFunctions
 from focus_converter.conversion_functions.validations import ColumnValidator
 from focus_converter.data_loaders.data_exporter import DataExporter
 from focus_converter.data_loaders.data_loader import DataLoader
+from focus_converter.models.focus_column_names import FocusColumnNames
 
 # TODO: Make this path configurable so that we can load from a directory outside of the project
 BASE_CONVERSION_CONFIGS = resource_filename("focus_converter", "conversion_configs")
@@ -41,8 +45,8 @@ class FocusConverter:
     # converted column prefix to be added to converted columns
     __converted_column_prefix__: Optional[str] = None
 
-    # missing_column_plans = []
-    __missing_column_plans__: List[Tuple[str, ConversionPlan]] = []
+    # deferred column plans, these plans are applied after lazyframe is loaded
+    __deferred_column_plans__ = DeferredColumnFunctions()
 
     def __init__(self, column_prefix=None, converted_column_prefix=None):
         self.__temporary_columns__ = []
@@ -106,7 +110,8 @@ class FocusConverter:
                 column_alias = plan.focus_column.value
 
             # add column to plan to collect these dimensions to be added in the computed dataframe
-            collected_columns.append(plan.focus_column.value)
+            if plan.focus_column != FocusColumnNames.PLACE_HOLDER:
+                collected_columns.append(plan.focus_column.value)
 
             if plan.conversion_type == STATIC_CONVERSION_TYPES.CONVERT_TIMEZONE:
                 column_exprs.append(
@@ -200,13 +205,14 @@ class FocusConverter:
                 plan.conversion_type
                 == STATIC_CONVERSION_TYPES.APPLY_DEFAULT_IF_COLUMN_MISSING
             ):
-                self.__missing_column_plans__.append((column_alias, plan))
-                column_exprs.append(
-                    ColumnFunctions.apply_default_if_column_missing(
-                        plan=plan,
-                        column_alias=column_alias,
-                        column_validator=self.__column_validator__,
-                    )
+                self.__deferred_column_plans__.map_missing_column_plan(
+                    plan=plan,
+                    column_alias=column_alias,
+                    column_validator=self.__column_validator__,
+                )
+            elif plan.conversion_type == STATIC_CONVERSION_TYPES.SET_COLUMN_DTYPES:
+                self.__deferred_column_plans__.map_dtype_plan(
+                    plan=plan, column_validator=self.__column_validator__
                 )
             else:
                 raise NotImplementedError(
@@ -281,13 +287,9 @@ class FocusConverter:
         if self.__column_prefix__ is not None:
             lf = self.__re_map_source_columns__(lf=lf)
 
-        for column_alias, missing_column_plan in self.__missing_column_plans__:
-            if missing_column_plan.column not in lf.columns:
-                lf = lf.with_columns(pl.lit(None).alias(missing_column_plan.column))
-            else:
-                lf = lf.with_columns(
-                    pl.col(missing_column_plan.column).alias(missing_column_plan.column)
-                )
+        # apply deferred column plans
+        lf = self.__deferred_column_plans__.apply_missing_column_plan(lf=lf)
+        lf = self.__deferred_column_plans__.apply_dtype_plan(lf=lf)
 
         # validate all source columns exist in the lazy frame
         self.__column_validator__.validate_lazy_frame_columns(lf=lf)

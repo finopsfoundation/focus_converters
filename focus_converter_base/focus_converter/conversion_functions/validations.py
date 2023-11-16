@@ -6,7 +6,10 @@ import polars as pl
 import requests
 import sqlglot
 
-from focus_converter.configs.base_config import ConversionPlan
+from focus_converter.configs.base_config import (
+    ConversionPlan,
+    SetColumnDTypesConversionArgs,
+)
 
 SOURCE_COLUMN_NAME = "SOURCE"
 SINK_COLUMN_NAME = "FOCUS_DATASET"
@@ -110,6 +113,15 @@ class ColumnValidator:
         self, plan: ConversionPlan, column_alias
     ):
         self.__network_graph__.add_edge(SOURCE_COLUMN_NAME, plan.column, plan=plan)
+
+    def map_dtype_enforced_node(self, plan: ConversionPlan):
+        conversion_args = SetColumnDTypesConversionArgs.model_validate(
+            plan.conversion_args
+        )
+        for column_obj in conversion_args.dtype_args:
+            self.__network_graph__.add_edge(
+                SOURCE_COLUMN_NAME, column_obj.column_name, plan=plan
+            )
 
     def validate_lazy_frame_columns(self, lf: pl.LazyFrame):
         # get all columns that have edge from source
