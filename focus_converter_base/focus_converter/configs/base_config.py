@@ -1,7 +1,7 @@
 import importlib.resources
 import re
 from pathlib import Path
-from typing import Any, List, Literal, Optional
+from typing import Any, List, Literal, Optional, Union
 
 import pytz
 import yaml
@@ -80,7 +80,7 @@ class UnnestValueConversionArgs(BaseModel):
     ] = "first"
 
 
-CONFIG_FILE_PATTERN = re.compile("D\d{3}_S\d{3}.yaml")
+CONFIG_FILE_PATTERN = re.compile("(.+)_S\d{3}.yaml")
 
 
 class ConversionPlan(BaseModel):
@@ -91,7 +91,7 @@ class ConversionPlan(BaseModel):
     plan_name: str
 
     # id picked from the file name, starting with D.
-    dimension_id: int
+    dimension_id: Union[str, int]
 
     # for some datasets we might have to do conversions in an order,
     # higher priority will guarantee that those plans are executed first.
@@ -177,10 +177,10 @@ class ConversionPlan(BaseModel):
         ), f"Filename should match pattern: {CONFIG_FILE_PATTERN}"
 
         # extract priority of config from name starting with S in the pattern D000_S000.yaml
-        priority = config_path.name.split("_")[1][1:].replace(".yaml", "")
-        dimension_id = config_path.name.split("_")[0].replace("D", "")
+        dimension_id = re.search(r"(.+)_S\d+\.yaml", config_path.name).group(1)
+        priority = re.search(r".+_S(\d+)\.yaml", config_path.name).group(1)
         obj["priority"] = int(priority)
-        obj["dimension_id"] = int(dimension_id)
+        obj["dimension_id"] = dimension_id
         obj["config_file_name"] = config_path.name
 
         return ConversionPlan.model_validate(obj=obj)

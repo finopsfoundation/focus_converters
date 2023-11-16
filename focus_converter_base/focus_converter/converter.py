@@ -1,7 +1,7 @@
 import logging
 import os
 from operator import attrgetter
-from typing import Dict, List, Optional
+from typing import Dict, List, Optional, Tuple
 
 import polars as pl
 from pkg_resources import resource_filename
@@ -40,6 +40,9 @@ class FocusConverter:
 
     # converted column prefix to be added to converted columns
     __converted_column_prefix__: Optional[str] = None
+
+    # missing_column_plans = []
+    __missing_column_plans__: List[Tuple[str, ConversionPlan]] = []
 
     def __init__(self, column_prefix=None, converted_column_prefix=None):
         self.__temporary_columns__ = []
@@ -193,6 +196,18 @@ class FocusConverter:
                         column_validator=self.__column_validator__,
                     )
                 )
+            elif (
+                plan.conversion_type
+                == STATIC_CONVERSION_TYPES.APPLY_DEFAULT_IF_COLUMN_MISSING
+            ):
+                self.__missing_column_plans__.append((column_alias, plan))
+                column_exprs.append(
+                    ColumnFunctions.apply_default_if_column_missing(
+                        plan=plan,
+                        column_alias=column_alias,
+                        column_validator=self.__column_validator__,
+                    )
+                )
             else:
                 raise NotImplementedError(
                     f"Plan: {plan.conversion_type} not implemented"
@@ -265,6 +280,14 @@ class FocusConverter:
         # prepares lazyframe for the operations to be applied on the lazy loaded polars dataframe
         if self.__column_prefix__ is not None:
             lf = self.__re_map_source_columns__(lf=lf)
+
+        for column_alias, missing_column_plan in self.__missing_column_plans__:
+            if missing_column_plan.column not in lf.columns:
+                lf = lf.with_columns(pl.lit(None).alias(missing_column_plan.column))
+            else:
+                lf = lf.with_columns(
+                    pl.col(missing_column_plan.column).alias(missing_column_plan.column)
+                )
 
         # validate all source columns exist in the lazy frame
         self.__column_validator__.validate_lazy_frame_columns(lf=lf)

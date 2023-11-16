@@ -27,6 +27,9 @@ class STATIC_CONVERSION_TYPES(Enum):
     # allows setting static values
     ASSIGN_STATIC_VALUE = "static_value"
 
+    # apply default values if column not present
+    APPLY_DEFAULT_IF_COLUMN_MISSING = "apply_default_if_column_missing"
+
 
 __all__ = [
     "STATIC_CONVERSION_TYPES",

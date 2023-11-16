@@ -122,3 +122,12 @@ class ColumnFunctions:
         )
 
         return pl.lit(conversion_args.static_value).alias(column_alias)
+
+    @staticmethod
+    def apply_default_if_column_missing(
+        plan: ConversionPlan, column_alias, column_validator: ColumnValidator
+    ):
+        # TOTO: add option to set a default value instead of just NULL
+        column_validator.map_static_default_value_if_not_present(
+            plan=plan, column_alias=column_alias
+        )
