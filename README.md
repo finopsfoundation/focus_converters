@@ -60,6 +60,7 @@ This project is licensed under the terms of the MIT license.
 We're excited to work together. Please see [CONTRIBUTING.md] for information on how to get started.
 
 [CONTRIBUTING.md]: CONTRIBUTING.md
+[Install Poetry]: https://python-poetry.org/docs/#installation
 [FinOps-Open-Cost-and-Usage-Spec/FOCUS_Spec]: https://github.com/FinOps-Open-Cost-and-Usage-Spec/FOCUS_Spec
 [Amazon Web Services]: https://github.com/finopsfoundation/focus_converters/tree/master/focus_converter_base/conversion_configs/aws
 [Google Cloud]: https://github.com/finopsfoundation/focus_converters/tree/master/focus_converter_base/conversion_configs/gcp
