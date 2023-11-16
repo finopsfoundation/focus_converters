@@ -10,7 +10,7 @@ from focus_converter.converter import FocusConverter
 class TestAWSProvider(TestCase):
     def test_aws_provider_config(self):
         conversion_plan = ConversionPlan.load_yaml(
-            "focus_converter/conversion_configs/aws/D011_S001.yaml"
+            "focus_converter/conversion_configs/aws/provider_S001.yaml"
         )
 
         focus_converter = FocusConverter()
