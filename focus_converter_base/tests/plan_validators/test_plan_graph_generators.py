@@ -109,7 +109,7 @@ def test_lookup_plan(
         dimension_id=sample_dimension_id,
         conversion_args=LookupConversionArgs(
             destination_value="product_code",
-            reference_dataset_path="conversion_configs/aws/mapping_files/aws_catergory_mapping.csv",
+            reference_dataset_path="conversion_configs/aws/mapping_files/aws_category_mapping.csv",
             source_value="product_code",
         ),
     )

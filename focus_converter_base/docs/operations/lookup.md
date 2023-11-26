@@ -29,8 +29,8 @@ Here's an overview of each key-value pair in the YAML configuration:
 
 ## Steps to Create the Configuration
 
-1. **Prepare the Reference Dataset**: Ensure "aws_catergory_mapping.csv" is ready and accessible in the specified
-   path (`"conversion_configs/aws/mapping_files/aws_catergory_mapping.csv"`). This file should contain at least two
+1. **Prepare the Reference Dataset**: Ensure "aws_category_mapping.csv" is ready and accessible in the specified
+   path (`"conversion_configs/aws/mapping_files/aws_category_mapping.csv"`). This file should contain at least two
    columns: one for the AWS product code (`product_code`) and one for the corresponding AWS service
    category (`aws_category`).
 
@@ -40,7 +40,7 @@ column: line_item_product_code
 conversion_type: lookup
 focus_column: ServiceCategory
 conversion_args:
-    reference_dataset_path: "conversion_configs/aws/mapping_files/aws_catergory_mapping.csv"
+    reference_dataset_path: "conversion_configs/aws/mapping_files/aws_category_mapping.csv"
     source_value: product_code
     destination_value: aws_category
 ```
@@ -49,7 +49,7 @@ conversion_args:
 
 - **Invalid YAML Syntax**: YAML is sensitive to formatting and especially indentation. If you encounter syntax errors,
   double-check your indentations and ensure you're using spaces, not tabs.
-- **File Not Found Errors**: If the system reports that it cannot find "aws_catergory_mapping.csv," verify that
+- **File Not Found Errors**: If the system reports that it cannot find "aws_category_mapping.csv," verify that
   the `reference_dataset_path` is correct and the file is accessible.
 - **Incorrect Mappings**: If the `ServiceCategory` values don't seem to match what's expected, ensure that
-  the `source_value` and `destination_value` correctly correspond to the columns in "aws_catergory_mapping.csv".
+  the `source_value` and `destination_value` correctly correspond to the columns in "aws_category_mapping.csv".

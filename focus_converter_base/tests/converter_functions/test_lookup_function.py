@@ -169,7 +169,7 @@ class TestMappingFunction(TestCase):
         conversion_type: lookup
         focus_column: Region
         conversion_args:
-            reference_dataset_path: conversion_configs/aws/mapping_files/aws_catergory_mapping.csv
+            reference_dataset_path: conversion_configs/aws/mapping_files/aws_category_mapping.csv
             source_value: a
             destination_value: b
             reference_path_in_package: true
