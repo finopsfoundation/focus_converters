@@ -104,7 +104,7 @@ class ColumnFunctions:
 
         return (
             pl.col(plan.column)
-            .map_dict(map_dict, default=conversion_args.default_value)
+            .replace(map_dict, default=conversion_args.default_value)
             .alias(column_alias)
         )
 
