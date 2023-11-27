@@ -30,6 +30,9 @@ class STATIC_CONVERSION_TYPES(Enum):
     # apply default values if column not present
     APPLY_DEFAULT_IF_COLUMN_MISSING = "apply_default_if_column_missing"
 
+    # set column dtypes
+    SET_COLUMN_DTYPES = "set_column_dtypes"
+
 
 __all__ = [
     "STATIC_CONVERSION_TYPES",

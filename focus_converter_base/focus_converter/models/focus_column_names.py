@@ -8,8 +8,13 @@ class FocusColumnNames(Enum):
     Focus column names as described in https://focus.finops.org/#specification
     """
 
+    PLACE_HOLDER = "PlaceHolder"
+
     CHARGE_PERIOD_START = "ChargePeriodStart"
     CHARGE_PERIOD_END = "ChargePeriodEnd"
+    CHARGE_FREQUENCY = "ChargeFrequency"
+    CHARGE_SUB_CATEGORY = "ChargeSubcategory"
+    CHARGE_DESCRIPTION = "ChargeDescription"
 
     BILLING_PERIOD_START = "BillingPeriodStart"
     BILLING_PERIOD_END = "BillingPeriodEnd"
@@ -25,6 +30,7 @@ class FocusColumnNames(Enum):
     BILLED_COST = "BilledCost"
     BILLED_CURRENCY = "BilledCurrency"
     BILLING_CURRENCY = "BillingCurrency"
+    EFFECTIVE_COST = "EffectiveCost"
 
     REGION = "Region"
 
@@ -40,6 +46,22 @@ class FocusColumnNames(Enum):
 
     RESOURCE_NAME = "ResourceName"
     RESOURCE_ID = "ResourceId"
+
+    COMMITMENT_DISCOUNT_ID = "CommitmentDiscountId"
+    COMMITMENT_DISCOUNT_TYPE = "CommitmentDiscountType"
+    COMMITMENT_DISCOUNT_CATEGORY = "CommitmentDiscountCategory"
+
+    PRICING_QUANTITY = "PricingQuantity"
+    PRICING_UNIT = "PricingUnit"
+
+    SKU_ID = "SkuId"
+    SKU_PRICE_ID = "SkuPriceId"
+
+    LIST_UNIT_PRICE = "ListUnitPrice"
+    LIST_COST = "ListCost"
+
+    USAGE_QUANTITY = "UsageQuantity"
+    USAGE_UNIT = "UsageUnit"
 
 
 FOCUS_DATETIME_ISO_FORMAT = "%Y-%m-%dT%H:%M:%SZ"

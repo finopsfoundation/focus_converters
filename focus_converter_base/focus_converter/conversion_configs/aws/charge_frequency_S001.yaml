@@ -1,0 +1,13 @@
+plan_name: convert Bill/BillType to ChargeFrequency
+conversion_type: map_values
+conversion_args:
+    value_list:
+        - key: Refund
+          value: One-Time
+        - key: Purchase
+          value: One-Time
+        - key: Anniversary
+          value: Recurring
+    default_value: ""
+column: bill_bill_type
+focus_column: ChargeFrequency
