@@ -1,0 +1,4 @@
+plan_name: convert cost/myCost to EffectiveCost
+conversion_type: rename_column
+column: cost/myCost
+focus_column: EffectiveCost
