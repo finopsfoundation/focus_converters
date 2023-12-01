@@ -4,7 +4,7 @@
 
 - Basic knowledge of YAML syntax.
 - Access to the system or application that uses this configuration.
-- The reference dataset "aws_catergory_mapping.csv" should be available at the specified path.
+- The reference dataset "aws_category_mapping.csv" should be available at the specified path.
 
 #### Operation documentation examples
 
@@ -29,4 +29,4 @@
 
 #### Sample notebook showing the workflow of how to write conversion configs.
 
-Notebook [writing_config.ipnyb](notebooks/writing_configs.ipynb) 
+Notebook [writing_config.ipnyb](notebooks/writing_configs.ipynb)
