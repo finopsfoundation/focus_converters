@@ -49,7 +49,8 @@ cd focus_converter_base/
 poetry install --only main --no-root
 ```
 
-From here, you can use `python -m focus_converter.main` as a substitute for running the pre-installed `focus-converter` script, and test any changes in your copy of the repository.
+
+Before using `python -m focus_converter.main` as a substitute for the pre-installed `focus-converter` script and testing repository changes, ensure to run the `poetry shell` command to set up the environment correctly.
 
 ## License
 
