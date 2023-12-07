@@ -7,7 +7,7 @@ readme = "README.md"
 packages = [{ include = "focus_converter" }]
 
 [tool.poetry.dependencies]
-python = "^3.8.3"
+python = "^3.9"
 jupyterlab = "^4.0.5"
 polars = "^0.19.2"
 jupyter = "^1.0.0"
