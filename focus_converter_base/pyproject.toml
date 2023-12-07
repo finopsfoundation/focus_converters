@@ -24,6 +24,7 @@ tqdm = "^4.66.1"
 sqlglot = "^18.7.0"
 # TODO(joshk): Change this to ^1 after release of the validator.
 focus-spec-validator = ">=0.5.2.dev1,<0.6.0"
+pillow = "^10.1.0"
 
 
 [tool.poetry.group.dev.dependencies]
