@@ -7,7 +7,7 @@ readme = "README.md"
 packages = [{ include = "focus_converter" }]
 
 [tool.poetry.dependencies]
-python = "^3.8.3"
+python = "^3.9"
 jupyterlab = "^4.0.5"
 polars = "^0.19.2"
 jupyter = "^1.0.0"
@@ -24,6 +24,7 @@ tqdm = "^4.66.1"
 sqlglot = "^18.7.0"
 # TODO(joshk): Change this to ^1 after release of the validator.
 focus-spec-validator = ">=0.5.2.dev1,<0.6.0"
+pillow = "^10.1.0"
 
 
 [tool.poetry.group.dev.dependencies]

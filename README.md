@@ -42,14 +42,16 @@ Use `focus-converter list-providers` to see the other providers that are support
 
 1. Clone this repository.
 2. [Install Poetry] if you don't have it.
-3. Run the following shell snippet:
+3. [Install libmagic] if you don't have it.
+4. Run the following shell snippet:
 
 ```sh
 cd focus_converter_base/
 poetry install --only main --no-root
 ```
 
-From here, you can use `python -m focus_converter.main` as a substitute for running the pre-installed `focus-converter` script, and test any changes in your copy of the repository.
+
+Before using `python -m focus_converter.main` as a substitute for the pre-installed `focus-converter` script and testing repository changes, ensure to run the `poetry shell` command to set up the environment correctly.
 
 ## License
 
@@ -61,6 +63,7 @@ We're excited to work together. Please see [CONTRIBUTING.md] for information on 
 
 [CONTRIBUTING.md]: CONTRIBUTING.md
 [Install Poetry]: https://python-poetry.org/docs/#installation
+[Install libmagic]: https://formulae.brew.sh/formula/libmagic
 [FinOps-Open-Cost-and-Usage-Spec/FOCUS_Spec]: https://github.com/FinOps-Open-Cost-and-Usage-Spec/FOCUS_Spec
 [Amazon Web Services]: https://github.com/finopsfoundation/focus_converters/tree/master/focus_converter_base/conversion_configs/aws
 [Google Cloud]: https://github.com/finopsfoundation/focus_converters/tree/master/focus_converter_base/conversion_configs/gcp
