@@ -1,0 +1,4 @@
+plan_name: convert PublisherName to Publisher
+conversion_type: rename_column
+column: PublisherName
+focus_column: Publisher
