@@ -18,7 +18,7 @@ networkx = "^3.1"
 tqdm = "^4.66.1"
 sqlglot = "^18.7.0"
 # TODO(joshk): Change this to ^1 after release of the validator.
-focus-validator = "<0.6.0"
+focus-validator = "*"
 jinja2 = "^3.1.2"
 pillow = "^10.1.0"
 jupyterlab = {version = "^4.0.9", optional = true}
