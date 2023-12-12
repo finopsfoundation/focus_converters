@@ -1,0 +1,9 @@
+# fails if the column is not present, TODO: add a default value
+plan_name: convert ReservationARN/SavingsPlanArn to CommitmentDiscountId
+conversion_type: sql_condition
+conversion_args:
+    conditions:
+        - WHEN "savingsPlan/SavingsPlanARN" is not null THEN "savingsPlan/SavingsPlanARN"
+    default_value: '"reservation/ReservationARN"'
+column: NA
+focus_column: CommitmentDiscountId

@@ -1,0 +1,4 @@
+plan_name: convert Pricing/PricingUnit to PricingUnit
+conversion_type: rename_column
+column: pricing/unit
+focus_column: PricingUnit
