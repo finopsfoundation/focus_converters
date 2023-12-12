@@ -13,15 +13,22 @@ on:
 
 jobs:
   test:
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: true
       matrix:
-        python-version: [ "3.8", "3.9", "3.10", "3.11" ]
+        python-version: [ "3.9", "3.10", "3.11", "3.12" ]
+        os: [ windows-latest, ubuntu-latest, macos-latest ]
     steps:
       - uses: actions/checkout@v3
-      - name: Copy converter_base to current director
-        run: mv focus_converter_base/* ./
+      - name: Copy converter_base to current directory Windows
+        if: ${{ matrix.os == 'windows-latest' }}
+        run: |
+          xcopy /E /I /Y focus_converter_base\* .\
+      - name: Copy converter_base to current directory Linux, MacOS
+        if: ${{ matrix.os != 'windows-latest' }}
+        run: |
+          cp -r focus_converter_base/* ./
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v4
         with:
@@ -37,10 +44,13 @@ jobs:
         name: Define a cache for the virtual environment based on the dependencies lock file
         with:
           path: ./.venv
-          key: venv-${{ hashFiles('poetry.lock') }}-${{ matrix.python-version }}
+          key: venv-${{ hashFiles('poetry.lock') }}-${{ matrix.os }}-${{ matrix.python-version }}
       - name: Install dependencies
         run: |
           poetry install
       - name: Test with pytest
         run: |
+          python --version
+          poetry run which python
+          poetry run python --version
           poetry run python -m focus_converter.main list-providers

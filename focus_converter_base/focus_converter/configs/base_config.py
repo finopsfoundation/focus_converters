@@ -94,7 +94,7 @@ class SetColumnDTypesConversionArgs(BaseModel):
     dtype_args: List[DTypeConversionArg]
 
 
-CONFIG_FILE_PATTERN = re.compile("(.+)_S\d{3}.yaml")
+CONFIG_FILE_PATTERN = re.compile("(.+)_S[0-9]{3}.yaml")
 
 
 class ConversionPlan(BaseModel):

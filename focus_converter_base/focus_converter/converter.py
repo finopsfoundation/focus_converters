@@ -1,10 +1,10 @@
+import importlib.resources
 import logging
 import os
 from operator import attrgetter
 from typing import Dict, List, Optional
 
 import polars as pl
-from pkg_resources import resource_filename
 
 from focus_converter.configs.base_config import ConversionPlan
 from focus_converter.conversion_functions import STATIC_CONVERSION_TYPES
@@ -23,7 +23,11 @@ from focus_converter.data_loaders.data_loader import DataLoader
 from focus_converter.models.focus_column_names import FocusColumnNames
 
 # TODO: Make this path configurable so that we can load from a directory outside of the project
-BASE_CONVERSION_CONFIGS = resource_filename("focus_converter", "conversion_configs")
+BASE_CONVERSION_CONFIGS = (
+    importlib.resources.files("focus_converter")
+    .joinpath("conversion_configs")
+    .as_posix()
+)
 
 
 class FocusConverter:

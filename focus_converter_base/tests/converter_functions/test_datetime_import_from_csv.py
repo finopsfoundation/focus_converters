@@ -1,3 +1,4 @@
+import os
 import tempfile
 from unittest import TestCase
 
@@ -28,9 +29,10 @@ class TestDatetimeImportFromCSV(TestCase):
             ]
         )
 
-        with tempfile.NamedTemporaryFile(suffix=".csv") as temp_file:
-            test_df.to_csv(temp_file.name, index=False)
-            loaded_df = pd.read_csv(temp_file.name, parse_dates=["date_column"])
+        with tempfile.TemporaryDirectory() as temp_dir:
+            temp_file = os.path.join(temp_dir, "test.csv")
+            test_df.to_csv(temp_file, index=False)
+            loaded_df = pd.read_csv(temp_file, parse_dates=["date_column"])
 
         self.assertEqual(loaded_df["date_column"].dtype, "datetime64[ns, UTC]")
 
@@ -46,11 +48,12 @@ class TestDatetimeImportFromCSV(TestCase):
             ]
         )
 
-        with tempfile.NamedTemporaryFile(suffix=".csv") as temp_file:
-            test_df.to_csv(temp_file.name, index=False)
+        with tempfile.TemporaryDirectory() as temp_dir:
+            temp_file = os.path.join(temp_dir, "test.csv")
+            test_df.to_csv(temp_file, index=False)
 
             data_loader = DataLoader(
-                data_path=temp_file.name,
+                data_path=temp_file,
                 data_format=DataFormats.CSV,
                 parquet_data_format=ParquetDataFormat.FILE,
             )

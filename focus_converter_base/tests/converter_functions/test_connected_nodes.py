@@ -1,3 +1,4 @@
+import os
 import re
 import tempfile
 from unittest import TestCase
@@ -32,14 +33,15 @@ class TestConnectedNodes(TestCase):
     def test_columns_check(self):
         lazy_frame = pl.DataFrame({"a": [1, 2, 3], "b": [1, 2, 3]}).lazy()
 
-        with tempfile.NamedTemporaryFile() as file:
-            lazy_frame.collect().write_parquet(file.name)
+        with tempfile.TemporaryDirectory() as temp_dir:
+            temp_file = os.path.join(temp_dir, "test.parquet")
+            lazy_frame.collect().write_parquet(temp_file)
 
             converter = FocusConverter(column_prefix=None)
             converter.load_provider_conversion_configs()
             converter.prepare_horizontal_conversion_plan(provider="gcp")
             converter.load_data(
-                data_path=file.name,
+                data_path=temp_file,
                 data_format=DataFormats.PARQUET,
                 parquet_data_format=ParquetDataFormat.DATASET,
             )
