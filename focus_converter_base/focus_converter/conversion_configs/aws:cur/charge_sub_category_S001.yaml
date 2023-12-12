@@ -1,0 +1,15 @@
+plan_name: convert lineItem/NetUnblendedCost, lineItem/UnblendedCost to BilledCost
+conversion_type: sql_condition
+conversion_args:
+    conditions:
+        - WHEN ChargeType = 'Usage' AND "savingsPlan/SavingsPlanARN" is not null OR "reservation/ReservationARN" is not null THEN 'Used Commitment'
+        - WHEN ChargeType = 'Usage' THEN 'On-Demand'
+        - WHEN ChargeType = 'Adjustment' AND "lineItem/LineItemDescription" = 'BundledDiscount' THEN 'Credit'
+        - WHEN ChargeType = 'Adjustment' AND "lineItem/LineItemDescription" = 'Credit' THEN 'Credit'
+        - WHEN ChargeType = 'Adjustment' AND "lineItem/LineItemDescription" = 'Discount' THEN 'Credit'
+        - WHEN ChargeType = 'Adjustment' AND "lineItem/LineItemDescription" = 'DiscountedUsage' THEN 'Credit'
+        - WHEN ChargeType = 'Adjustment' AND "lineItem/LineItemDescription" = 'Refund' THEN 'Refund'
+        - WHEN ChargeType = 'Adjustment' THEN 'General Adjustment'
+    default_value: "NULL"
+column: NA
+focus_column: ChargeSubcategory

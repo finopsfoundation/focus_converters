@@ -1,0 +1,8 @@
+plan_name: convert Pricing/publicOnDemandCost to ListCost
+conversion_type: sql_condition
+conversion_args:
+    conditions:
+        - WHEN "pricing/publicOnDemandRate" is not null THEN "pricing/publicOnDemandRate" * "lineItem/UsageAmount"
+    default_value: '"pricing/publicOnDemandCost"'
+column: NA
+focus_column: ListCost

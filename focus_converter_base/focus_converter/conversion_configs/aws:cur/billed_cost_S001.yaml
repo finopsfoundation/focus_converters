@@ -1,0 +1,8 @@
+plan_name: convert lineItem/NetUnblendedCost, lineItem/UnblendedCost to BilledCost
+conversion_type: sql_condition
+conversion_args:
+    conditions:
+        - WHEN "lineItem/NetUnblendedCost"  is not null THEN "lineItem/NetUnblendedCost"
+    default_value: '"lineItem/UnblendedCost"'
+column: NA
+focus_column: BilledCost

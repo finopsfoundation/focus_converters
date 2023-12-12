@@ -1,0 +1,18 @@
+plan_name: conversion plan for EffectiveCost
+conversion_type: sql_query
+conversion_args: >
+    SELECT
+    *,
+    CASE
+        WHEN ("lineItem/LineItemType" = 'SavingsPlanCoveredUsage') THEN "savingsPlan/SavingsPlanEffectiveCost"
+        WHEN ("lineItem/LineItemType" = 'SavingsPlanRecurringFee') THEN ("savingsPlan/TotalCommitmentToDate" - "savingsPlan/UsedCommitment")
+        WHEN ("lineItem/LineItemType" = 'SavingsPlanNegation') THEN 0
+        WHEN ("lineItem/LineItemType" = 'SavingsPlanUpfrontFee') THEN 0
+        WHEN ("lineItem/LineItemType" = 'DiscountedUsage') THEN "reservation/EffectiveCost"
+        WHEN ("lineItem/LineItemType" = 'RIFee') THEN ("reservation/UnusedAmortizedUpfrontFeeForBillingPeriod" + "reservation/UnusedRecurringFee")
+        WHEN (("lineItem/LineItemType" = 'Fee') AND ("reservation/ReservationARN" <> '')) THEN 0
+        ELSE "lineItem/UnblendedCost"
+    END AS EffectiveCost
+    FROM {{ TABLE_NAME }}
+column: NA
+focus_column: EffectiveCost

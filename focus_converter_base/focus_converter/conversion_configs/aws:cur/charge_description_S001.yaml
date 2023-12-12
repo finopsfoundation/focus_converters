@@ -1,0 +1,4 @@
+plan_name: convert lineItem/LineItemDescription to ChargeDescription
+conversion_type: rename_column
+column: lineItem/LineItemDescription
+focus_column: ChargeDescription

@@ -1,0 +1,8 @@
+plan_name: convert LineItem/UsageAmount to PricingQuantity
+conversion_type: sql_condition
+conversion_args:
+    conditions:
+        - WHEN "reservation/TotalReservedUnits" is not null THEN "reservation/TotalReservedUnits"
+    default_value: '"lineItem/UsageAmount"'
+column: lineItem/UsageAmount
+focus_column: PricingQuantity

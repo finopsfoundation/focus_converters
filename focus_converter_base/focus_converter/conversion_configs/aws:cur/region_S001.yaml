@@ -1,0 +1,4 @@
+plan_name: convert product_region to Region
+conversion_type: rename_column
+column: product/region
+focus_column: Region
