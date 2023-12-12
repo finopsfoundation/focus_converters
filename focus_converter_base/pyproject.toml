@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "focus_converters"
+name = "focus_converter"
 version = "0.7.1-dev1"
 description = ""
 authors = ["Varun Mittal <varunmittal91@gmail.com>"]
