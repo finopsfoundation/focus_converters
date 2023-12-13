@@ -18,3 +18,5 @@ conversion_args:
             dtype: float
         -   column_name: pricing_public_on_demand_rate
             dtype: float
+        -   column_name: line_item_resource_id
+            dtype: string
