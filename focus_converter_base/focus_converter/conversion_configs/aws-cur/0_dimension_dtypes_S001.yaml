@@ -18,3 +18,5 @@ conversion_args:
             dtype: float
         -   column_name: pricing/publicOnDemandRate
             dtype: float
+        -   column_name: lineItem/ResourceId
+            dtype: string
