@@ -9,7 +9,7 @@ from focus_converter.data_loaders.data_loader import DataFormats
 class TestAWSSampleCSV(TestCase):
     def test_sample_csv_dataset(self):
         with tempfile.TemporaryDirectory() as temp_dir:
-            export_path = pathlib.Path(temp_dir) / "azure_sample_csv_dataset"
+            export_path = pathlib.Path(temp_dir) / "aws_sample_csv_dataset"
 
             converter = FocusConverter(
                 column_prefix=None  # Optional column prefix if needed else can be set to None
