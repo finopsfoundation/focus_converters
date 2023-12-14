@@ -86,7 +86,7 @@ class MissingColumnDType(BaseModel):
 
 class DTypeConversionArg(BaseModel):
     column_name: str
-    dtype: Literal["string", "float", "int"]
+    dtype: Literal["string", "float", "int", "datetime", "date"]
     strict: bool = False
 
 

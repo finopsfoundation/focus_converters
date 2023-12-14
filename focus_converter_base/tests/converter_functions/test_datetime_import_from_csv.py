@@ -3,7 +3,7 @@ import tempfile
 from unittest import TestCase
 
 import pandas as pd
-from polars import Datetime
+import polars as pl
 
 from focus_converter.data_loaders.data_loader import (
     DataFormats,
@@ -60,5 +60,5 @@ class TestDatetimeImportFromCSV(TestCase):
             lazy_frame = list(data_loader.load_csv())[0]
             self.assertEqual(
                 lazy_frame.collect()["date_column"].dtype,
-                Datetime(time_unit="us", time_zone="UTC"),
+                pl.Utf8,
             )
