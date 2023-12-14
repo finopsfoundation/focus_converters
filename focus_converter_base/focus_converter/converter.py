@@ -49,9 +49,6 @@ class FocusConverter:
     # converted column prefix to be added to converted columns
     __converted_column_prefix__: Optional[str] = None
 
-    # deferred column plans, these plans are applied after lazyframe is loaded
-    __deferred_column_plans__ = DeferredColumnFunctions()
-
     def __init__(self, column_prefix=None, converted_column_prefix=None):
         self.__temporary_columns__ = []
         self.__column_prefix__ = column_prefix
@@ -59,6 +56,10 @@ class FocusConverter:
 
         # ColumnValidator, used to validate column names in sql queries and transformations
         self.__column_validator__ = ColumnValidator()
+        self.plans = {}
+
+        # deferred column plans, these plans are applied after lazyframe is loaded
+        self.__deferred_column_plans__ = DeferredColumnFunctions()
 
     def load_provider_conversion_configs(self):
         plans = {}

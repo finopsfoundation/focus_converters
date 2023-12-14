@@ -33,6 +33,10 @@ class DeferredColumnFunctions:
             return pl.Float64
         elif focus_data_type == "int":
             return pl.Int64
+        elif focus_data_type == "datetime":
+            return pl.Datetime
+        elif focus_data_type == "date":
+            return pl.Date
         else:
             raise RuntimeError(f"data_type: {focus_data_type} not implemented")
 
@@ -91,10 +95,41 @@ class DeferredColumnFunctions:
                         .alias(column_obj.column_name)
                     )
                 else:
-                    lf = lf.with_columns(
-                        pl.col(column_obj.column_name).cast(
-                            self.convert_focus_data_type_polars_dtype(column_obj.dtype),
-                            strict=False,
-                        )
+                    # check if the column is i64 for the cast to work else fail, at the point the column
+                    # should be used with datetime parser plan.
+                    cast_type = self.convert_focus_data_type_polars_dtype(
+                        column_obj.dtype
                     )
+                    if cast_type in [pl.Datetime, pl.Date]:
+                        if lf.schema[column_obj.column_name] in [pl.Datetime, pl.Date]:
+                            # ignore if the column is already of type datetime/date
+                            pass
+                        elif lf.schema[column_obj.column_name] == pl.Utf8:
+                            if cast_type == pl.Datetime:
+                                lf = lf.with_columns(
+                                    pl.col(column_obj.column_name).str.to_datetime()
+                                )
+                            else:
+                                lf = lf.with_columns(
+                                    pl.col(column_obj.column_name).str.to_date()
+                                )
+                        else:
+                            # possibly a timestamp column
+                            lf = lf.with_columns(
+                                pl.col(column_obj.column_name).cast(
+                                    self.convert_focus_data_type_polars_dtype(
+                                        column_obj.dtype
+                                    ),
+                                    strict=True,
+                                )
+                            )
+                    else:
+                        lf = lf.with_columns(
+                            pl.col(column_obj.column_name).cast(
+                                self.convert_focus_data_type_polars_dtype(
+                                    column_obj.dtype
+                                ),
+                                strict=False,
+                            )
+                        )
         return lf

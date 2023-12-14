@@ -30,7 +30,7 @@ class DataLoader:
         self,
         data_path: str,
         data_format: DataFormats,
-        parquet_data_format: ParquetDataFormat,
+        parquet_data_format: ParquetDataFormat = None,
     ):
         self.__data_path__ = data_path
         self.__data_format__ = data_format
@@ -62,7 +62,7 @@ class DataLoader:
         # reads csv from data path and returns a lazy object
 
         yield pl.read_csv(
-            self.__data_path__, try_parse_dates=True, ignore_errors=True
+            self.__data_path__, try_parse_dates=False, ignore_errors=True
         ).lazy()
 
     def data_scanner(self) -> Iterable[pl.LazyFrame]:

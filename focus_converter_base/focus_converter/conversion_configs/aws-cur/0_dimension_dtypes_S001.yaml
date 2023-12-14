@@ -20,3 +20,11 @@ conversion_args:
             dtype: float
         -   column_name: lineItem/ResourceId
             dtype: string
+        -   column_name: bill/BillingPeriodStartDate
+            dtype: datetime
+        -   column_name: bill/BillingPeriodEndDate
+            dtype: datetime
+        -   column_name: lineItem/UsageEndDate
+            dtype: datetime
+        -   column_name: lineItem/UsageStartDate
+            dtype: datetime
