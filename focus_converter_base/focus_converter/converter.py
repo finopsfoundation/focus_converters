@@ -145,6 +145,22 @@ class FocusConverter:
                         column_validator=self.__column_validator__,
                     )
                 )
+            elif plan.conversion_type == STATIC_CONVERSION_TYPES.MONTH_START:
+                column_exprs.append(
+                    DateTimeConversionFunctions.month_start(
+                        plan=plan,
+                        column_alias=column_alias,
+                        column_validator=self.__column_validator__,
+                    )
+                )
+            elif plan.conversion_type == STATIC_CONVERSION_TYPES.MONTH_END:
+                column_exprs.append(
+                    DateTimeConversionFunctions.month_end(
+                        plan=plan,
+                        column_alias=column_alias,
+                        column_validator=self.__column_validator__,
+                    )
+                )
             elif plan.conversion_type == STATIC_CONVERSION_TYPES.RENAME_COLUMN:
                 column_exprs.append(
                     ColumnFunctions.rename_column_functions(

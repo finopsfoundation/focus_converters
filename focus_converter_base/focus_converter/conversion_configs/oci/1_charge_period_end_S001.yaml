@@ -1,0 +1,4 @@
+plan_name: Rename lineItem/intervalUsageEnd to ChargePeriodEnd
+conversion_type: rename_column
+column: lineItem/intervalUsageEnd
+focus_column: ChargePeriodEnd

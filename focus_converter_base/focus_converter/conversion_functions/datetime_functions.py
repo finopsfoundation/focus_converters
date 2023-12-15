@@ -60,3 +60,21 @@ class DateTimeConversionFunctions:
             .dt.cast_time_unit("ms")
             .alias(column_alias)
         )
+
+    @staticmethod
+    def month_start(
+        plan: ConversionPlan, column_alias, column_validator: ColumnValidator
+    ) -> pl.col:
+        # add to column validator and check if source column exists
+        column_validator.map_non_sql_plan(plan=plan, column_alias=column_alias)
+
+        return pl.col(plan.column).dt.date().dt.month_start().alias(column_alias)
+
+    @staticmethod
+    def month_end(
+        plan: ConversionPlan, column_alias, column_validator: ColumnValidator
+    ) -> pl.col:
+        # add to column validator and check if source column exists
+        column_validator.map_non_sql_plan(plan=plan, column_alias=column_alias)
+
+        return pl.col(plan.column).dt.date().dt.month_end().alias(column_alias)

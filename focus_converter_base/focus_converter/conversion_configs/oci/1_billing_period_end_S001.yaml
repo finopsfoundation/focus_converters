@@ -1,0 +1,4 @@
+plan_name: Get month start using lineItem/intervalUsageStart
+conversion_type: month_end
+column: lineItem/intervalUsageEnd
+focus_column: BillingPeriodEnd
