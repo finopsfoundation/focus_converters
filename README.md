@@ -20,6 +20,16 @@ The converter is optimized for:
 
 Want to add your own? See [CONTRIBUTING.md]
 
+## Conversion Rules
+
+The conversion rules are defined in YAML files in the `conversion_configs` directory. Each file contains a list of
+conversion rules, which are applied in order.
+
+Rules are also exported per provider in the following directories based on format:
+
+* **Markdown**: [Rules Export Markdown]
+* **CSV**: [Rules Export CSV]
+
 ## Installation
 
 The FOCUS converter supports Python 3.9 and above. If you meet these requirements, you can install with pip:
@@ -50,8 +60,8 @@ cd focus_converter_base/
 poetry install --only main --no-root
 ```
 
-
-Before using `python -m focus_converter.main` as a substitute for the pre-installed `focus-converter` script and testing repository changes, ensure to run the `poetry shell` command to set up the environment correctly.
+Before using `python -m focus_converter.main` as a substitute for the pre-installed `focus-converter` script and testing
+repository changes, ensure to run the `poetry shell` command to set up the environment correctly.
 
 ## License
 
@@ -62,10 +72,21 @@ This project is licensed under the terms of the MIT license.
 We're excited to work together. Please see [CONTRIBUTING.md] for information on how to get started.
 
 [CONTRIBUTING.md]: CONTRIBUTING.md
+
 [Install Poetry]: https://python-poetry.org/docs/#installation
+
 [Install libmagic]: https://formulae.brew.sh/formula/libmagic
+
 [FinOps-Open-Cost-and-Usage-Spec/FOCUS_Spec]: https://github.com/FinOps-Open-Cost-and-Usage-Spec/FOCUS_Spec
-[Amazon Web Services]: https://github.com/finopsfoundation/focus_converters/tree/master/focus_converter_base/conversion_configs/aws
-[Google Cloud]: https://github.com/finopsfoundation/focus_converters/tree/master/focus_converter_base/conversion_configs/gcp
-[Microsoft Azure]: https://github.com/finopsfoundation/focus_converters/tree/master/focus_converter_base/conversion_configs/azure
-[Oracle Cloud]: https://github.com/finopsfoundation/focus_converters/tree/master/focus_converter_base/conversion_configs/oci
+
+[Amazon Web Services]: https://github.com/finopsfoundation/focus_converters/tree/master/focus_converter_base/focus_converter/conversion_configs/aws
+
+[Google Cloud]: https://github.com/finopsfoundation/focus_converters/tree/master/focus_converter_base/focus_converter/conversion_configs/gcp
+
+[Microsoft Azure]: https://github.com/finopsfoundation/focus_converters/tree/master/focus_converter_base/focus_converter/conversion_configs/azure
+
+[Oracle Cloud]: https://github.com/finopsfoundation/focus_converters/tree/master/focus_converter_base/focus_converter/conversion_configs/oci
+
+[Rules Export Markdown]: https://github.com/finopsfoundation/focus_converters/tree/master/conversion_rules_export/markdown
+
+[Rules Export CSV]: https://github.com/finopsfoundation/focus_converters/tree/master/conversion_rules_export/csv

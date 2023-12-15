@@ -49,3 +49,4 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poetry.scripts]
 focus-converter = "focus_converter.main:app"
+focus-export-conversion-rules = "focus_converter.utils.export_conversion_rules:app"
