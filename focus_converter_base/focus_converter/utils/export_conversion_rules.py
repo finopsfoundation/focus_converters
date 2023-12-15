@@ -1,9 +1,8 @@
 from enum import Enum
-from typing import Annotated
+from typing import Annotated, Literal
 
 import pandas as pd
 import typer
-from typing import Literal
 import yaml
 
 from focus_converter.configs.base_config import (
