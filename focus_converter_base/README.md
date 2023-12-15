@@ -27,8 +27,8 @@ conversion rules, which are applied in order.
 
 Rules are also exported per provider in the following directories based on format:
 
-* **Markdown**: [RULES Export Markdown]
-* **CSV**: [RULES Export CSV]
+* **Markdown**: [Rules Export Markdown]
+* **CSV**: [Rules Export CSV]
 
 ## Installation
 
