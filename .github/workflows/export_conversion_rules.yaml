@@ -5,11 +5,6 @@ on:
       - main
       - dev
       - issue/**
-      - add-utils-compile-status
-  pull_request:
-    branches:
-      - main
-      - dev
 
 jobs:
   build:
