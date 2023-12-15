@@ -7,6 +7,8 @@ class STATIC_CONVERSION_TYPES(Enum):
     ASSIGN_TIMEZONE = "assign_timezone"
     ASSIGN_UTC_TIMEZONE = "assign_utc_timezone"
     PARSE_DATETIME = "parse_datetime"
+    MONTH_START = "month_start"
+    MONTH_END = "month_end"
 
     # sql rule functions
     SQL_QUERY = "sql_query"
