@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "focus_converter"
-version = "0.7.1-dev2"
+version = "0.7.1-dev3"
 description = ""
 authors = ["Varun Mittal <varunmittal91@gmail.com>"]
 readme = "README.md"
