@@ -28,3 +28,5 @@ conversion_args:
             dtype: datetime
         -   column_name: lineItem/UsageStartDate
             dtype: datetime
+        -   column_name: bill/PayerAccountId
+            dtype: string
