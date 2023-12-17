@@ -22,7 +22,7 @@ BilledCost,1,NA,Not Defined,SQL_CONDITION,"conditions:
 - WHEN ""lineItem/NetUnblendedCost""  is not null THEN ""lineItem/NetUnblendedCost""
 default_value: '""lineItem/UnblendedCost""'
 "
-BillingAccountId,1,bill/PayerAccountId,Not Defined,RENAME_COLUMN,
+BillingAccountId,1,bill/PayerAccountId,string,RENAME_COLUMN,
 BillingCurrency,1,lineItem/CurrencyCode,Not Defined,RENAME_COLUMN,
 BillingPeriodEnd,1,bill/BillingPeriodEndDate,datetime,ASSIGN_UTC_TIMEZONE,
 BillingPeriodStart,1,bill/BillingPeriodStartDate,datetime,ASSIGN_UTC_TIMEZONE,
