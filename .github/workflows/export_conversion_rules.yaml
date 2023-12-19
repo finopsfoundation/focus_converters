@@ -15,7 +15,6 @@ jobs:
       - name: Copy converter_base to current directory Linux, MacOS
         run: |
           cp -r focus_converter_base/* ./
-
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v4
       - name: Install poetry
