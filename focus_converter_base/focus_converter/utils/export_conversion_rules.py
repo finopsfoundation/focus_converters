@@ -115,7 +115,10 @@ def export_conversion_rules(
                 )
 
         # sort rows by transform step and focus dimension
-        rows = sorted(rows, key=lambda x: (x["Transform Step"], x["FOCUS Dimension"]))
+        rows = sorted(
+            rows,
+            key=lambda x: (x["Transform Step"] > 0, x["FOCUS Dimension"]),
+        )
 
         df = pd.DataFrame(rows)
         if output_format == ReportFormats.CSV:
