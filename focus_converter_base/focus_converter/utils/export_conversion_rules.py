@@ -5,12 +5,10 @@ import pandas as pd
 import typer
 import yaml
 
-from focus_converter.configs.base_config import (
-    ConversionPlan,
-    SQLConditionConversionArgs,
-)
+from focus_converter.configs.base_config import ConversionPlan
 from focus_converter.conversion_functions import STATIC_CONVERSION_TYPES
 from focus_converter.converter import FocusConverter
+from focus_converter.models.focus_column_names import FocusColumnNames
 
 app = typer.Typer(name="FOCUS export conversion rules", add_completion=False)
 
@@ -50,10 +48,8 @@ def export_conversion_rules(
             ):
                 source_column_dtypes[plan.column] = plan.conversion_args["data_type"]
             elif plan.conversion_type == STATIC_CONVERSION_TYPES.SET_COLUMN_DTYPES:
-                print(plan.conversion_args)
                 for dtype_arg in plan.conversion_args["dtype_args"]:
                     source_column_dtypes[dtype_arg["column_name"]] = dtype_arg["dtype"]
-        print(source_column_dtypes)
 
         plan: ConversionPlan
         for i, plan in enumerate(plans):
@@ -97,6 +93,29 @@ def export_conversion_rules(
                     "Filters/Process/Etc.": formatted_conversion_args,
                 }
             )
+
+        # add missing output columns plan
+        for focus_column in FocusColumnNames:
+            if (
+                focus_column not in transform_step_counter
+                and focus_column != FocusColumnNames.PLACE_HOLDER
+            ):
+                rows.append(
+                    {
+                        "FOCUS Dimension": focus_column.value,
+                        "Transform Step": 0,
+                        "Source Column": "Not Defined",
+                        "Source Column Type": "Not Defined",
+                        "Transform Type": "Not Defined",
+                        "Filters/Process/Etc.": "Not Defined",
+                    }
+                )
+
+        # sort rows by transform step and focus dimension
+        rows = sorted(
+            rows,
+            key=lambda x: (x["Transform Step"] > 0, x["FOCUS Dimension"]),
+        )
 
         df = pd.DataFrame(rows)
         if output_format == ReportFormats.CSV:

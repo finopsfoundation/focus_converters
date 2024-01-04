@@ -1,30 +1,50 @@
 FOCUS Dimension,Transform Step,Source Column,Source Column Type,Transform Type,Filters/Process/Etc.
-ServiceName,1,ConsumedService,Not Defined,RENAME_COLUMN,
-ChargePeriodStart,1,BillingPeriodStartDate,Not Defined,PARSE_DATETIME,%m/%d/%Y
+AvailabilityZone,0,Not Defined,Not Defined,Not Defined,Not Defined
+BilledCurrency,0,Not Defined,Not Defined,Not Defined,Not Defined
+ChargeDescription,0,Not Defined,Not Defined,Not Defined,Not Defined
+ChargeFrequency,0,Not Defined,Not Defined,Not Defined,Not Defined
+ChargeSubcategory,0,Not Defined,Not Defined,Not Defined,Not Defined
+ChargeType,0,Not Defined,Not Defined,Not Defined,Not Defined
+CommitmentDiscountCategory,0,Not Defined,Not Defined,Not Defined,Not Defined
+CommitmentDiscountId,0,Not Defined,Not Defined,Not Defined,Not Defined
+CommitmentDiscountType,0,Not Defined,Not Defined,Not Defined,Not Defined
+EffectiveCost,0,Not Defined,Not Defined,Not Defined,Not Defined
+InvoiceIssuer,0,Not Defined,Not Defined,Not Defined,Not Defined
+ListCost,0,Not Defined,Not Defined,Not Defined,Not Defined
+ListUnitPrice,0,Not Defined,Not Defined,Not Defined,Not Defined
+PricingQuantity,0,Not Defined,Not Defined,Not Defined,Not Defined
+PricingUnit,0,Not Defined,Not Defined,Not Defined,Not Defined
+ResourceId,0,Not Defined,Not Defined,Not Defined,Not Defined
+SkuId,0,Not Defined,Not Defined,Not Defined,Not Defined
+SkuPriceId,0,Not Defined,Not Defined,Not Defined,Not Defined
+UsageQuantity,0,Not Defined,Not Defined,Not Defined,Not Defined
+UsageUnit,0,Not Defined,Not Defined,Not Defined,Not Defined
+BilledCost,1,CostInBillingCurrency,Not Defined,RENAME_COLUMN,
+BillingAccountId,1,BillingAccountId,Not Defined,RENAME_COLUMN,
+BillingAccountName,1,BillingAccountName,Not Defined,RENAME_COLUMN,
+BillingCurrency,1,BillingCurrencyCode,Not Defined,RENAME_COLUMN,
+BillingCurrency,2,BillingCurrencyCode,Not Defined,RENAME_COLUMN,
+BillingPeriodEnd,1,BillingPeriodEndDate,Not Defined,PARSE_DATETIME,%m/%d/%Y
+BillingPeriodEnd,2,BillingPeriodEnd,Not Defined,ASSIGN_UTC_TIMEZONE,
+BillingPeriodEnd,3,BillingPeriodEnd,Not Defined,RENAME_COLUMN,
 BillingPeriodStart,1,BillingPeriodStartDate,Not Defined,PARSE_DATETIME,%m/%d/%Y
 BillingPeriodStart,2,BillingPeriodStart,Not Defined,ASSIGN_UTC_TIMEZONE,
 BillingPeriodStart,3,BillingPeriodStart,Not Defined,RENAME_COLUMN,
 ChargePeriodEnd,1,Date,Not Defined,PARSE_DATETIME,%m/%d/%Y
 ChargePeriodEnd,2,ChargePeriodEnd,Not Defined,ASSIGN_UTC_TIMEZONE,
 ChargePeriodEnd,3,ChargePeriodEnd,Not Defined,RENAME_COLUMN,
-BillingPeriodEnd,1,BillingPeriodEndDate,Not Defined,PARSE_DATETIME,%m/%d/%Y
-BillingPeriodEnd,2,BillingPeriodEnd,Not Defined,ASSIGN_UTC_TIMEZONE,
-BillingPeriodEnd,3,BillingPeriodEnd,Not Defined,RENAME_COLUMN,
-Region,1,ResourceLocation,Not Defined,RENAME_COLUMN,
-SubAccountName,1,SubscriptionName,Not Defined,RENAME_COLUMN,
-BillingCurrency,1,BillingCurrencyCode,Not Defined,RENAME_COLUMN,
-SubAccountId,1,SubscriptionId,Not Defined,RENAME_COLUMN,
+ChargePeriodStart,1,BillingPeriodStartDate,Not Defined,PARSE_DATETIME,%m/%d/%Y
+ChargePeriodStart,2,ChargePeriodStart,Not Defined,ASSIGN_UTC_TIMEZONE,
+ChargePeriodStart,3,BillingPeriodStart,Not Defined,RENAME_COLUMN,
 Provider,1,NA,Not Defined,ASSIGN_STATIC_VALUE,"static_value: Azure
 "
+Publisher,1,PublisherName,Not Defined,RENAME_COLUMN,
+Region,1,ResourceLocation,Not Defined,RENAME_COLUMN,
+ResourceName,1,ResourceName,Not Defined,RENAME_COLUMN,
 ServiceCategory,1,ConsumedService,Not Defined,LOOKUP,"destination_value: ServiceCategory
 reference_dataset_path: conversion_configs/azure/mapping_files/azure_category_mapping.csv
 source_value: ConsumedService
 "
-BillingCurrency,2,BillingCurrencyCode,Not Defined,RENAME_COLUMN,
-ResourceName,1,ResourceName,Not Defined,RENAME_COLUMN,
-BillingAccountName,1,BillingAccountName,Not Defined,RENAME_COLUMN,
-BillingAccountId,1,BillingAccountId,Not Defined,RENAME_COLUMN,
-BilledCost,1,CostInBillingCurrency,Not Defined,RENAME_COLUMN,
-Publisher,1,PublisherName,Not Defined,RENAME_COLUMN,
-ChargePeriodStart,2,ChargePeriodStart,Not Defined,ASSIGN_UTC_TIMEZONE,
-ChargePeriodStart,3,BillingPeriodStart,Not Defined,RENAME_COLUMN,
+ServiceName,1,ConsumedService,Not Defined,RENAME_COLUMN,
+SubAccountId,1,SubscriptionId,Not Defined,RENAME_COLUMN,
+SubAccountName,1,SubscriptionName,Not Defined,RENAME_COLUMN,

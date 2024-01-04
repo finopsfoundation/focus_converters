@@ -67,7 +67,6 @@ def main(
     if validate:
         for segment_file_name in os.listdir(export_path):
             file_path = os.path.join(export_path, segment_file_name)
-            print(file_path)
             validator = Validator(
                 data_filename=file_path,
                 output_type="console",
