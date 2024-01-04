@@ -5,10 +5,7 @@ import pandas as pd
 import typer
 import yaml
 
-from focus_converter.configs.base_config import (
-    ConversionPlan,
-    SQLConditionConversionArgs,
-)
+from focus_converter.configs.base_config import ConversionPlan
 from focus_converter.conversion_functions import STATIC_CONVERSION_TYPES
 from focus_converter.converter import FocusConverter
 from focus_converter.models.focus_column_names import FocusColumnNames
