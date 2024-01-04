@@ -10,3 +10,29 @@ BilledCost,1,cost/myCostOverage,Not Defined,RENAME_COLUMN,
 EffectiveCost,1,cost/myCost,Not Defined,RENAME_COLUMN,
 Provider,1,NA,Not Defined,ASSIGN_STATIC_VALUE,"static_value: Oracle
 "
+ChargePeriodStart,0,Not Defined,Not Defined,Not Defined,Not Defined
+ChargePeriodEnd,0,Not Defined,Not Defined,Not Defined,Not Defined
+ChargeFrequency,0,Not Defined,Not Defined,Not Defined,Not Defined
+ChargeSubcategory,0,Not Defined,Not Defined,Not Defined,Not Defined
+ChargeDescription,0,Not Defined,Not Defined,Not Defined,Not Defined
+BillingPeriodStart,0,Not Defined,Not Defined,Not Defined,Not Defined
+BillingPeriodEnd,0,Not Defined,Not Defined,Not Defined,Not Defined
+Publisher,0,Not Defined,Not Defined,Not Defined,Not Defined
+InvoiceIssuer,0,Not Defined,Not Defined,Not Defined,Not Defined
+BillingAccountName,0,Not Defined,Not Defined,Not Defined,Not Defined
+BilledCurrency,0,Not Defined,Not Defined,Not Defined,Not Defined
+ChargeType,0,Not Defined,Not Defined,Not Defined,Not Defined
+ServiceCategory,0,Not Defined,Not Defined,Not Defined,Not Defined
+SubAccountName,0,Not Defined,Not Defined,Not Defined,Not Defined
+ResourceName,0,Not Defined,Not Defined,Not Defined,Not Defined
+CommitmentDiscountId,0,Not Defined,Not Defined,Not Defined,Not Defined
+CommitmentDiscountType,0,Not Defined,Not Defined,Not Defined,Not Defined
+CommitmentDiscountCategory,0,Not Defined,Not Defined,Not Defined,Not Defined
+PricingQuantity,0,Not Defined,Not Defined,Not Defined,Not Defined
+PricingUnit,0,Not Defined,Not Defined,Not Defined,Not Defined
+SkuId,0,Not Defined,Not Defined,Not Defined,Not Defined
+SkuPriceId,0,Not Defined,Not Defined,Not Defined,Not Defined
+ListUnitPrice,0,Not Defined,Not Defined,Not Defined,Not Defined
+ListCost,0,Not Defined,Not Defined,Not Defined,Not Defined
+UsageQuantity,0,Not Defined,Not Defined,Not Defined,Not Defined
+UsageUnit,0,Not Defined,Not Defined,Not Defined,Not Defined

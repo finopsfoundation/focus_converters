@@ -105,3 +105,9 @@ default_value: pricing_rate_id
 "
 UsageQuantity,1,line_item_usage_amount,Not Defined,RENAME_COLUMN,
 UsageUnit,1,pricing_unit,Not Defined,RENAME_COLUMN,
+Publisher,0,Not Defined,Not Defined,Not Defined,Not Defined
+BillingAccountName,0,Not Defined,Not Defined,Not Defined,Not Defined
+BilledCurrency,0,Not Defined,Not Defined,Not Defined,Not Defined
+SubAccountName,0,Not Defined,Not Defined,Not Defined,Not Defined
+SubAccountId,0,Not Defined,Not Defined,Not Defined,Not Defined
+ResourceName,0,Not Defined,Not Defined,Not Defined,Not Defined
