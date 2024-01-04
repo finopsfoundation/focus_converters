@@ -74,25 +74,23 @@ def get_dtype_for_focus_column_name(focus_column_name: FocusColumnNames):
     """
 
     # convert loop to match statements
-    match focus_column_name:
-        case FocusColumnNames.PLACE_HOLDER.value:
-            raise ValueError("PLACE_HOLDER is not a valid focus column name")
-        case (
-            FocusColumnNames.CHARGE_PERIOD_START
-            | FocusColumnNames.CHARGE_PERIOD_END
-            | FocusColumnNames.BILLING_PERIOD_START
-            | FocusColumnNames.BILLING_PERIOD_END
-        ):
-            return pl.Datetime
-        case (
-            FocusColumnNames.AMORTISED_COST
-            | FocusColumnNames.BILLED_COST
-            | FocusColumnNames.EFFECTIVE_COST
-            | FocusColumnNames.LIST_COST
-            | FocusColumnNames.LIST_UNIT_PRICE
-            | FocusColumnNames.PRICING_QUANTITY
-            | FocusColumnNames.USAGE_QUANTITY
-        ):
-            return pl.Float64
-        case _:
-            return pl.Utf8
+    if focus_column_name == FocusColumnNames.PLACE_HOLDER:
+        raise ValueError("PLACE_HOLDER is not a valid focus column name")
+    elif (
+        focus_column_name == FocusColumnNames.CHARGE_PERIOD_START
+        or focus_column_name == FocusColumnNames.CHARGE_PERIOD_END
+        or focus_column_name == FocusColumnNames.BILLING_PERIOD_START
+        or focus_column_name == FocusColumnNames.BILLING_PERIOD_END
+    ):
+        return pl.Datetime
+    elif (
+        focus_column_name == FocusColumnNames.BILLED_COST
+        or focus_column_name == FocusColumnNames.EFFECTIVE_COST
+        or focus_column_name == FocusColumnNames.LIST_COST
+        or focus_column_name == FocusColumnNames.LIST_UNIT_PRICE
+        or focus_column_name == FocusColumnNames.PRICING_QUANTITY
+        or focus_column_name == FocusColumnNames.USAGE_QUANTITY
+    ):
+        return pl.Float64
+    else:
+        return pl.Utf8
