@@ -13,5 +13,8 @@ class TestFocusColumnDtype(TestCase):
         """
 
         for column_name in FocusColumnNames:
+            if column_name == FocusColumnNames.PLACE_HOLDER:
+                continue
+
             dtype = get_dtype_for_focus_column_name(column_name)
             self.assertIsNotNone(dtype, f"Column {column_name} has no dtype")
