@@ -20,7 +20,10 @@ from focus_converter.conversion_functions.sql_functions import SQLFunctions
 from focus_converter.conversion_functions.validations import ColumnValidator
 from focus_converter.data_loaders.data_exporter import DataExporter
 from focus_converter.data_loaders.data_loader import DataLoader
-from focus_converter.models.focus_column_names import FocusColumnNames
+from focus_converter.models.focus_column_names import (
+    FocusColumnNames,
+    get_dtype_for_focus_column_name,
+)
 
 # TODO: Make this path configurable so that we can load from a directory outside of the project
 BASE_CONVERSION_CONFIGS = (
@@ -287,6 +290,20 @@ class FocusConverter:
                 self.__temporary_columns__.append(orig_column_name)
         return lf
 
+    def __add_empty_columns_for_missing_focus_columns__(self, lf: pl.LazyFrame):
+        # add missing focus columns with null values to produce a valid parquet file
+        for focus_column_name in FocusColumnNames:
+            if (
+                focus_column_name.value not in self.h_collected_columns
+                and focus_column_name != FocusColumnNames.PLACE_HOLDER
+            ):
+                lf = lf.with_columns(
+                    pl.lit(None)
+                    .alias(focus_column_name.value)
+                    .cast(get_dtype_for_focus_column_name(focus_column_name))
+                )
+        return lf
+
     def __process_lazy_frame__(self, lf: pl.LazyFrame):
         # prepares lazyframe for the operations to be applied on the lazy loaded polars dataframe
         if self.__column_prefix__ is not None:
@@ -298,6 +315,9 @@ class FocusConverter:
 
         # validate all source columns exist in the lazy frame
         self.__column_validator__.validate_lazy_frame_columns(lf=lf)
+
+        # add missing focus columns with null values to produce a valid parquet file
+        lf = self.__add_empty_columns_for_missing_focus_columns__(lf=lf)
 
         return self.apply_plan(lf=lf)
 

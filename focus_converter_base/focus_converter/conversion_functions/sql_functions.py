@@ -62,7 +62,7 @@ class SQLFunctions:
 
     @classmethod
     def eval_sql_query(
-        cls, plan: ConversionPlan, column_alias, column_validator: ColumnValidator
+        cls, plan: ConversionPlan, column_validator: ColumnValidator, **_kwargs
     ):
         template = Environment().from_string(plan.conversion_args)
         sql_query = template.render(

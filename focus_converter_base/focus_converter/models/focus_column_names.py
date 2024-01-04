@@ -1,5 +1,7 @@
 from enum import Enum
 
+import polars as pl
+
 DEFAULT_FOCUS_NAMESPACE = "F"
 
 
@@ -26,7 +28,6 @@ class FocusColumnNames(Enum):
     BILLING_ACCOUNT_ID = "BillingAccountId"
     BILLING_ACCOUNT_NAME = "BillingAccountName"
 
-    AMORTISED_COST = "AmortisedCost"
     BILLED_COST = "BilledCost"
     BILLED_CURRENCY = "BilledCurrency"
     BILLING_CURRENCY = "BillingCurrency"
@@ -65,3 +66,33 @@ class FocusColumnNames(Enum):
 
 
 FOCUS_DATETIME_ISO_FORMAT = "%Y-%m-%dT%H:%M:%SZ"
+
+
+def get_dtype_for_focus_column_name(focus_column_name: FocusColumnNames):
+    """
+    Return the dtype for the focus column name
+    """
+
+    # convert loop to match statements
+    match focus_column_name:
+        case FocusColumnNames.PLACE_HOLDER.value:
+            raise ValueError("PLACE_HOLDER is not a valid focus column name")
+        case (
+            FocusColumnNames.CHARGE_PERIOD_START
+            | FocusColumnNames.CHARGE_PERIOD_END
+            | FocusColumnNames.BILLING_PERIOD_START
+            | FocusColumnNames.BILLING_PERIOD_END
+        ):
+            return pl.Datetime
+        case (
+            FocusColumnNames.AMORTISED_COST
+            | FocusColumnNames.BILLED_COST
+            | FocusColumnNames.EFFECTIVE_COST
+            | FocusColumnNames.LIST_COST
+            | FocusColumnNames.LIST_UNIT_PRICE
+            | FocusColumnNames.PRICING_QUANTITY
+            | FocusColumnNames.USAGE_QUANTITY
+        ):
+            return pl.Float64
+        case _:
+            return pl.Utf8
