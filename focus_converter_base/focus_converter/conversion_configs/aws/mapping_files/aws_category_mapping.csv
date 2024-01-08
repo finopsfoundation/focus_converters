@@ -25,7 +25,7 @@ AmazonStates,Integration
 AWSDataTransfer,Networking
 AppFlow,Integration
 Amazon EventBridge,Integration
-AmazonManagedOther,Other
+AmazonManagedBlockchain,Other
 AmazonQLDB,Other
 AWSDirectConnect,Networking
 A4B,Business Applications
