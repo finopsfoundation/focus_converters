@@ -21,7 +21,7 @@ Here's an overview of each key-value pair in the YAML configuration:
 - `reference_dataset_path`: The file path to the CSV file containing the mapping between AWS product codes and
   categories.
 - `source_value`: The column name in the reference dataset that corresponds to the source column in your data, "
-  line_item_product_code."
+  product_code."
 - `destination_value`: The column name in the reference dataset that contains the values to which the source values will
   map, "ServiceCategory."
 - `reference_path_in_package`: The file can be outside of this software package and can be imported
