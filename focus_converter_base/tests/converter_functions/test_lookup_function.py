@@ -166,7 +166,7 @@ class TestMappingFunction(TestCase):
         lookup_config = """
         plan_name: sample
         priority: 1
-        column: line_item_product_code
+        column: product_code
         conversion_type: lookup
         focus_column: Region
         conversion_args:

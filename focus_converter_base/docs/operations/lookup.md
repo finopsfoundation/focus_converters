@@ -31,7 +31,7 @@ Here's an overview of each key-value pair in the YAML configuration:
 
 1. **Prepare the Reference Dataset**: Ensure "aws_category_mapping.csv" is ready and accessible in the specified
    path (`"conversion_configs/aws/mapping_files/aws_category_mapping.csv"`). This file should contain at least two
-   columns: one for the AWS product code (`line_item_product_code`) and one for the corresponding AWS service
+   columns: one for the AWS product code (`product_code`) and one for the corresponding AWS service
    category (`ServiceCategory`).
 
 ```yaml
@@ -41,7 +41,7 @@ conversion_type: lookup
 focus_column: ServiceCategory
 conversion_args:
     reference_dataset_path: "conversion_configs/aws/mapping_files/aws_category_mapping.csv"
-    source_value: line_item_product_code
+    source_value: product_code
     destination_value: ServiceCategory
 ```
 
