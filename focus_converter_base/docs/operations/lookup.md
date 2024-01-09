@@ -23,7 +23,7 @@ Here's an overview of each key-value pair in the YAML configuration:
 - `source_value`: The column name in the reference dataset that corresponds to the source column in your data, "
   product_code."
 - `destination_value`: The column name in the reference dataset that contains the values to which the source values will
-  map, "aws_category."
+  map, "ServiceCategory."
 - `reference_path_in_package`: The file can be outside of this software package and can be imported
   without path verification.
 
@@ -32,7 +32,7 @@ Here's an overview of each key-value pair in the YAML configuration:
 1. **Prepare the Reference Dataset**: Ensure "aws_category_mapping.csv" is ready and accessible in the specified
    path (`"conversion_configs/aws/mapping_files/aws_category_mapping.csv"`). This file should contain at least two
    columns: one for the AWS product code (`product_code`) and one for the corresponding AWS service
-   category (`aws_category`).
+   category (`ServiceCategory`).
 
 ```yaml
 plan_name: Generate ServiceCategory for AWS data using a map
@@ -42,7 +42,7 @@ focus_column: ServiceCategory
 conversion_args:
     reference_dataset_path: "conversion_configs/aws/mapping_files/aws_category_mapping.csv"
     source_value: product_code
-    destination_value: aws_category
+    destination_value: ServiceCategory
 ```
 
 ## Troubleshooting
