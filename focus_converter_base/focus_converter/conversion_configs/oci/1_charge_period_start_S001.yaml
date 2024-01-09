@@ -1,0 +1,4 @@
+plan_name: Rename lineItem/intervalUsageStart to ChargePeriodStart
+conversion_type: rename_column
+column: lineItem/intervalUsageStart
+focus_column: ChargePeriodStart

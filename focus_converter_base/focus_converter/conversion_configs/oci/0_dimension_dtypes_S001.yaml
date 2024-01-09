@@ -1,0 +1,10 @@
+plan_name: adds dtypes to the columns required for the conversion
+conversion_type: set_column_dtypes
+column: PlaceHolder
+focus_column: PlaceHolder
+conversion_args:
+    dtype_args:
+        -   column_name: lineItem/intervalUsageStart
+            dtype: datetime
+        -   column_name: lineItem/intervalUsageEnd
+            dtype: datetime
