@@ -1,4 +1,4 @@
-line_item_product_code,ServiceCategory
+product_code,ServiceCategory
 AWSCleanRooms,Analytics
 AWSDataExchange,Analytics
 AWSGlueElasticViews,Analytics
