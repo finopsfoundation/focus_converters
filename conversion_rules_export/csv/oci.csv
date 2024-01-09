@@ -1,12 +1,8 @@
 FOCUS Dimension,Transform Step,Source Column,Source Column Type,Transform Type,Filters/Process/Etc.
 BilledCurrency,0,Not Defined,Not Defined,Not Defined,Not Defined
 BillingAccountName,0,Not Defined,Not Defined,Not Defined,Not Defined
-BillingPeriodEnd,0,Not Defined,Not Defined,Not Defined,Not Defined
-BillingPeriodStart,0,Not Defined,Not Defined,Not Defined,Not Defined
 ChargeDescription,0,Not Defined,Not Defined,Not Defined,Not Defined
 ChargeFrequency,0,Not Defined,Not Defined,Not Defined,Not Defined
-ChargePeriodEnd,0,Not Defined,Not Defined,Not Defined,Not Defined
-ChargePeriodStart,0,Not Defined,Not Defined,Not Defined,Not Defined
 ChargeSubcategory,0,Not Defined,Not Defined,Not Defined,Not Defined
 ChargeType,0,Not Defined,Not Defined,Not Defined,Not Defined
 CommitmentDiscountCategory,0,Not Defined,Not Defined,Not Defined,Not Defined
@@ -29,6 +25,10 @@ AvailabilityZone,1,product/availabilityDomain,Not Defined,RENAME_COLUMN,
 BilledCost,1,cost/myCostOverage,Not Defined,RENAME_COLUMN,
 BillingAccountId,1,cost/subscriptionId,Not Defined,RENAME_COLUMN,
 BillingCurrency,1,cost/currencyCode,Not Defined,RENAME_COLUMN,
+BillingPeriodEnd,1,lineItem/intervalUsageEnd,datetime,MONTH_END,
+BillingPeriodStart,1,lineItem/intervalUsageStart,datetime,MONTH_START,
+ChargePeriodEnd,1,lineItem/intervalUsageEnd,datetime,RENAME_COLUMN,
+ChargePeriodStart,1,lineItem/intervalUsageStart,datetime,RENAME_COLUMN,
 EffectiveCost,1,cost/myCost,Not Defined,RENAME_COLUMN,
 Provider,1,NA,Not Defined,ASSIGN_STATIC_VALUE,"static_value: Oracle
 "
