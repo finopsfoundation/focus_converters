@@ -1,0 +1,4 @@
+plan_name: Unnest sku.id
+conversion_type: unnest
+column: sku.id
+focus_column: SkuId
