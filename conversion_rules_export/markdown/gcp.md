@@ -16,7 +16,6 @@
 | PricingUnit                |                0 | Not Defined                     | Not Defined          | Not Defined         | Not Defined                                                                           |
 | ResourceName               |                0 | Not Defined                     | Not Defined          | Not Defined         | Not Defined                                                                           |
 | ServiceName                |                0 | Not Defined                     | Not Defined          | Not Defined         | Not Defined                                                                           |
-| SkuId                      |                0 | Not Defined                     | Not Defined          | Not Defined         | Not Defined                                                                           |
 | SkuPriceId                 |                0 | Not Defined                     | Not Defined          | Not Defined         | Not Defined                                                                           |
 | SubAccountId               |                0 | Not Defined                     | Not Defined          | Not Defined         | Not Defined                                                                           |
 | SubAccountName             |                0 | Not Defined                     | Not Defined          | Not Defined         | Not Defined                                                                           |
@@ -58,3 +57,4 @@
 | ServiceCategory            |                2 | tmp_description_ServiceCategory | Not Defined          | LOOKUP              | destination_value: ServiceCategory                                                    |
 |                            |                  |                                 |                      |                     | reference_dataset_path: conversion_configs/gcp/mapping_files/gcp_category_mapping.csv |
 |                            |                  |                                 |                      |                     | source_value: ConsumedService                                                         |
+| SkuId                      |                1 | sku.id                          | Not Defined          | UNNEST_COLUMN       |                                                                                       |
