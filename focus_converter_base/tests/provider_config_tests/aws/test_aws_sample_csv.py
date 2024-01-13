@@ -4,7 +4,7 @@ from unittest import TestCase
 
 from focus_converter.converter import FocusConverter
 from focus_converter.data_loaders.data_loader import DataFormats
-
+from focus_converter.utils.profiler import Profiler
 
 class TestAWSSampleCSV(TestCase):
     def test_sample_csv_dataset(self):
@@ -25,4 +25,11 @@ class TestAWSSampleCSV(TestCase):
                 export_include_source_columns=False,
             )
             converter.prepare_horizontal_conversion_plan(provider="aws-cur")
-            converter.convert()
+            
+            
+            # Run the method to be profiled
+            self.execute_converter(converter)
+
+    @Profiler(csv_format=True)
+    def execute_converter(self, converter):
+        converter.convert()
