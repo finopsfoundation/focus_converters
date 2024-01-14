@@ -1,8 +1,9 @@
 import cProfile
 import csv
-import pstats
 import functools
 import io
+import pstats
+
 
 class Profiler:
     def __init__(self, csv_format=False):
