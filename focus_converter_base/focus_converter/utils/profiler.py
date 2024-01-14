@@ -12,7 +12,7 @@ class Profiler:
     def __call__(self, func):
         @functools.wraps(func)
         def wrapper(*args, **kwargs):
-            #Wrap and execute profile
+            # Wrap and execute profile
             profiler = cProfile.Profile()
             profiler.enable()
             result = func(*args, **kwargs)
@@ -45,7 +45,7 @@ class Profiler:
                     # Write each row
                     for row in profiling_result.stats.items():
                         func_name, (cc, nc, tt, ct, callers) = row
-                        w.writerow([nc, tt, tt/nc, ct, ct/cc, func_name])
+                        w.writerow([nc, tt, tt / nc, ct, ct / cc, func_name])
 
         def generate_file_name(args):
             class_name = args[0].__class__.__name__ if args else 'global'
@@ -54,4 +54,3 @@ class Profiler:
             csv_filename = f"{base_filename}.csv"
             return csv_filename
         return wrapper
-        
