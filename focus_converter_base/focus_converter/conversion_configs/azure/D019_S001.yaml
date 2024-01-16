@@ -1,0 +1,4 @@
+plan_name: convert AvailabilityZone to AvailabilityZone
+conversion_type: rename_column
+column: AvailabilityZone
+focus_column: AvailabilityZone
