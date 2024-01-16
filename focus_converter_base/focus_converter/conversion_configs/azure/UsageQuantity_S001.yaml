@@ -1,0 +1,4 @@
+plan_name: Generate ServiceCategory for aws data using a map.
+column: Quantity
+conversion_type: rename_column
+focus_column: UsageQuantity
