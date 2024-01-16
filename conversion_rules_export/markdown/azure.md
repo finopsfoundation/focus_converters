@@ -24,7 +24,6 @@
 | BillingAccountId           |                1 | BillingAccountId       | Not Defined          | RENAME_COLUMN       |                                                                                           |
 | BillingAccountName         |                1 | BillingAccountName     | Not Defined          | RENAME_COLUMN       |                                                                                           |
 | BillingCurrency            |                1 | BillingCurrencyCode    | Not Defined          | RENAME_COLUMN       |                                                                                           |
-| BillingCurrency            |                2 | BillingCurrencyCode    | Not Defined          | RENAME_COLUMN       |                                                                                           |
 | BillingPeriodEnd           |                1 | BillingPeriodEndDate   | Not Defined          | PARSE_DATETIME      | %m/%d/%Y                                                                                  |
 | BillingPeriodEnd           |                2 | BillingPeriodEnd       | Not Defined          | ASSIGN_UTC_TIMEZONE |                                                                                           |
 | BillingPeriodEnd           |                3 | BillingPeriodEnd       | Not Defined          | RENAME_COLUMN       |                                                                                           |
