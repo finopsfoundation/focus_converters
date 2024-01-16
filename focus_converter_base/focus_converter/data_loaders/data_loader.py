@@ -1,7 +1,6 @@
 from enum import Enum
 from typing import Iterable
 
-import pandas as pd
 import polars as pl
 import pyarrow.dataset as ds
 from tqdm import tqdm
