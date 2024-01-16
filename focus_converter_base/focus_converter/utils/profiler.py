@@ -27,7 +27,7 @@ class Profiler:
 
         def generate_console_output(profiler):
             s = io.StringIO()
-            sortby = 'cumulative'
+            sortby = "cumulative"
             ps = pstats.Stats(profiler, stream=s).sort_stats(sortby)
             ps.print_stats()
             print(s.getvalue())
@@ -36,10 +36,17 @@ class Profiler:
             if self.csv_format:
                 # Determine the filename based on class and method name
                 csv_filename = generate_file_name(args)
-                with open(csv_filename, 'w', newline='') as f:
+                with open(csv_filename, "w", newline="") as f:
                     w = csv.writer(f)
                     # Write the headers
-                    headers = ['ncalls', 'tottime', 'percall', 'cumtime', 'percall', 'filename:lineno(function)']
+                    headers = [
+                        "ncalls",
+                        "tottime",
+                        "percall",
+                        "cumtime",
+                        "percall",
+                        "filename:lineno(function)",
+                    ]
                     w.writerow(headers)
 
                     # Write each row
@@ -48,9 +55,10 @@ class Profiler:
                         w.writerow([nc, tt, tt / nc, ct, ct / cc, func_name])
 
         def generate_file_name(args):
-            class_name = args[0].__class__.__name__ if args else 'global'
+            class_name = args[0].__class__.__name__ if args else "global"
             method_name = func.__name__
             base_filename = f"{class_name}_{method_name}_profile"
             csv_filename = f"{base_filename}.csv"
             return csv_filename
+
         return wrapper
