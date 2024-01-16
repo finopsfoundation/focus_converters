@@ -45,4 +45,4 @@ jobs:
           poetry run black focus_converter/ --check
       - name: flake8
         run: |
-          poetry run flake8 focus_converter/ --select=-E,W,F,,N,I
+          poetry run flake8 focus_converter/ --select=-E,W,F,N,I
