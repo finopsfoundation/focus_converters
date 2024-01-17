@@ -3,7 +3,7 @@ from uuid import uuid4
 
 import pytest
 
-UML_GRAPH_HEADER = "graph TD;"
+UML_GRAPH_HEADER = "graph LR;"
 
 
 @pytest.fixture(scope="function")

@@ -157,7 +157,7 @@ class ColumnValidator:
         """
 
         graph_uml = io.StringIO()
-        graph_uml.write("graph TD;\n")
+        graph_uml.write("graph LR;\n")
 
         for source, target, edge_data in self.__network_graph__.edges(data=True):
             plan: ConversionPlan = edge_data.get("plan")

@@ -122,7 +122,7 @@ class TestDefaultValueIfNotPresent(TestCase):
         )
         uml = focus_converter.__column_validator__.generate_mermaid_uml()
 
-        expected_output = f"graph TD;\n"
+        expected_output = f"graph LR;\n"
         expected_output += "\tSOURCE -- APPLY_DEFAULT_IF_COLUMN_MISSING:D001_S001.yaml --> test_column\n"
         expected_output += (
             "\ttest_column -- RENAME_COLUMN:D001_S001.yaml --> Provider\n"
