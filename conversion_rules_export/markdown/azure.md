@@ -1,7 +1,6 @@
 | FOCUS Dimension            |   Transform Step | Source Column          | Source Column Type   | Transform Type      | Filters/Process/Etc.                                                                      |
 |:---------------------------|-----------------:|:-----------------------|:---------------------|:--------------------|:------------------------------------------------------------------------------------------|
 | BilledCurrency             |                0 | Not Defined            | Not Defined          | Not Defined         | Not Defined                                                                               |
-| ChargeDescription          |                0 | Not Defined            | Not Defined          | Not Defined         | Not Defined                                                                               |
 | ChargeFrequency            |                0 | Not Defined            | Not Defined          | Not Defined         | Not Defined                                                                               |
 | ChargeSubcategory          |                0 | Not Defined            | Not Defined          | Not Defined         | Not Defined                                                                               |
 | ChargeType                 |                0 | Not Defined            | Not Defined          | Not Defined         | Not Defined                                                                               |
@@ -28,6 +27,7 @@
 | BillingPeriodStart         |                1 | BillingPeriodStartDate | Not Defined          | PARSE_DATETIME      | %m/%d/%Y                                                                                  |
 | BillingPeriodStart         |                2 | BillingPeriodStart     | Not Defined          | ASSIGN_UTC_TIMEZONE |                                                                                           |
 | BillingPeriodStart         |                3 | BillingPeriodStart     | Not Defined          | RENAME_COLUMN       |                                                                                           |
+| ChargeDescription          |                1 | ProductName            | Not Defined          | RENAME_COLUMN       |                                                                                           |
 | ChargePeriodEnd            |                1 | Date                   | Not Defined          | PARSE_DATETIME      | %m/%d/%Y                                                                                  |
 | ChargePeriodEnd            |                2 | ChargePeriodEnd        | Not Defined          | ASSIGN_UTC_TIMEZONE |                                                                                           |
 | ChargePeriodEnd            |                3 | ChargePeriodEnd        | Not Defined          | RENAME_COLUMN       |                                                                                           |
