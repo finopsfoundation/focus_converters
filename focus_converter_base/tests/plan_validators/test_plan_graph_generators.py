@@ -37,7 +37,7 @@ def test_static_value_assignment_plan(
     uml = focus_converter.__column_validator__.generate_mermaid_uml()
     assert (
         uml
-        == "graph TD;\n\tSTATIC_VALUE -- ASSIGN_STATIC_VALUE:{} --> Provider\n\tProvider --> FOCUS_DATASET\n".format(
+        == "graph LR;\n\tSTATIC_VALUE -- ASSIGN_STATIC_VALUE:{} --> Provider\n\tProvider --> FOCUS_DATASET\n".format(
             sample_config_file_name
         )
     )
