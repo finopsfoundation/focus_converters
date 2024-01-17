@@ -1,0 +1,4 @@
+plan_name: convert ProductName to ChargeDescription
+conversion_type: rename_column
+column: ProductName
+focus_column: ChargeDescription
