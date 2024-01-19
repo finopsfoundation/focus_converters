@@ -1,6 +1,5 @@
 FOCUS Dimension,Transform Step,Source Column,Source Column Type,Transform Type,Filters/Process/Etc.
 BilledCurrency,0,Not Defined,Not Defined,Not Defined,Not Defined
-ChargeFrequency,0,Not Defined,Not Defined,Not Defined,Not Defined
 ChargeSubcategory,0,Not Defined,Not Defined,Not Defined,Not Defined
 ChargeType,0,Not Defined,Not Defined,Not Defined,Not Defined
 CommitmentDiscountCategory,0,Not Defined,Not Defined,Not Defined,Not Defined
@@ -27,6 +26,12 @@ BillingPeriodStart,1,BillingPeriodStartDate,Not Defined,PARSE_DATETIME,%m/%d/%Y
 BillingPeriodStart,2,BillingPeriodStart,Not Defined,ASSIGN_UTC_TIMEZONE,
 BillingPeriodStart,3,BillingPeriodStart,Not Defined,RENAME_COLUMN,
 ChargeDescription,1,ProductName,Not Defined,RENAME_COLUMN,
+ChargeFrequency,1,Frequency,Not Defined,SQL_CONDITION,"conditions:
+- WHEN Frequency = 'OneTime' THEN 'One-Time'
+- WHEN Frequency = 'Recurring' THEN 'Recurring'
+- WHEN Frequency = 'UsageBased' THEN 'Usage-Based'
+default_value: '''Other'''
+"
 ChargePeriodEnd,1,Date,Not Defined,PARSE_DATETIME,%m/%d/%Y
 ChargePeriodEnd,2,ChargePeriodEnd,Not Defined,ASSIGN_UTC_TIMEZONE,
 ChargePeriodEnd,3,ChargePeriodEnd,Not Defined,RENAME_COLUMN,
@@ -34,6 +39,13 @@ ChargePeriodStart,1,BillingPeriodStartDate,Not Defined,PARSE_DATETIME,%m/%d/%Y
 ChargePeriodStart,2,ChargePeriodStart,Not Defined,ASSIGN_UTC_TIMEZONE,
 ChargePeriodStart,3,BillingPeriodStart,Not Defined,RENAME_COLUMN,
 EffectiveCost,1,EffectivePrice,Not Defined,RENAME_COLUMN,
+PricingCategory,1,PricingModel,Not Defined,SQL_CONDITION,"conditions:
+- WHEN PricingModel = 'OnDemand' THEN 'On-Demand'
+- WHEN PricingModel = 'Spot' THEN 'Dynamic'
+- WHEN PricingModel = 'Reservation' OR PricingModel = 'Savings Plans' THEN 'Commitment
+  Discount'
+default_value: '''Other'''
+"
 Provider,1,NA,Not Defined,ASSIGN_STATIC_VALUE,"static_value: Azure
 "
 Publisher,1,PublisherName,Not Defined,RENAME_COLUMN,

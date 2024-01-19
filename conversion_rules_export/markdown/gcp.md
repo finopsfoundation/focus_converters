@@ -12,6 +12,7 @@
 | InvoiceIssuer              |                0 | Not Defined                     | Not Defined          | Not Defined         | Not Defined                                                                           |
 | ListCost                   |                0 | Not Defined                     | Not Defined          | Not Defined         | Not Defined                                                                           |
 | ListUnitPrice              |                0 | Not Defined                     | Not Defined          | Not Defined         | Not Defined                                                                           |
+| PricingCategory            |                0 | Not Defined                     | Not Defined          | Not Defined         | Not Defined                                                                           |
 | PricingQuantity            |                0 | Not Defined                     | Not Defined          | Not Defined         | Not Defined                                                                           |
 | PricingUnit                |                0 | Not Defined                     | Not Defined          | Not Defined         | Not Defined                                                                           |
 | ResourceName               |                0 | Not Defined                     | Not Defined          | Not Defined         | Not Defined                                                                           |
