@@ -5,6 +5,6 @@ conversion_args:
         - WHEN Frequency = 'OneTime' THEN 'One-Time'
         - WHEN Frequency = 'Recurring' THEN 'Recurring'
         - WHEN Frequency = 'UsageBased' THEN 'Usage-Based'
-    default_value: ''Other''
+    default_value: "'Other'"
 column: Frequency
 focus_column: ChargeFrequency
