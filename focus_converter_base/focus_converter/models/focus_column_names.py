@@ -54,6 +54,7 @@ class FocusColumnNames(Enum):
 
     PRICING_QUANTITY = "PricingQuantity"
     PRICING_UNIT = "PricingUnit"
+    PRICING_CATEGORY = "PricingCategory"
 
     SKU_ID = "SkuId"
     SKU_PRICE_ID = "SkuPriceId"
