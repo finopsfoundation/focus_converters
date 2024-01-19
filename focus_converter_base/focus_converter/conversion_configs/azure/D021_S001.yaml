@@ -1,0 +1,10 @@
+plan_name: convert Frequency to ChargeFrequency
+conversion_type: sql_condition
+conversion_args:
+    conditions:
+        - WHEN Frequency = 'OneTime' THEN 'One-Time'
+        - WHEN Frequency = 'Recurring' THEN 'Recurring'
+        - WHEN Frequency = 'UsageBased' THEN 'Usage-Based'
+    default_value: "'Other'"
+column: Frequency
+focus_column: ChargeFrequency
