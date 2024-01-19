@@ -5,6 +5,6 @@ conversion_args:
         - WHEN PricingModel = 'OnDemand' THEN 'On-Demand'
         - WHEN PricingModel = 'Spot' THEN 'Dynamic'
         - WHEN PricingModel = 'Reservation' OR PricingModel = 'Savings Plans' THEN 'Commitment Discount'
-    default_value: ''Other''
+    default_value: '''Other'''
 column: PricingModel
 focus_column: PricingCategory
