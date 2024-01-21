@@ -1,0 +1,4 @@
+plan_name: convert BenefitId to CommitmentDiscountId
+conversion_type: rename_column
+column: BenefitId
+focus_column: CommitmentDiscountId
