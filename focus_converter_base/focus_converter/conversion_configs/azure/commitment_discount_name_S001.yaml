@@ -1,0 +1,4 @@
+plan_name: Rename Azure column Quantity to UsageQuantity.
+column: benefitName
+conversion_type: rename_column
+focus_column: CommitmentDiscountName
