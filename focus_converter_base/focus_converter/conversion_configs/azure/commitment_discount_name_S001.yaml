@@ -1,0 +1,4 @@
+plan_name: Rename Azure column benefitName to CommitmentDiscountName.
+column: benefitName
+conversion_type: rename_column
+focus_column: CommitmentDiscountName 
