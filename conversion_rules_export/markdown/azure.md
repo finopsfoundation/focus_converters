@@ -45,7 +45,7 @@
 |                            |                  |                        |                      |                     | - WHEN ChargeType = 'Refund' THEN 'Refund'                                                   |
 |                            |                  |                        |                      |                     | - WHEN ChargeType = 'RoundingAdjustment' THEN 'Rounding Error'                               |
 |                            |                  |                        |                      |                     | default_value: '''Other'''                                                                   |
-| EffectiveCost              |                1 | EffectivePrice         | Not Defined          | RENAME_COLUMN       |                                                                                              |
+| EffectiveCost              |                1 | CostInBillingCurrency  | Not Defined          | RENAME_COLUMN       |                                                                                              |
 | PricingCategory            |                1 | PricingModel           | Not Defined          | SQL_CONDITION       | conditions:                                                                                  |
 |                            |                  |                        |                      |                     | - WHEN PricingModel = 'OnDemand' THEN 'On-Demand'                                            |
 |                            |                  |                        |                      |                     | - WHEN PricingModel = 'Spot' THEN 'Dynamic'                                                  |
