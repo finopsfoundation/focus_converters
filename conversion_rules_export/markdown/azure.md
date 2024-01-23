@@ -4,7 +4,6 @@
 | ChargeType                 |                0 | Not Defined            | Not Defined          | Not Defined         | Not Defined                                                                                  |
 | CommitmentDiscountCategory |                0 | Not Defined            | Not Defined          | Not Defined         | Not Defined                                                                                  |
 | CommitmentDiscountId       |                0 | Not Defined            | Not Defined          | Not Defined         | Not Defined                                                                                  |
-| CommitmentDiscountName     |                0 | Not Defined            | Not Defined          | Not Defined         | Not Defined                                                                                  |
 | CommitmentDiscountType     |                0 | Not Defined            | Not Defined          | Not Defined         | Not Defined                                                                                  |
 | InvoiceIssuer              |                0 | Not Defined            | Not Defined          | Not Defined         | Not Defined                                                                                  |
 | ListCost                   |                0 | Not Defined            | Not Defined          | Not Defined         | Not Defined                                                                                  |
@@ -46,6 +45,7 @@
 |                            |                  |                        |                      |                     | - WHEN ChargeType = 'Refund' THEN 'Refund'                                                   |
 |                            |                  |                        |                      |                     | - WHEN ChargeType = 'RoundingAdjustment' THEN 'Rounding Error'                               |
 |                            |                  |                        |                      |                     | default_value: '''Other'''                                                                   |
+| CommitmentDiscountName     |                1 | benefitName            | Not Defined          | RENAME_COLUMN       |                                                                                              |
 | EffectiveCost              |                1 | CostInBillingCurrency  | Not Defined          | RENAME_COLUMN       |                                                                                              |
 | PricingCategory            |                1 | PricingModel           | Not Defined          | SQL_CONDITION       | conditions:                                                                                  |
 |                            |                  |                        |                      |                     | - WHEN PricingModel = 'OnDemand' THEN 'On-Demand'                                            |
