@@ -8,6 +8,7 @@
 | ChargeType                 |                0 | Not Defined                 | Not Defined          | Not Defined         | Not Defined            |
 | CommitmentDiscountCategory |                0 | Not Defined                 | Not Defined          | Not Defined         | Not Defined            |
 | CommitmentDiscountId       |                0 | Not Defined                 | Not Defined          | Not Defined         | Not Defined            |
+| CommitmentDiscountName     |                0 | Not Defined                 | Not Defined          | Not Defined         | Not Defined            |
 | CommitmentDiscountType     |                0 | Not Defined                 | Not Defined          | Not Defined         | Not Defined            |
 | InvoiceIssuer              |                0 | Not Defined                 | Not Defined          | Not Defined         | Not Defined            |
 | ListCost                   |                0 | Not Defined                 | Not Defined          | Not Defined         | Not Defined            |
