@@ -1,4 +1,4 @@
-plan_name: convert EffectivePrice to EffectiveCost 
+plan_name: convert CostInBillingCurrency to EffectiveCost 
 conversion_type: rename_column
-column: EffectivePrice
+column: CostInBillingCurrency
 focus_column: EffectiveCost
