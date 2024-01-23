@@ -34,13 +34,6 @@ ChargePeriodStart,1,BillingPeriodStartDate,Not Defined,PARSE_DATETIME,%m/%d/%Y
 ChargePeriodStart,2,ChargePeriodStart,Not Defined,ASSIGN_UTC_TIMEZONE,
 ChargePeriodStart,3,BillingPeriodStart,Not Defined,RENAME_COLUMN,
 EffectiveCost,1,EffectivePrice,Not Defined,RENAME_COLUMN,
-PricingCategory,1,PricingModel,Not Defined,SQL_CONDITION,"conditions:
-- WHEN PricingModel = 'OnDemand' THEN 'On-Demand'
-- WHEN PricingModel = 'Spot' THEN 'Dynamic'
-- WHEN PricingModel = 'Reservation' OR PricingModel = 'Savings Plans' THEN 'Commitment
-  Discount'
-default_value: '''Other'''
-"
 Provider,1,NA,Not Defined,ASSIGN_STATIC_VALUE,"static_value: Azure
 "
 Publisher,1,PublisherName,Not Defined,RENAME_COLUMN,
