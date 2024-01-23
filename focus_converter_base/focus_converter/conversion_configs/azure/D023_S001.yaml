@@ -1,0 +1,11 @@
+plan_name: convert ChargeType to ChargeSubcategory
+conversion_type: sql_condition
+conversion_args:
+    conditions:
+        - WHEN ChargeType = 'Usage' AND PricingModel = 'Reservation' OR PricingModel = 'SavingsPlan' THEN 'Used Commitment'
+        - WHEN PricingModel = 'UnusedReservation' OR PricingModel = 'UnusedSavingsPlan' THEN 'Unused Commitment'
+        - WHEN ChargeType = 'Refund' THEN 'Refund'
+        - WHEN ChargeType = 'RoundingAdjustment' THEN 'Rounding Error'
+    default_value: "'Other'"
+column: ChargeType
+focus_column: ChargeSubcategory
