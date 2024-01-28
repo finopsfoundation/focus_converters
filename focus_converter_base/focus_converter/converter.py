@@ -8,16 +8,28 @@ import polars as pl
 
 from focus_converter.configs.base_config import ConversionPlan
 from focus_converter.conversion_functions import STATIC_CONVERSION_TYPES
-from focus_converter.conversion_functions.column_functions import ColumnFunctions
-from focus_converter.conversion_functions.datetime_functions import (
-    DateTimeConversionFunctions,
-)
 from focus_converter.conversion_functions.deferred_column_functions import (
     DeferredColumnFunctions,
 )
-from focus_converter.conversion_functions.lookup_function import LookupFunction
 from focus_converter.conversion_functions.sql_functions import SQLFunctions
 from focus_converter.conversion_functions.validations import ColumnValidator
+from focus_converter.conversion_strategy import (
+    ColumnAssignStaticCommand,
+    ColumnMapValuesCommand,
+    ColumnRenameCommand,
+    ColumnUnnestCommand,
+    ConvertTimezoneCommand,
+    DateTimeAssignUTCCommand,
+    DateTimeConversionCommand,
+    DateTimeMonthEndCommand,
+    DateTimeMonthStartCommand,
+    DateTimeParseDateTimeCommand,
+    DeferredColumnMapDTypePlanCommand,
+    DeferredColumnPlanApplyDefaultColumnCommand,
+    LookupMapValuesCommand,
+    SQLEvalConditionsCommand,
+    SQLEvalQueryCommand,
+)
 from focus_converter.data_loaders.data_exporter import DataExporter
 from focus_converter.data_loaders.data_loader import DataLoader
 from focus_converter.models.focus_column_names import (
@@ -109,134 +121,63 @@ class FocusConverter:
         # lookup lazyframes arguments to be assembled later on the final source lazyframe
         self.lookup_reference_args = []
 
+        # Create a dictionary to map conversion types to command classes.
+        command_classes = {
+            # Column based commands
+            STATIC_CONVERSION_TYPES.CONVERT_TIMEZONE: ConvertTimezoneCommand,
+            STATIC_CONVERSION_TYPES.ASSIGN_TIMEZONE: DateTimeConversionCommand,
+            STATIC_CONVERSION_TYPES.ASSIGN_UTC_TIMEZONE: DateTimeAssignUTCCommand,
+            STATIC_CONVERSION_TYPES.MONTH_START: DateTimeMonthStartCommand,
+            STATIC_CONVERSION_TYPES.MONTH_END: DateTimeMonthEndCommand,
+            STATIC_CONVERSION_TYPES.RENAME_COLUMN: ColumnRenameCommand,
+            STATIC_CONVERSION_TYPES.MAP_VALUES: ColumnMapValuesCommand,
+            STATIC_CONVERSION_TYPES.ASSIGN_STATIC_VALUE: ColumnAssignStaticCommand,
+            # SQL based commands
+            STATIC_CONVERSION_TYPES.SQL_QUERY: SQLEvalQueryCommand,
+            STATIC_CONVERSION_TYPES.SQL_CONDITION: SQLEvalConditionsCommand,
+            STATIC_CONVERSION_TYPES.PARSE_DATETIME: DateTimeParseDateTimeCommand,
+            STATIC_CONVERSION_TYPES.UNNEST_COLUMN: ColumnUnnestCommand,
+            # Lookup based commands
+            STATIC_CONVERSION_TYPES.LOOKUP: LookupMapValuesCommand,
+            # Deferred column plans
+            STATIC_CONVERSION_TYPES.APPLY_DEFAULT_IF_COLUMN_MISSING: DeferredColumnPlanApplyDefaultColumnCommand,
+            STATIC_CONVERSION_TYPES.SET_COLUMN_DTYPES: DeferredColumnMapDTypePlanCommand,
+        }
+
         for plan in self.plans[provider]:
             # column name generated with temporary prefix
-            if plan.column_prefix:
-                column_alias = f"{plan.column_prefix}_{plan.focus_column.value}"
-                self.__temporary_columns__.append(column_alias)
-            else:
-                column_alias = plan.focus_column.value
+            column_alias = self.generate_column_name(plan)
 
             # add column to plan to collect these dimensions to be added in the computed dataframe
             if plan.focus_column != FocusColumnNames.PLACE_HOLDER:
                 collected_columns.append(plan.focus_column.value)
 
-            if plan.conversion_type == STATIC_CONVERSION_TYPES.CONVERT_TIMEZONE:
-                column_exprs.append(
-                    DateTimeConversionFunctions.convert_timezone(
-                        plan=plan,
-                        column_alias=column_alias,
-                        column_validator=self.__column_validator__,
-                    )
-                )
-            elif plan.conversion_type == STATIC_CONVERSION_TYPES.ASSIGN_TIMEZONE:
-                column_exprs.append(
-                    DateTimeConversionFunctions.assign_timezone(
-                        plan=plan,
-                        column_alias=column_alias,
-                        column_validator=self.__column_validator__,
-                    )
-                )
-            elif plan.conversion_type == STATIC_CONVERSION_TYPES.ASSIGN_UTC_TIMEZONE:
-                column_exprs.append(
-                    DateTimeConversionFunctions.assign_utc_timezone(
-                        plan=plan,
-                        column_alias=column_alias,
-                        column_validator=self.__column_validator__,
-                    )
-                )
-            elif plan.conversion_type == STATIC_CONVERSION_TYPES.MONTH_START:
-                column_exprs.append(
-                    DateTimeConversionFunctions.month_start(
-                        plan=plan,
-                        column_alias=column_alias,
-                        column_validator=self.__column_validator__,
-                    )
-                )
-            elif plan.conversion_type == STATIC_CONVERSION_TYPES.MONTH_END:
-                column_exprs.append(
-                    DateTimeConversionFunctions.month_end(
-                        plan=plan,
-                        column_alias=column_alias,
-                        column_validator=self.__column_validator__,
-                    )
-                )
-            elif plan.conversion_type == STATIC_CONVERSION_TYPES.RENAME_COLUMN:
-                column_exprs.append(
-                    ColumnFunctions.rename_column_functions(
-                        plan=plan,
-                        column_alias=column_alias,
-                        column_validator=self.__column_validator__,
-                    )
-                )
-            elif plan.conversion_type == STATIC_CONVERSION_TYPES.SQL_QUERY:
-                sql_queries.append(
-                    SQLFunctions.eval_sql_query(
-                        plan=plan,
-                        column_alias=column_alias,
-                        column_validator=self.__column_validator__,
-                    )
-                )
-            elif plan.conversion_type == STATIC_CONVERSION_TYPES.SQL_CONDITION:
-                sql_queries.append(
-                    SQLFunctions.eval_sql_conditions(
-                        plan=plan,
-                        column_alias=column_alias,
-                        column_validator=self.__column_validator__,
-                    )
-                )
-            elif plan.conversion_type == STATIC_CONVERSION_TYPES.PARSE_DATETIME:
-                column_exprs.append(
-                    DateTimeConversionFunctions.parse_datetime(
-                        plan=plan,
-                        column_alias=column_alias,
-                        column_validator=self.__column_validator__,
-                    )
-                )
-            elif plan.conversion_type == STATIC_CONVERSION_TYPES.UNNEST_COLUMN:
-                column_exprs.append(
-                    ColumnFunctions.unnest(
-                        plan=plan,
-                        column_alias=column_alias,
-                        column_validator=self.__column_validator__,
-                    )
-                )
-            elif plan.conversion_type == STATIC_CONVERSION_TYPES.LOOKUP:
-                self.lookup_reference_args.append(
-                    LookupFunction.map_values_using_lookup(
-                        plan=plan,
-                        column_alias=column_alias,
-                        column_validator=self.__column_validator__,
-                    )
-                )
-            elif plan.conversion_type == STATIC_CONVERSION_TYPES.MAP_VALUES:
-                column_exprs.append(
-                    ColumnFunctions.map_values(
-                        plan=plan,
-                        column_alias=column_alias,
-                        column_validator=self.__column_validator__,
-                    )
-                )
-            elif plan.conversion_type == STATIC_CONVERSION_TYPES.ASSIGN_STATIC_VALUE:
-                column_exprs.append(
-                    ColumnFunctions.assign_static_value(
-                        plan=plan,
-                        column_alias=column_alias,
-                        column_validator=self.__column_validator__,
-                    )
-                )
-            elif (
-                plan.conversion_type
-                == STATIC_CONVERSION_TYPES.APPLY_DEFAULT_IF_COLUMN_MISSING
+            # process data based on conversion type
+            command_class = command_classes.get(plan.conversion_type)
+            if (
+                command_class.categorty(self) == "column"
+                or command_class.categorty(self) == "datetime"
             ):
-                self.__deferred_column_plans__.map_missing_column_plan(
-                    plan=plan,
-                    column_alias=column_alias,
-                    column_validator=self.__column_validator__,
+                command_class().execute(
+                    plan, column_alias, self.__column_validator__, column_exprs
                 )
-            elif plan.conversion_type == STATIC_CONVERSION_TYPES.SET_COLUMN_DTYPES:
-                self.__deferred_column_plans__.map_dtype_plan(
-                    plan=plan, column_validator=self.__column_validator__
+            elif command_class.categorty(self) == "sql":
+                command_class().execute(
+                    plan, column_alias, self.__column_validator__, sql_queries
+                )
+            elif command_class.categorty(self) == "lookup":
+                command_class().execute(
+                    plan,
+                    column_alias,
+                    self.__column_validator__,
+                    self.lookup_reference_args,
+                )
+            elif command_class.categorty(self) == "deferred":
+                command_class().execute(
+                    plan,
+                    column_alias,
+                    self.__column_validator__,
+                    self.__deferred_column_plans__,
                 )
             else:
                 raise NotImplementedError(
@@ -247,6 +188,14 @@ class FocusConverter:
         self.__column_validator__.validate_graph_is_connected()
 
         return column_exprs
+
+    def generate_column_name(self, plan):
+        if plan.column_prefix:
+            column_alias = f"{plan.column_prefix}_{plan.focus_column.value}"
+            self.__temporary_columns__.append(column_alias)
+        else:
+            column_alias = plan.focus_column.value
+        return column_alias
 
     @staticmethod
     def __apply_sql_queries__(lf: pl.LazyFrame, sql_queries):
