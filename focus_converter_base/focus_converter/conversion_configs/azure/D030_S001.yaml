@@ -1,0 +1,635 @@
+plan_name: convert UnitOfMeasure to UsageUnit
+conversion_type: map_values
+conversion_args:
+  value_list:
+    - key: 1
+      value: Units
+    - key: 1 /Day
+      value: Units/Day
+    - key: 1 /Hour
+      value: Units/Hour
+    - key: 1 /Month
+      value: Units/Month
+    - key: 1 /Year
+      value: Units/Year
+    - key: 1 1 Hour
+      value: Hours
+    - key: 1 Agents
+      value: Agents
+    - key: 1 Annual Domain
+      value: Domains/Year
+    - key: 1 Annual Domains
+      value: Domains/Year
+    - key: 1 Annual Subscriptions
+      value: Subscriptions/Year
+    - key: 1 Border Routers
+      value: Routers
+    - key: 1 Certificate
+      value: Certificates
+    - key: 1 Concurrent DVC
+      value: Configurations
+    - key: 1 Connection
+      value: Connections
+    - key: 1 Connections
+      value: Connections
+    - key: 1 Content Hours
+      value: Hours
+    - key: 1 Cubic Meter/Month
+      value: Cubic Meters/Month
+    - key: 1 Daily App
+      value: Apps/Day
+    - key: 1 Daily Connection
+      value: Connections/Day
+    - key: 1 Daily Connections
+      value: Connections/Day
+    - key: 1 Daily Pack
+      value: Packs/Day
+    - key: 1 Daily Reserved Unit
+      value: Units/Day
+    - key: 1 Daily Reserved Units
+      value: Units/Day
+    - key: 1 Daily Unit
+      value: Units/Day
+    - key: 1 Daily Units
+      value: Units/Day
+    - key: 1 Daily User
+      value: Users/Day
+    - key: 1 Database Unit
+      value: Units
+    - key: 1 Database Units (DU)
+      value: Units
+    - key: 1 Day
+      value: Days
+    - key: 1 Days
+      value: Days
+    - key: 1 Device
+      value: Devices
+    - key: 1 Devices
+      value: Devices
+    - key: 1 Executions
+      value: Executions
+    - key: 1 GB
+      value: GB
+    - key: 1 GB Hour
+      value: GB Hours
+    - key: 1 GB Second
+      value: GB Seconds
+    - key: 1 GB/Hour
+      value: GB/Hour
+    - key: 1 GB/Month
+      value: GB/Month
+    - key: 1 GiB Hour
+      value: GiB Hours
+    - key: 1 GiB/Day
+      value: GiB/Day
+    - key: 1 GiB/Hour
+      value: GiB/Hour
+    - key: 1 GiB/Month
+      value: GiB/Month
+    - key: 1 Hour
+      value: Hours
+    - key: 1 Hourly Connection
+      value: Connections/Hour
+    - key: 1 Hourly Unit
+      value: Units/Hour
+    - key: 1 Hourly Units
+      value: Units/Hour
+    - key: 1 Hours
+      value: Hours
+    - key: 1 Key
+      value: Keys
+    - key: 1 Key Use
+      value: Keys
+    - key: 1 MB
+      value: MB
+    - key: 1 Maps
+      value: Maps
+    - key: 1 Messaging Unit
+      value: Units
+    - key: 1 Minute
+      value: Minutes
+    - key: 1 Month
+      value: Months
+    - key: 1 Named Users
+      value: Users
+    - key: 1 Node
+      value: Nodes
+    - key: 1 Nodes
+      value: Nodes
+    - key: 1 PB/Hour
+      value: PB/Hour
+    - key: 1 PiB/Hour
+      value: PiB/Hour
+    - key: 1 Pipeline
+      value: Pipelines
+    - key: 1 Plan
+      value: Plans
+    - key: 1 Plans
+      value: Plans
+    - key: 1 Policies
+      value: Policies
+    - key: 1 Resource
+      value: Resources
+    - key: 1 Sites
+      value: Sites
+    - key: 1 Subscription
+      value: Subscriptions
+    - key: 1 Subscriptions
+      value: Subscriptions
+    - key: 1 TB
+      value: TB
+    - key: 1 TB Hour
+      value: TB Hours
+    - key: 1 TB Second
+      value: TB Seconds
+    - key: 1 TB/Hour
+      value: TB/Hour
+    - key: 1 TB/Month
+      value: TB/Month
+    - key: 1 TiB
+      value: TiB
+    - key: 1 TiB Hour
+      value: TiB Hours
+    - key: 1 TiB/Hour
+      value: TiB/Hour
+    - key: 1 TiB/Month
+      value: TiB/Month
+    - key: 1 Unit
+      value: Units
+    - key: 1 Units
+      value: Units
+    - key: 1 User
+      value: Users
+    - key: 1 Users
+      value: Users
+    - key: 1 VM
+      value: Virtual Machines
+    - key: 1 Virtual Machine
+      value: Virtual Machines
+    - key: 1 Website
+      value: Websites
+    - key: 1 Zones
+      value: Zones
+    - key: 1 day
+      value: Day
+    - key: 1 hour
+      value: Hour
+    - key: 1 user
+      value: User
+    - key: 1/Day
+      value: Units/Day
+    - key: 1/Hour
+      value: Units/Hour
+    - key: 1/Month
+      value: Units/Month
+    - key: 10
+      value: Units
+    - key: 10
+      value: Units
+    - key: 10 /Day
+      value: Units/Day
+    - key: 10 /Hour
+      value: Units/Hour
+    - key: 10 /Month
+      value: Units/Month
+    - key: 10 Activities
+      value: Activities
+    - key: 10 DB Hours
+      value: DB Hours
+    - key: 10 DBU Hours
+      value: DBU Hours
+    - key: 10 Database Unit
+      value: Units
+    - key: 10 Database Units (DU)
+      value: Units
+    - key: 10 Days
+      value: Days
+    - key: 10 Devices
+      value: Devices
+    - key: 10 GB
+      value: GB
+    - key: 10 GB/Day
+      value: GB/Day
+    - key: 10 GB/Month
+      value: GB/Month
+    - key: 10 GiB
+      value: GiB
+    - key: 10 GiB/Month
+      value: GiB/Month
+    - key: 10 Hour
+      value: Hours
+    - key: 10 Hourly Units
+      value: Units/Hour
+    - key: 10 Hours
+      value: Hours
+    - key: 10 Instance Hours
+      value: Hours
+    - key: 10 Minutes
+      value: Minutes
+    - key: 10 Month
+      value: Months
+    - key: 10 Months
+      value: Months
+    - key: 10 PB Seconds
+      value: PB Seconds
+    - key: 10 PB/Hour
+      value: PB/Hour
+    - key: 10 PiB Seconds
+      value: PiB Seconds
+    - key: 10 Pipelines
+      value: Pipelines
+    - key: 10 Rotations
+      value: Rotations
+    - key: 10 Service Endpoints
+      value: Endpoints
+    - key: 10 TB
+      value: TB
+    - key: 10 TB Hours
+      value: TB Hours
+    - key: 10 TB/Day
+      value: TB/Day
+    - key: 10 TB/Hour
+      value: TB/Hour
+    - key: 10 TB/Month
+      value: TB/Month
+    - key: 10 TiB
+      value: TiB
+    - key: 10 TiB Hours
+      value: TiB Hours
+    - key: 10 TiB/Hour
+      value: TiB/Hour
+    - key: 10 TiB/Month
+      value: TiB/Month
+    - key: 10 Unit
+      value: Units
+    - key: 10 Unit Hours
+      value: Unit Hours
+    - key: 10 Units
+      value: Units
+    - key: 10 day
+      value: Day
+    - key: 100
+      value: Units
+    - key: 100
+      value: Units
+    - key: 100 /Day
+      value: Units/Day
+    - key: 100 /Hour
+      value: Units/Hour
+    - key: 100 /Month
+      value: Units/Month
+    - key: 100 API Calls
+      value: Requests
+    - key: 100 Authentications
+      value: Authentications
+    - key: 100 Connections
+      value: Connections
+    - key: 100 Core Hours
+      value: Hours
+    - key: 100 Core Hrs
+      value: Hours
+    - key: 100 Days
+      value: Days
+    - key: 100 GB
+      value: GB
+    - key: 100 GB/Day
+      value: GB/Day
+    - key: 100 GB/Month
+      value: GB/Month
+    - key: 100 GiB
+      value: GiB
+    - key: 100 GiB/Hour
+      value: GiB/Hour
+    - key: 100 GiB/Month
+      value: GiB/Month
+    - key: 100 Hour
+      value: Hours
+    - key: 100 Hourly Units
+      value: Units/Hour
+    - key: 100 Hours
+      value: Hours
+    - key: 100 IOPS/Month
+      value: IOPS/Month
+    - key: 100 MB
+      value: MB
+    - key: 100 MB/Month
+      value: MB/Month
+    - key: 100 Mbps
+      value: Mbps
+    - key: 100 Minutes
+      value: Minutes
+    - key: 100 Months
+      value: Months
+    - key: 100 TB
+      value: TB
+    - key: 100 TB/Hour
+      value: TB/Hour
+    - key: 100 TB/Month
+      value: TB/Month
+    - key: 100 TiB/Hour
+      value: TiB/Hour
+    - key: 100 Unit
+      value: Units
+    - key: 100 Units
+      value: Units
+    - key: 100 Users
+      value: Users
+    - key: 1000
+      value: Units
+    - key: 1000
+      value: Units
+    - key: 1000 /Day
+      value: Units/Day
+    - key: 1000 /Hour
+      value: Units/Hour
+    - key: 1000 /Month
+      value: Units/Month
+    - key: 1000 APIs
+      value: APIs
+    - key: 1000 Activity Runs
+      value: Runs
+    - key: 1000 Checks
+      value: Checks
+    - key: 1000 Executions
+      value: Executions
+    - key: 1000 GB
+      value: GB
+    - key: 1000 GB Hours
+      value: GB Hours
+    - key: 1000 GB/Month
+      value: GB/Month
+    - key: 1000 Hours
+      value: Hours
+    - key: 1000 IOPS/Month
+      value: IOPS/Month
+    - key: 1000 Keys
+      value: Keys
+    - key: 1000 Licenses
+      value: Licenses
+    - key: 1000 MAUS
+      value: Users/Month
+    - key: 1000 MAUs
+      value: Users/Month
+    - key: 1000 MB/Month
+      value: MB/Month
+    - key: 1000 Minutes
+      value: Minutes
+    - key: 1000 Months
+      value: Months
+    - key: 1000 Relay Hours
+      value: Hours
+    - key: 1000 Relay Hrs
+      value: Hours
+    - key: 1000 Renders
+      value: Renders
+    - key: 1000 Transactions
+      value: Transactions
+    - key: 10000
+      value: Units
+    - key: 10000
+      value: Units
+    - key: 10000 /Day
+      value: Units/Day
+    - key: 10000 /Hour
+      value: Units/Hour
+    - key: 10000 /Month
+      value: Units/Month
+    - key: 10000 1,000s
+      value: Transactions in Thousands
+    - key: 10000 Actions
+      value: Actions
+    - key: 10000 Authentications
+      value: Authentications
+    - key: 10000 Executions
+      value: Executions
+    - key: 10000 Faces
+      value: Faces
+    - key: 10000 GB
+      value: GB
+    - key: 10000 GB Hours
+      value: GB Hours
+    - key: 10000 GB/Hour
+      value: GB/Hour
+    - key: 10000 GB/Month
+      value: GB/Month
+    - key: 10000 GiB/Hour
+      value: GiB/Hour
+    - key: 10000 Hours
+      value: Hours
+    - key: 10000 Minutes
+      value: Minutes
+    - key: 10000 Operations
+      value: Operations
+    - key: 10000 Predictions
+      value: Predictions
+    - key: 10000 Seconds
+      value: Seconds
+    - key: 10000 Transactions
+      value: Transactions
+    - key: 10000 Users
+      value: Users
+    - key: 10000 Virtual User Minutes
+      value: Minutes
+    - key: 100000
+      value: Units
+    - key: 100000
+      value: Units
+    - key: 100000 /Day
+      value: Units/Day
+    - key: 100000 /Hour
+      value: Units/Hour
+    - key: 100000 Executions
+      value: Executions
+    - key: 100000 GB
+      value: GB
+    - key: 100000 GB Seconds
+      value: GB Seconds
+    - key: 100000 GB/Hour
+      value: GB/Hour
+    - key: 100000 GiB/Hour
+      value: GiB/Hour
+    - key: 100000 Hours
+      value: Hours
+    - key: 100000 Seconds
+      value: Seconds
+    - key: 100000 Transactions
+      value: Transactions
+    - key: 1000000
+      value: Units
+    - key: 1000000
+      value: Units
+    - key: 1000000 /Hour
+      value: Units/Hour
+    - key: 1000000 /Month
+      value: Units/Month
+    - key: 1000000 Data Points
+      value: Data Points
+    - key: 1000000 GB Seconds
+      value: GB Seconds
+    - key: 1000000 Messages
+      value: Messages
+    - key: 1000000 Operations
+      value: Operations
+    - key: 1000000 Pushes
+      value: Pushes
+    - key: 1000000 Requests
+      value: Requests
+    - key: 1000000 Seconds
+      value: Seconds
+    - key: 1000000 Transactions
+      value: Transactions
+    - key: 10000000
+      value: Units
+    - key: 10000000
+      value: Units
+    - key: 10000000 /Hour
+      value: Units/Hour
+    - key: 10000000 /Month
+      value: Units/Month
+    - key: 10000000 GB Seconds
+      value: GB Seconds
+    - key: 10000000 Operations
+      value: Operations
+    - key: 10000000 Pushes
+      value: Pushes
+    - key: 10000000 Queries
+      value: Queries
+    - key: 10000000 Seconds
+      value: Seconds
+    - key: 10000000 Transactions
+      value: Transactions
+    - key: 100000000
+      value: Units
+    - key: 100000000
+      value: Units
+    - key: 100000000 /Month
+      value: Units/Month
+    - key: 100000000 Events
+      value: Events
+    - key: 100000000 Operation Units
+      value: Units
+    - key: 100000000 Operations
+      value: Operations
+    - key: 100000000 Pushes
+      value: Pushes
+    - key: 100000000 Transactions
+      value: Transactions
+    - key: 1000000000
+      value: Units
+    - key: 10000000000
+      value: Units
+    - key: 100000000000
+      value: Units
+    - key: 1024 GB
+      value: GB
+    - key: 102400 TiB/Hour
+      value: TiB/Hour
+    - key: 10K
+      value: Units
+    - key: 10K/Month
+      value: Units/Month
+    - key: 128 MB
+      value: MB
+    - key: 150 Hours
+      value: Hours
+    - key: 1M
+      value: Units
+    - key: 2
+      value: Units
+    - key: 2
+      value: Units
+    - key: 2 Hosted Zones
+      value: Zones
+    - key: 20 GB/Month
+      value: GB/Month
+    - key: 200
+      value: Units
+    - key: 200
+      value: Units
+    - key: 200 /Hour
+      value: Units/Hour
+    - key: 200 GB
+      value: GB
+    - key: 200 Hours
+      value: Hours
+    - key: 200 minutes
+      value: Minutes
+    - key: 2000 Hours
+      value: Hours
+    - key: 200000
+      value: Units
+    - key: 200000
+      value: Units
+    - key: 200000 Transactions
+      value: Transactions
+    - key: 2000000
+      value: Units
+    - key: 2000000
+      value: Units
+    - key: 25000
+      value: Units
+    - key: 250000
+      value: Units
+    - key: 250000
+      value: Units
+    - key: 2500000
+      value: Units
+    - key: 30 /Day
+      value: Units/Day
+    - key: 30 Days
+      value: Days
+    - key: 31 Connections
+      value: Connections
+    - key: 5 Connections
+      value: Connections
+    - key: 5 GB
+      value: GB
+    - key: 5 TB
+      value: TB
+    - key: 50 Hours
+      value: Hours
+    - key: 500
+      value: Units
+    - key: 500
+      value: Units
+    - key: 500 Hours
+      value: Hours
+    - key: 500 Minute
+      value: Minutes
+    - key: 500 Minutes
+      value: Minutes
+    - key: 50000
+      value: Units
+    - key: 50000
+      value: Units
+    - key: 50000 GB Seconds
+      value: GB Seconds
+    - key: 500000 Requests
+      value: Requests
+    - key: 5000000
+      value: Units
+    - key: 5000000
+      value: Units
+    - key: 5000000 Requests
+      value: Requests
+    - key: 5000000000 Requests
+      value: Requests
+    - key: 60
+      value: Units
+    - key: 60
+      value: Units
+    - key: 60 Minutes
+      value: Minutes
+    - key: 744 Connections
+      value: Connections
+    - key: CallingMinutes
+      value: Minutes
+    - key: Minute(s)
+      value: Minutes
+    - key: Per Call
+      value: Calls
+    - key: Unassigned
+      value: Units
+  default_value: Units
+column: UnitOfMeasure
+focus_column: UsageUnit
