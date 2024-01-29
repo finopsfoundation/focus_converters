@@ -11,7 +11,6 @@
 | PricingUnit                |                0 | Not Defined            | Not Defined          | Not Defined         | Not Defined                                                                                  |
 | ResourceId                 |                0 | Not Defined            | Not Defined          | Not Defined         | Not Defined                                                                                  |
 | SkuId                      |                0 | Not Defined            | Not Defined          | Not Defined         | Not Defined                                                                                  |
-| SkuPriceId                 |                0 | Not Defined            | Not Defined          | Not Defined         | Not Defined                                                                                  |
 | AvailabilityZone           |                1 | AvailabilityZone       | Not Defined          | RENAME_COLUMN       |                                                                                              |
 | BilledCost                 |                1 | CostInBillingCurrency  | Not Defined          | RENAME_COLUMN       |                                                                                              |
 | BillingAccountId           |                1 | BillingAccountId       | Not Defined          | RENAME_COLUMN       |                                                                                              |
@@ -60,6 +59,7 @@
 |                            |                  |                        |                      |                     | reference_dataset_path: conversion_configs/azure/mapping_files/azure_category_mapping.csv    |
 |                            |                  |                        |                      |                     | source_value: ConsumedService                                                                |
 | ServiceName                |                1 | ConsumedService        | Not Defined          | RENAME_COLUMN       |                                                                                              |
+| SkuPriceId                 |                1 | NA                     | Not Defined          | ASSIGN_STATIC_VALUE | static_value: null                                                                           |
 | SubAccountId               |                1 | SubscriptionId         | Not Defined          | RENAME_COLUMN       |                                                                                              |
 | SubAccountName             |                1 | SubscriptionName       | Not Defined          | RENAME_COLUMN       |                                                                                              |
 | UsageQuantity              |                1 | Quantity               | Not Defined          | RENAME_COLUMN       |                                                                                              |
