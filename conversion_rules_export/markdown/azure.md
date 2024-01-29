@@ -5,7 +5,6 @@
 | CommitmentDiscountCategory |                0 | Not Defined            | Not Defined          | Not Defined         | Not Defined                                                                                  |
 | CommitmentDiscountId       |                0 | Not Defined            | Not Defined          | Not Defined         | Not Defined                                                                                  |
 | CommitmentDiscountType     |                0 | Not Defined            | Not Defined          | Not Defined         | Not Defined                                                                                  |
-| InvoiceIssuer              |                0 | Not Defined            | Not Defined          | Not Defined         | Not Defined                                                                                  |
 | ListCost                   |                0 | Not Defined            | Not Defined          | Not Defined         | Not Defined                                                                                  |
 | ListUnitPrice              |                0 | Not Defined            | Not Defined          | Not Defined         | Not Defined                                                                                  |
 | PricingQuantity            |                0 | Not Defined            | Not Defined          | Not Defined         | Not Defined                                                                                  |
@@ -47,6 +46,7 @@
 |                            |                  |                        |                      |                     | default_value: '''Other'''                                                                   |
 | CommitmentDiscountName     |                1 | benefitName            | Not Defined          | RENAME_COLUMN       |                                                                                              |
 | EffectiveCost              |                1 | CostInBillingCurrency  | Not Defined          | RENAME_COLUMN       |                                                                                              |
+| InvoiceIssuer              |                1 | NA                     | Not Defined          | ASSIGN_STATIC_VALUE | static_value: Microsoft                                                                      |
 | PricingCategory            |                1 | PricingModel           | Not Defined          | SQL_CONDITION       | conditions:                                                                                  |
 |                            |                  |                        |                      |                     | - WHEN PricingModel = 'OnDemand' THEN 'On-Demand'                                            |
 |                            |                  |                        |                      |                     | - WHEN PricingModel = 'Spot' THEN 'Dynamic'                                                  |
