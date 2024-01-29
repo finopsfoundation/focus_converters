@@ -54,7 +54,7 @@ class LookupConversionArgs(BaseModel):
 
 
 class ValueMapItemConversionArgs(BaseModel):
-    key: str
+    key: Union[str, int]
     value: str
 
 
