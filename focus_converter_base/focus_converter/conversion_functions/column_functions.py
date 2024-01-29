@@ -91,7 +91,7 @@ class ColumnFunctions:
 
         map_dict = {}
         for value_obj in conversion_args.value_list:
-            map_dict.update({value_obj.key: value_obj.value})
+            map_dict.update({str(value_obj.key): value_obj.value})
 
         # if flag set, allow null value to be mapped to default value
         if conversion_args.apply_default_if_null:
