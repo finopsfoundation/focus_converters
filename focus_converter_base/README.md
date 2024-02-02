@@ -95,4 +95,4 @@ We're excited to work together. Please see [CONTRIBUTING.md] for information on 
 
 [Rules Export CSV]: https://github.com/finopsfoundation/focus_converters/tree/master/conversion_rules_export/csv
 
-[pie charts]: ../progress/README.md#aws-parquet
+[pie charts]: https://github.com/finopsfoundation/focus_converters/tree/master/progress/README.md

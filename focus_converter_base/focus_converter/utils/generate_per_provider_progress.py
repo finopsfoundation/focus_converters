@@ -11,6 +11,15 @@ app = typer.Typer(
 )
 
 
+def autopct_format(values):
+    def my_format(pct):
+        total = sum(values)
+        val = int(round(pct * total / 100.0))
+        return "{:.1f}%\n({v:d})".format(pct, v=val)
+
+    return my_format
+
+
 @app.command("generate", help="Generates progress pie chart for a providers")
 def generate_for_all_providers(
     output_dir: Annotated[
@@ -29,7 +38,9 @@ def generate_for_all_providers(
         csv_path = os.path.join(csv_rules_export_dir, provider_csv_rule_export_name)
 
         rules = pl.read_csv(csv_path)
-        rules = rules.groupby(["FOCUS Dimension"]).agg(pl.col("Transform Type").first())
+        rules = rules.group_by(["FOCUS Dimension"]).agg(
+            pl.col("Transform Type").first()
+        )
 
         total_rule_count = rules.shape[0]
 
@@ -39,10 +50,10 @@ def generate_for_all_providers(
         done_count = total_rule_count - pending_count
 
         y = np.array([pending_count, done_count])
-        mylabels = ["Pending", "Done"]
+        labels = ["Pending", "Done"]
 
         fig, ax = plt.subplots()
-        ax.pie(y, labels=mylabels)
+        ax.pie(y, labels=labels, autopct=autopct_format([pending_count, done_count]))
         ax.legend()
         ax.set_title(f"{provider.upper()} Progress")
         fig.savefig(f"{output_dir}/{provider}_progress_pie_chart.png")
