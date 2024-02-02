@@ -63,6 +63,10 @@ poetry install --only main --no-root
 Before using `python -m focus_converter.main` as a substitute for the pre-installed `focus-converter` script and testing
 repository changes, ensure to run the `poetry shell` command to set up the environment correctly.
 
+## Provider Progress
+
+Look at [pie charts] showing the progress of the conversion for each provider. For each provider there is a pie chart showing number of FOCUS dimensions added to the conversion plan vs pending.
+
 ## License
 
 This project is licensed under the terms of the MIT license.
@@ -90,3 +94,5 @@ We're excited to work together. Please see [CONTRIBUTING.md] for information on 
 [Rules Export Markdown]: https://github.com/finopsfoundation/focus_converters/tree/master/conversion_rules_export/markdown
 
 [Rules Export CSV]: https://github.com/finopsfoundation/focus_converters/tree/master/conversion_rules_export/csv
+
+[pie charts]: https://github.com/finopsfoundation/focus_converters/tree/master/progress/README.md
