@@ -9,7 +9,6 @@
 | ListUnitPrice              |                0 | Not Defined            | Not Defined          | Not Defined         | Not Defined                                                                                  |
 | PricingQuantity            |                0 | Not Defined            | Not Defined          | Not Defined         | Not Defined                                                                                  |
 | PricingUnit                |                0 | Not Defined            | Not Defined          | Not Defined         | Not Defined                                                                                  |
-| ResourceId                 |                0 | Not Defined            | Not Defined          | Not Defined         | Not Defined                                                                                  |
 | SkuId                      |                0 | Not Defined            | Not Defined          | Not Defined         | Not Defined                                                                                  |
 | AvailabilityZone           |                1 | AvailabilityZone       | Not Defined          | RENAME_COLUMN       |                                                                                              |
 | BilledCost                 |                1 | CostInBillingCurrency  | Not Defined          | RENAME_COLUMN       |                                                                                              |
@@ -54,6 +53,7 @@
 | Provider                   |                1 | NA                     | Not Defined          | ASSIGN_STATIC_VALUE | static_value: Azure                                                                          |
 | Publisher                  |                1 | PublisherName          | Not Defined          | RENAME_COLUMN       |                                                                                              |
 | Region                     |                1 | ResourceLocation       | Not Defined          | RENAME_COLUMN       |                                                                                              |
+| ResourceId                 |                1 | ResourceId             | Not Defined          | RENAME_COLUMN       |                                                                                              |
 | ResourceName               |                1 | ResourceName           | Not Defined          | RENAME_COLUMN       |                                                                                              |
 | ServiceCategory            |                1 | ConsumedService        | Not Defined          | LOOKUP              | destination_value: ServiceCategory                                                           |
 |                            |                  |                        |                      |                     | reference_dataset_path: conversion_configs/azure/mapping_files/azure_category_mapping.csv    |
