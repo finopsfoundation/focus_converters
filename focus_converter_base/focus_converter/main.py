@@ -52,6 +52,13 @@ def main(
             rich_help_panel="Validation",
         ),
     ] = False,
+    validate_version: Annotated[
+        str,
+        typer.Option(
+            help="Validate generated data to match specific FOCUS spec. version",
+            rich_help_panel="Validation",
+        ),
+    ] = "0.5",
 ):
     # compute function for conversion
 
@@ -81,6 +88,7 @@ def main(
                 data_filename=file_path,
                 output_type="console",
                 output_destination=None,
+                rules_version=validate_version,
             )
             validator.load()
             validator.validate()
