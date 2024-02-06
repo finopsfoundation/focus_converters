@@ -1,8 +1,8 @@
 plan_name: Generate ResourceType for azure data using a map.
-column: ConsumedService
+column: ResourceType
 conversion_type: lookup
 focus_column: ResourceType
 conversion_args:
     reference_dataset_path: "conversion_configs/azure/mapping_files/azure_resource_type_mapping.csv"
-    source_value: ConsumedService
+    source_value: ResourceType
     destination_value: ResourceType
