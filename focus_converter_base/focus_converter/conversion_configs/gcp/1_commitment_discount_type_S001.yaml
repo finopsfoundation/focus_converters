@@ -1,7 +1,0 @@
-plan_name: Unnest credits.id to get CommitmentDiscountType
-conversion_type: unnest
-column: credits.id
-focus_column: CommitmentDiscountType
-conversion_args:
-    children_type: list
-    aggregation_operation: first
