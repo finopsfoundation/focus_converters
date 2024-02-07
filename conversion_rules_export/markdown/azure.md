@@ -3,7 +3,6 @@
 | BilledCurrency             |                0 | Not Defined            | Not Defined          | Not Defined         | Not Defined                                                                                  |
 | ChargeType                 |                0 | Not Defined            | Not Defined          | Not Defined         | Not Defined                                                                                  |
 | CommitmentDiscountCategory |                0 | Not Defined            | Not Defined          | Not Defined         | Not Defined                                                                                  |
-| CommitmentDiscountId       |                0 | Not Defined            | Not Defined          | Not Defined         | Not Defined                                                                                  |
 | CommitmentDiscountType     |                0 | Not Defined            | Not Defined          | Not Defined         | Not Defined                                                                                  |
 | ListCost                   |                0 | Not Defined            | Not Defined          | Not Defined         | Not Defined                                                                                  |
 | ListUnitPrice              |                0 | Not Defined            | Not Defined          | Not Defined         | Not Defined                                                                                  |
@@ -41,6 +40,7 @@
 |                            |                  |                        |                      |                     | - WHEN ChargeType = 'Refund' THEN 'Refund'                                                   |
 |                            |                  |                        |                      |                     | - WHEN ChargeType = 'RoundingAdjustment' THEN 'Rounding Error'                               |
 |                            |                  |                        |                      |                     | default_value: '''Other'''                                                                   |
+| CommitmentDiscountId       |                1 | benefitId              | Not Defined          | RENAME_COLUMN       |                                                                                              |
 | CommitmentDiscountName     |                1 | benefitName            | Not Defined          | RENAME_COLUMN       |                                                                                              |
 | EffectiveCost              |                1 | CostInBillingCurrency  | Not Defined          | RENAME_COLUMN       |                                                                                              |
 | InvoiceIssuer              |                1 | NA                     | Not Defined          | ASSIGN_STATIC_VALUE | static_value: Microsoft                                                                      |
