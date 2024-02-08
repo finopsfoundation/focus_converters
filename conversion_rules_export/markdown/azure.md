@@ -2,7 +2,6 @@
 |:---------------------------|-----------------:|:-----------------------|:---------------------|:--------------------|:---------------------------------------------------------------------------------------------|
 | BilledCurrency             |                0 | Not Defined            | Not Defined          | Not Defined         | Not Defined                                                                                  |
 | ChargeType                 |                0 | Not Defined            | Not Defined          | Not Defined         | Not Defined                                                                                  |
-| CommitmentDiscountCategory |                0 | Not Defined            | Not Defined          | Not Defined         | Not Defined                                                                                  |
 | ListCost                   |                0 | Not Defined            | Not Defined          | Not Defined         | Not Defined                                                                                  |
 | ListUnitPrice              |                0 | Not Defined            | Not Defined          | Not Defined         | Not Defined                                                                                  |
 | PricingQuantity            |                0 | Not Defined            | Not Defined          | Not Defined         | Not Defined                                                                                  |
@@ -39,6 +38,10 @@
 |                            |                  |                        |                      |                     | - WHEN ChargeType = 'Refund' THEN 'Refund'                                                   |
 |                            |                  |                        |                      |                     | - WHEN ChargeType = 'RoundingAdjustment' THEN 'Rounding Error'                               |
 |                            |                  |                        |                      |                     | default_value: '''Other'''                                                                   |
+| CommitmentDiscountCategory |                1 | benefitId              | Not Defined          | SQL_CONDITION       | conditions:                                                                                  |
+|                            |                  |                        |                      |                     | - WHEN LOWER(benefitId) LIKE '%/microsoft.capacity/%' THEN 'Usage'                           |
+|                            |                  |                        |                      |                     | - WHEN LOWER(benefitId) LIKE '%/microsoft.billingbenefits/%' THEN 'Spend'                    |
+|                            |                  |                        |                      |                     | default_value: 'NULL'                                                                        |
 | CommitmentDiscountId       |                1 | benefitId              | Not Defined          | RENAME_COLUMN       |                                                                                              |
 | CommitmentDiscountName     |                1 | benefitName            | Not Defined          | RENAME_COLUMN       |                                                                                              |
 | CommitmentDiscountType     |                1 | benefitId              | Not Defined          | SQL_CONDITION       | conditions:                                                                                  |
