@@ -3,7 +3,6 @@
 | BilledCurrency             |                0 | Not Defined            | Not Defined          | Not Defined         | Not Defined                                                                                  |
 | ChargeType                 |                0 | Not Defined            | Not Defined          | Not Defined         | Not Defined                                                                                  |
 | CommitmentDiscountCategory |                0 | Not Defined            | Not Defined          | Not Defined         | Not Defined                                                                                  |
-| CommitmentDiscountType     |                0 | Not Defined            | Not Defined          | Not Defined         | Not Defined                                                                                  |
 | ListCost                   |                0 | Not Defined            | Not Defined          | Not Defined         | Not Defined                                                                                  |
 | ListUnitPrice              |                0 | Not Defined            | Not Defined          | Not Defined         | Not Defined                                                                                  |
 | PricingQuantity            |                0 | Not Defined            | Not Defined          | Not Defined         | Not Defined                                                                                  |
@@ -42,6 +41,10 @@
 |                            |                  |                        |                      |                     | default_value: '''Other'''                                                                   |
 | CommitmentDiscountId       |                1 | benefitId              | Not Defined          | RENAME_COLUMN       |                                                                                              |
 | CommitmentDiscountName     |                1 | benefitName            | Not Defined          | RENAME_COLUMN       |                                                                                              |
+| CommitmentDiscountType     |                1 | benefitId              | Not Defined          | SQL_CONDITION       | conditions:                                                                                  |
+|                            |                  |                        |                      |                     | - WHEN LOWER(benefitId) LIKE '%/microsoft.capacity/%' THEN 'Reservation'                     |
+|                            |                  |                        |                      |                     | - WHEN LOWER(benefitId) LIKE '%/microsoft.billingbenefits/%' THEN 'Savings Plan'             |
+|                            |                  |                        |                      |                     | default_value: 'NULL'                                                                        |
 | EffectiveCost              |                1 | CostInBillingCurrency  | Not Defined          | RENAME_COLUMN       |                                                                                              |
 | InvoiceIssuer              |                1 | NA                     | Not Defined          | ASSIGN_STATIC_VALUE | static_value: Microsoft                                                                      |
 | PricingCategory            |                1 | PricingModel           | Not Defined          | SQL_CONDITION       | conditions:                                                                                  |
