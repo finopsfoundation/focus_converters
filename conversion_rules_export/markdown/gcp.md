@@ -14,15 +14,11 @@
 | ListCost                   |                0 | Not Defined                     | Not Defined          | Not Defined         | Not Defined                                                                           |
 | ListUnitPrice              |                0 | Not Defined                     | Not Defined          | Not Defined         | Not Defined                                                                           |
 | PricingCategory            |                0 | Not Defined                     | Not Defined          | Not Defined         | Not Defined                                                                           |
-| PricingQuantity            |                0 | Not Defined                     | Not Defined          | Not Defined         | Not Defined                                                                           |
 | PricingUnit                |                0 | Not Defined                     | Not Defined          | Not Defined         | Not Defined                                                                           |
 | ResourceName               |                0 | Not Defined                     | Not Defined          | Not Defined         | Not Defined                                                                           |
 | ServiceName                |                0 | Not Defined                     | Not Defined          | Not Defined         | Not Defined                                                                           |
-| SkuPriceId                 |                0 | Not Defined                     | Not Defined          | Not Defined         | Not Defined                                                                           |
 | SubAccountId               |                0 | Not Defined                     | Not Defined          | Not Defined         | Not Defined                                                                           |
 | SubAccountName             |                0 | Not Defined                     | Not Defined          | Not Defined         | Not Defined                                                                           |
-| UsageQuantity              |                0 | Not Defined                     | Not Defined          | Not Defined         | Not Defined                                                                           |
-| UsageUnit                  |                0 | Not Defined                     | Not Defined          | Not Defined         | Not Defined                                                                           |
 | AvailabilityZone           |                1 | location.zone                   | Not Defined          | UNNEST_COLUMN       |                                                                                       |
 | BilledCost                 |                1 | credits.amount                  | Not Defined          | UNNEST_COLUMN       | {'children_type': 'list', 'aggregation_operation': 'sum'}                             |
 | BilledCost                 |                2 | tmp_credits_amount_BilledCost   | Not Defined          | SQL_QUERY           | SELECT *, (cost + tmp_credits_amount_BilledCost) AS BilledCost from {{ TABLE_NAME }}  |
@@ -45,6 +41,7 @@
 |                            |                  |                                 |                      |                     | - WHEN cost_type = 'regular' THEN 'Purchase'                                          |
 |                            |                  |                                 |                      |                     | - WHEN cost_type = 'adjustment' THEN 'Adjustment'                                     |
 |                            |                  |                                 |                      |                     | default_value: '''Usage'''                                                            |
+| PricingQuantity            |                1 | usage.amount_in_pricing_units   | Not Defined          | UNNEST_COLUMN       |                                                                                       |
 | Provider                   |                1 | NA                              | Not Defined          | ASSIGN_STATIC_VALUE | static_value: Google Cloud                                                            |
 | Publisher                  |                1 | seller_name                     | Not Defined          | SQL_CONDITION       | conditions:                                                                           |
 |                            |                  |                                 |                      |                     | - WHEN seller_name is not NULL THEN seller_name                                       |
@@ -60,3 +57,6 @@
 |                            |                  |                                 |                      |                     | reference_dataset_path: conversion_configs/gcp/mapping_files/gcp_category_mapping.csv |
 |                            |                  |                                 |                      |                     | source_value: ConsumedService                                                         |
 | SkuId                      |                1 | sku.id                          | Not Defined          | UNNEST_COLUMN       |                                                                                       |
+| SkuPriceId                 |                1 | price.tier_start_amount         | Not Defined          | UNNEST_COLUMN       |                                                                                       |
+| UsageQuantity              |                1 | usage.amount                    | Not Defined          | UNNEST_COLUMN       |                                                                                       |
+| UsageUnit                  |                1 | usage.unit                      | Not Defined          | UNNEST_COLUMN       |                                                                                       |
