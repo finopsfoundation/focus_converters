@@ -1,0 +1,9 @@
+plan_name: convert benefitId to CommitmentDiscountCategory
+conversion_type: sql_condition
+conversion_args:
+    conditions:
+      - WHEN LOWER(benefitId) LIKE '%/microsoft.capacity/%' THEN 'Usage' 
+      - WHEN LOWER(benefitId) LIKE '%/microsoft.billingbenefits/%' THEN 'Spend'
+    default_value: "NULL"
+column: benefitId
+focus_column: CommitmentDiscountCategory
