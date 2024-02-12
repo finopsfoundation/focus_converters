@@ -29,6 +29,7 @@ from focus_converter.conversion_strategy import (
     LookupMapValuesCommand,
     SQLEvalConditionsCommand,
     SQLEvalQueryCommand,
+    StringFunctionsCommand,
 )
 from focus_converter.data_loaders.data_exporter import DataExporter
 from focus_converter.data_loaders.data_loader import DataLoader
@@ -142,6 +143,8 @@ class FocusConverter:
             # Deferred column plans
             STATIC_CONVERSION_TYPES.APPLY_DEFAULT_IF_COLUMN_MISSING: DeferredColumnPlanApplyDefaultColumnCommand,
             STATIC_CONVERSION_TYPES.SET_COLUMN_DTYPES: DeferredColumnMapDTypePlanCommand,
+            # String based plans
+            STATIC_CONVERSION_TYPES.STRING_FUNCTIONS: StringFunctionsCommand,
         }
 
         for plan in self.plans[provider]:
@@ -178,6 +181,13 @@ class FocusConverter:
                     column_alias,
                     self.__column_validator__,
                     self.__deferred_column_plans__,
+                )
+            elif command_class.categorty(self) == "string":
+                command_class().execute(
+                    plan,
+                    column_alias,
+                    self.__column_validator__,
+                    column_exprs,
                 )
             else:
                 raise NotImplementedError(
