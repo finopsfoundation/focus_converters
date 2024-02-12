@@ -47,6 +47,7 @@ class FocusColumnNames(Enum):
 
     RESOURCE_NAME = "ResourceName"
     RESOURCE_ID = "ResourceId"
+    RESOURCE_TYPE = "ResourceType"
 
     COMMITMENT_DISCOUNT_NAME = "CommitmentDiscountName"
     COMMITMENT_DISCOUNT_ID = "CommitmentDiscountId"
