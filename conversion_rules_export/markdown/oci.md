@@ -18,6 +18,7 @@
 | PricingUnit                |                0 | Not Defined                 | Not Defined          | Not Defined         | Not Defined            |
 | Publisher                  |                0 | Not Defined                 | Not Defined          | Not Defined         | Not Defined            |
 | ResourceName               |                0 | Not Defined                 | Not Defined          | Not Defined         | Not Defined            |
+| ResourceType               |                0 | Not Defined                 | Not Defined          | Not Defined         | Not Defined            |
 | ServiceCategory            |                0 | Not Defined                 | Not Defined          | Not Defined         | Not Defined            |
 | SkuId                      |                0 | Not Defined                 | Not Defined          | Not Defined         | Not Defined            |
 | SkuPriceId                 |                0 | Not Defined                 | Not Defined          | Not Defined         | Not Defined            |

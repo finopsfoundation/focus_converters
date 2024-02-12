@@ -6,6 +6,7 @@
 | ListUnitPrice              |                0 | Not Defined            | Not Defined          | Not Defined         | Not Defined                                                                                  |
 | PricingQuantity            |                0 | Not Defined            | Not Defined          | Not Defined         | Not Defined                                                                                  |
 | PricingUnit                |                0 | Not Defined            | Not Defined          | Not Defined         | Not Defined                                                                                  |
+| ResourceType               |                0 | Not Defined            | Not Defined          | Not Defined         | Not Defined                                                                                  |
 | SkuId                      |                0 | Not Defined            | Not Defined          | Not Defined         | Not Defined                                                                                  |
 | AvailabilityZone           |                1 | AvailabilityZone       | Not Defined          | RENAME_COLUMN       |                                                                                              |
 | BilledCost                 |                1 | CostInBillingCurrency  | Not Defined          | RENAME_COLUMN       |                                                                                              |

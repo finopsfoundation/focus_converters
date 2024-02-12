@@ -16,6 +16,7 @@
 | PricingCategory            |                0 | Not Defined                     | Not Defined          | Not Defined         | Not Defined                                                                           |
 | PricingUnit                |                0 | Not Defined                     | Not Defined          | Not Defined         | Not Defined                                                                           |
 | ResourceName               |                0 | Not Defined                     | Not Defined          | Not Defined         | Not Defined                                                                           |
+| ResourceType               |                0 | Not Defined                     | Not Defined          | Not Defined         | Not Defined                                                                           |
 | ServiceName                |                0 | Not Defined                     | Not Defined          | Not Defined         | Not Defined                                                                           |
 | SubAccountId               |                0 | Not Defined                     | Not Defined          | Not Defined         | Not Defined                                                                           |
 | SubAccountName             |                0 | Not Defined                     | Not Defined          | Not Defined         | Not Defined                                                                           |
