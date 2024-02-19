@@ -2,6 +2,7 @@
 |:---------------------------|-----------------:|:----------------------------|:---------------------|:--------------------|:-----------------------|
 | BilledCurrency             |                0 | Not Defined                 | Not Defined          | Not Defined         | Not Defined            |
 | BillingAccountName         |                0 | Not Defined                 | Not Defined          | Not Defined         | Not Defined            |
+| ChargeCategory             |                0 | Not Defined                 | Not Defined          | Not Defined         | Not Defined            |
 | ChargeDescription          |                0 | Not Defined                 | Not Defined          | Not Defined         | Not Defined            |
 | ChargeFrequency            |                0 | Not Defined                 | Not Defined          | Not Defined         | Not Defined            |
 | ChargeSubcategory          |                0 | Not Defined                 | Not Defined          | Not Defined         | Not Defined            |
