@@ -1,5 +1,5 @@
 plan_name: Convert SingularDisplayName to lower case
-column: SingularDisplayName
+column: ConsumedService
 conversion_type: string_functions
 column_prefix: tmp_lower
 focus_column: ResourceType
