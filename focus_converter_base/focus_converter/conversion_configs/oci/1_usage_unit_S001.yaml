@@ -1,0 +1,4 @@
+plan_name: convert cost/skuUnitDescription to UsageUnit
+conversion_type: rename_column
+column: cost/skuUnitDescription
+focus_column: UsageUnit
