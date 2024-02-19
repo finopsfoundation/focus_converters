@@ -17,6 +17,7 @@ class FocusColumnNames(Enum):
     CHARGE_FREQUENCY = "ChargeFrequency"
     CHARGE_SUB_CATEGORY = "ChargeSubcategory"
     CHARGE_DESCRIPTION = "ChargeDescription"
+    CHARGE_CATEGORY = "ChargeCategory"
 
     BILLING_PERIOD_START = "BillingPeriodStart"
     BILLING_PERIOD_END = "BillingPeriodEnd"
