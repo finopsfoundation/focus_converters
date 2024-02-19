@@ -1,4 +1,0 @@
-plan_name: convert usage/billedQuantity to PricingQuantity
-conversion_type: rename_column
-column: usage/billedQuantity
-focus_column: PricingQuantity
