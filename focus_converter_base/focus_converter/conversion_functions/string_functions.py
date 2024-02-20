@@ -1,7 +1,10 @@
 import polars as pl
 
 from focus_converter.configs.base_config import ConversionPlan
-from focus_converter.configs.string_transform_args import StringTransformArgs
+from focus_converter.configs.string_transform_args import (
+    StringSplitArgument,
+    StringTransformArgs,
+)
 from focus_converter.conversion_functions.validations import ColumnValidator
 
 
@@ -22,6 +25,10 @@ class StringFunctions:
                 column_expr = column_expr.str.to_uppercase()
             elif step == "title":
                 column_expr = column_expr.str.to_titlecase()
+            elif isinstance(step, StringSplitArgument):
+                column_expr = column_expr.str.split(step.split_by)
+                if step.index:
+                    column_expr = column_expr.list.get(index=step.index)
             else:
                 raise ValueError(f"Invalid step {step} in conversion plan {plan}")
 
