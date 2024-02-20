@@ -1,6 +1,5 @@
 | FOCUS Dimension            |   Transform Step | Source Column          | Source Column Type   | Transform Type      | Filters/Process/Etc.                                                                         |
 |:---------------------------|-----------------:|:-----------------------|:---------------------|:--------------------|:---------------------------------------------------------------------------------------------|
-| BilledCurrency             |                0 | Not Defined            | Not Defined          | Not Defined         | Not Defined                                                                                  |
 | ChargeType                 |                0 | Not Defined            | Not Defined          | Not Defined         | Not Defined                                                                                  |
 | ListCost                   |                0 | Not Defined            | Not Defined          | Not Defined         | Not Defined                                                                                  |
 | ListUnitPrice              |                0 | Not Defined            | Not Defined          | Not Defined         | Not Defined                                                                                  |
