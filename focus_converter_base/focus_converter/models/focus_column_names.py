@@ -30,7 +30,6 @@ class FocusColumnNames(Enum):
     BILLING_ACCOUNT_NAME = "BillingAccountName"
 
     BILLED_COST = "BilledCost"
-    BILLED_CURRENCY = "BilledCurrency"
     BILLING_CURRENCY = "BillingCurrency"
     EFFECTIVE_COST = "EffectiveCost"
 
