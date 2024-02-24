@@ -9,7 +9,7 @@
 
 #### AWS CSV
 
-![alt text](aws-cur_progress_pie_chart.png)
+![alt text](aws_progress_pie_chart.png)
 
 ---
 
