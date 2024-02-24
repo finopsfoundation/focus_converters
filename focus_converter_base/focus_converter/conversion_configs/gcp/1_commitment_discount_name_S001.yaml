@@ -1,0 +1,7 @@
+plan_name: Unnest credits.full_name to get CommitmentDiscountName
+conversion_type: unnest
+column: credits.id
+focus_column: CommitmentDiscountName
+conversion_args:
+    children_type: list
+    aggregation_operation: first
