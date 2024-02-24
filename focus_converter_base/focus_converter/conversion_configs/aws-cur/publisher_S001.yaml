@@ -1,0 +1,4 @@
+plan_name: convert line_item_legal_entity to Publisher
+conversion_type: rename_column
+column: lineItem/LegalEntity
+focus_column: Publisher

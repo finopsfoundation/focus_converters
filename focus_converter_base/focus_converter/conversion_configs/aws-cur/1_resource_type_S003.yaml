@@ -1,0 +1,12 @@
+plan_name: add default value to SavingsPlanArn if not present in CUR dataset
+conversion_type: sql_query
+column: NA
+focus_column: ResourceType
+conversion_args: >
+    SELECT
+    *,
+    CASE
+        WHEN tmp_resource_id_ResourceType IS NOT NULL THEN tmp_resource_type_ResourceType
+        ELSE NULL
+    END AS ResourceType
+    FROM {{ TABLE_NAME }}

@@ -1,0 +1,11 @@
+# fails if the column is not present, TODO: add a default value
+plan_name: add default value to SavingsPlanArn if not present in CUR dataset
+conversion_type: string_functions
+column: lineItem/ResourceId
+focus_column: ResourceType
+column_prefix: tmp_resource_type
+conversion_args:
+    steps:
+        -   operation_type: split
+            split_by: ':'
+            index: 5
