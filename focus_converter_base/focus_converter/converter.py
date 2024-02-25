@@ -297,21 +297,9 @@ class FocusConverter:
         return self.apply_plan(lf=lf)
 
     def convert(self):
-        error = None
-
         for lf in self.data_loader.data_scanner():
-            try:
-                lf = self.__process_lazy_frame__(lf=lf)
-                self.data_exporter.collect(
-                    lf=lf, collected_columns=list(set(self.h_collected_columns))
-                )
-            except Exception as e:
-                error = e
-                break
-
-        if error is not None:
-            # cleanup data export now that we have to close all subprocesses
-            if self.data_exporter:
-                self.data_exporter.close()
-
-            raise error
+            lf = self.__process_lazy_frame__(lf=lf)
+            self.data_exporter.collect(
+                lf=lf, collected_columns=list(set(self.h_collected_columns))
+            )
+        self.data_exporter.close()

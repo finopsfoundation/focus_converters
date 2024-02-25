@@ -1,4 +1,5 @@
 import multiprocessing
+from queue import Empty
 from typing import List
 
 import polars as pl
@@ -7,7 +8,11 @@ import pyarrow.parquet as pq
 
 def __writer_process__(export_path, queue: multiprocessing.Queue):
     while True:
-        df = queue.get()
+        try:
+            df = queue.get(timeout=0.1)
+        except Empty:
+            continue
+
         if not isinstance(df, pl.DataFrame):
             break
 
@@ -50,6 +55,8 @@ class DataExporter:
         for p in self.__processes__:
             p.join()
             p.close()
+
+        self.__queue__.close()
         del self.__queue__
         self.__queue__ = None
 
