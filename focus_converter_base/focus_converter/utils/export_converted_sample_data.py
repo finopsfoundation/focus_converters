@@ -78,6 +78,9 @@ def export_converted_sample_data(
     GenerateSampleConvertedFOCUSDataset.generate_oci_sample_dataset(
         output_dir=output_dir
     )
+    GenerateSampleConvertedFOCUSDataset.generate_azure_sample_dataset(
+        output_dir=output_dir
+    )
 
 
 if __name__ == "__main__":
