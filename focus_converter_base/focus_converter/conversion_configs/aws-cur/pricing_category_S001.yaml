@@ -8,6 +8,7 @@ conversion_args: >
         WHEN ("product/PurchaseOption" = 'Reserved Instances') THEN 'Commitment-Based'
         WHEN ("product/PurchaseOption" = 'Spot Instances') THEN 'Dynamic'
         WHEN ("product/PurchaseOption" = 'Dedicated Hosts') THEN 'On-Demand'
+        ELSE NULL
     END AS PricingCategory
     FROM {{ TABLE_NAME }}
 column: NA
