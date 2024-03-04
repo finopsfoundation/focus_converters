@@ -20,3 +20,5 @@ conversion_args:
             dtype: float
         -   column_name: line_item_resource_id
             dtype: string
+        -   column_name: product_purchase_option
+            dtype: string

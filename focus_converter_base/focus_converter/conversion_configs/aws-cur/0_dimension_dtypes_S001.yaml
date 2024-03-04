@@ -30,3 +30,5 @@ conversion_args:
             dtype: datetime
         -   column_name: bill/PayerAccountId
             dtype: string
+        -   column_name: product/PurchaseOption
+            dtype: string
