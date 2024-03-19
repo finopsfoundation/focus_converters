@@ -1,4 +1,9 @@
 plan_name: convert product_region to Region
-conversion_type: rename_column
-column: product_region
+conversion_type: sql_condition
+conversion_args:
+    conditions:
+        - WHEN product_region is not null THEN product_region
+        - WHEN product_region_code is not null THEN product_region_code
+    default_value: "null"
+column: NA
 focus_column: Region
