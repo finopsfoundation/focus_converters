@@ -1,6 +1,6 @@
 import multiprocessing
-from queue import Empty
 import re
+from queue import Empty
 from typing import List
 
 import polars as pl
