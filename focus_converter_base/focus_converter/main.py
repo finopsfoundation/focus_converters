@@ -57,7 +57,7 @@ def main_auto(
     basename_template: Annotated[
         str,
         typer.Option(
-            help="Specify a template string for output filename as opposed to `guid-{i}`.",
+            help="Specify a template string for output filename as opposed to guid-{i}.",
             rich_help_panel="Data Export",
         ),
     ] = None,
