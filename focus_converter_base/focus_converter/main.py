@@ -54,6 +54,13 @@ def main_auto(
             rich_help_panel="Validation",
         ),
     ] = False,
+    basename_template: Annotated[
+        str,
+        typer.Option(
+            help="Specify a template string for output filename as opposed to `guid-{i}`.",
+            rich_help_panel="Data Export",
+        ),
+    ] = None,
 ):
     provider_sensor = ProviderSensor(base_path=data_path)
     provider_sensor.load()
@@ -70,6 +77,7 @@ def main_auto(
     converter.configure_data_export(
         export_path=export_path,
         export_include_source_columns=export_include_source_columns,
+        basename_template=basename_template,
     )
     converter.prepare_horizontal_conversion_plan(provider=provider_sensor.provider)
     converter.convert()
@@ -116,6 +124,13 @@ def main(
             rich_help_panel="Validation",
         ),
     ] = False,
+    basename_template: Annotated[
+        str,
+        typer.Option(
+            help="Specify a template string for output filename as opposed to `guid-{i}`.",
+            rich_help_panel="Data Export",
+        ),
+    ] = None,
 ):
     # compute function for conversion
 
@@ -134,6 +149,7 @@ def main(
     converter.configure_data_export(
         export_path=export_path,
         export_include_source_columns=export_include_source_columns,
+        basename_template=basename_template,
     )
     converter.prepare_horizontal_conversion_plan(provider=provider)
     converter.convert()
