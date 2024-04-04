@@ -1,5 +1,6 @@
 import multiprocessing
 from queue import Empty
+import re
 from typing import List
 
 import polars as pl
@@ -36,6 +37,8 @@ class DataExporter:
     ):
         self.__export_path__ = export_path
         self.__export_include_source_columns__ = export_include_source_columns
+        if basename_template and not re.search(r'-{i}\.parquet$', basename_template):
+            basename_template += '-{i}.parquet'
         self.__basename_template__ = basename_template
         self.__queue__ = queue = multiprocessing.Queue(maxsize=process_count)
 
