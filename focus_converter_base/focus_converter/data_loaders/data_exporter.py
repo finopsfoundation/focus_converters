@@ -6,7 +6,7 @@ import polars as pl
 import pyarrow.parquet as pq
 
 
-def __writer_process__(export_path, queue: multiprocessing.Queue):
+def __writer_process__(export_path, queue: multiprocessing.Queue, basename_template: str):
     while True:
         try:
             df = queue.get(timeout=0.1)
@@ -17,7 +17,9 @@ def __writer_process__(export_path, queue: multiprocessing.Queue):
             break
 
         pq.write_to_dataset(
-            root_path=export_path, compression="snappy", table=df.to_arrow()
+            root_path=export_path,
+            compression="snappy", table=df.to_arrow(),
+            basename_template=basename_template
         )
 
 
@@ -26,18 +28,23 @@ class DataExporter:
         self,
         export_path,
         export_include_source_columns: bool,
+        basename_template: str = None,
         process_count: int = multiprocessing.cpu_count(),
     ):
         self.__export_path__ = export_path
         self.__export_include_source_columns__ = export_include_source_columns
-
+        self.__basename_template__ = basename_template
         self.__queue__ = queue = multiprocessing.Queue(maxsize=process_count)
 
         self.__processes__ = processes = []
         for _ in range(process_count):
             p = multiprocessing.Process(
                 target=__writer_process__,
-                kwargs={"queue": queue, "export_path": self.__export_path__},
+                kwargs={
+                    "queue": queue,
+                    "export_path": self.__export_path__,
+                    "basename_template": self.__basename_template__
+                },
             )
             processes.append(p)
 

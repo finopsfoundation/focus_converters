@@ -65,7 +65,9 @@ class FocusConverter:
     # converted column prefix to be added to converted columns
     __converted_column_prefix__: Optional[str] = None
 
-    def __init__(self, column_prefix=None, converted_column_prefix=None):
+    __basename_template__: Optional[str] = None
+
+    def __init__(self, column_prefix=None, converted_column_prefix=None, basename_template=None):
         self.__temporary_columns__ = []
         self.__column_prefix__ = column_prefix
         self.__converted_column_prefix__ = converted_column_prefix
@@ -76,6 +78,9 @@ class FocusConverter:
 
         # deferred column plans, these plans are applied after lazyframe is loaded
         self.__deferred_column_plans__ = DeferredColumnFunctions()
+
+        self.__basename_template__ = basename_template
+
 
     def load_provider_conversion_configs(self):
         plans = {}
