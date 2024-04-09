@@ -5,6 +5,8 @@ conversion_type: sql_condition
 conversion_args:
     conditions:
         - WHEN cost_type = 'tax' THEN 'Tax'
-        - WHEN cost_type = 'regular' THEN 'Purchase'
+        - WHEN cost_type = 'regular' THEN 'Usage'
         - WHEN cost_type = 'adjustment' THEN 'Adjustment'
+        - WHEN cost_type = 'credit' THEN 'Adjustment'
+        - WHEN cost_type = 'rounding_error' THEN 'Adjustment'
     default_value: "'Usage'"

@@ -1,0 +1,14 @@
+# sql query to compute effective_cost multiplied by usage.amount ONLY WHEN usage unit and pricing unit are the same. Otherwise show N/A
+plan_name: compute effective_cost
+conversion_type: sql_query
+column: tmp_credits_amount_EffectiveCost
+focus_column: EffectiveCost
+conversion_args: "SELECT
+    *,
+    CASE
+        WHEN PricingUnit = UsageUnit THEN tmp_effective_price_EffectiveCost * UsageQuantity
+        ELSE BilledCost
+    END AS EffectiveCost
+FROM
+    {{ TABLE_NAME }} AS Usage
+"

@@ -1,0 +1,6 @@
+# unnest price.effective_price to EffectivePrice
+plan_name: unnest price.effective_price to tmp_EffectiveCost to be used in next step
+conversion_type: unnest
+column: price.effective_price
+focus_column: EffectiveCost
+column_prefix: tmp_effective_price

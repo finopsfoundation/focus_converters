@@ -1,0 +1,4 @@
+plan_name: unnest price.unit to PricingUnit
+conversion_type: unnest
+column: price.unit
+focus_column: PricingUnit
