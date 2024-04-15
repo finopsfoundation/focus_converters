@@ -49,6 +49,11 @@ class DataLoader:
         with tqdm(total=total_rows) as pobj:
             for batch in scanner.to_batches():
                 df = pl.from_arrow(batch)
+
+                # skip if number of rows empty
+                if df.shape[0] == 0:
+                    continue
+
                 yield df.lazy()
                 pobj.update(df.shape[0])
 
