@@ -8,7 +8,7 @@ packages = [{ include = "focus_converter" }]
 
 [tool.poetry.dependencies]
 python = "^3.9"
-polars = "^0.20.6"
+polars = "0.20.10"
 pydantic = "^2.1.1"
 pandas = "^2.0.3"
 pyarrow = "^14"

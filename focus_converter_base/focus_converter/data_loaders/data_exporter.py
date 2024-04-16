@@ -5,6 +5,7 @@ from typing import List
 
 import polars as pl
 import pyarrow.parquet as pq
+from pyarrow import Table
 
 
 def __writer_process__(
@@ -12,17 +13,17 @@ def __writer_process__(
 ):
     while True:
         try:
-            df = queue.get(timeout=0.1)
+            table = queue.get()
         except Empty:
             continue
 
-        if not isinstance(df, pl.DataFrame):
+        if not isinstance(table, Table):
             break
 
         pq.write_to_dataset(
             root_path=export_path,
             compression="snappy",
-            table=df.to_arrow(),
+            table=table,
             basename_template=basename_template,
         )
 
@@ -80,4 +81,4 @@ class DataExporter:
 
         # compute final dataframe
         df: pl.DataFrame = lf.collect(streaming=True)
-        self.__queue__.put(df)
+        self.__queue__.put(df.to_arrow())
