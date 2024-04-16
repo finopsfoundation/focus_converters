@@ -23,7 +23,7 @@
 | AvailabilityZone           |                1 | location.zone                   | Not Defined          | UNNEST_COLUMN       |                                                                                       |
 | BilledCost                 |                1 | credits.amount                  | Not Defined          | UNNEST_COLUMN       | {'children_type': 'list', 'aggregation_operation': 'sum'}                             |
 | BilledCost                 |                2 | tmp_credits_amount_BilledCost   | Not Defined          | SQL_QUERY           | SELECT *, (cost + tmp_credits_amount_BilledCost) AS BilledCost from {{ TABLE_NAME }}  |
-| BillingAccountId           |                1 | billing_account_id              | Not Defined          | RENAME_COLUMN       |                                                                                       |
+| BillingAccountId           |                1 | billing_account_id              | string               | RENAME_COLUMN       |                                                                                       |
 | BillingCurrency            |                1 | currency                        | Not Defined          | RENAME_COLUMN       |                                                                                       |
 | BillingPeriodEnd           |                1 | invoice.month                   | Not Defined          | UNNEST_COLUMN       |                                                                                       |
 | BillingPeriodEnd           |                2 | BillingPeriodEnd                | Not Defined          | PARSE_DATETIME      | %Y%m                                                                                  |
