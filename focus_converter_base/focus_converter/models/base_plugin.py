@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 from functools import wraps
-from typing import Optional, Type, Dict
+from typing import Dict, Optional, Type
 
 import polars as pl
 from pydantic import BaseModel
