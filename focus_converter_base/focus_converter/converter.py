@@ -37,6 +37,7 @@ from focus_converter.models.focus_column_names import (
     FocusColumnNames,
     get_dtype_for_focus_column_name,
 )
+from focus_converter.models import focus_converter_provider_plugins
 
 # TODO: Make this path configurable so that we can load from a directory outside of the project
 BASE_CONVERSION_CONFIGS = (
@@ -83,14 +84,16 @@ class FocusConverter:
 
         self.__basename_template__ = basename_template
 
-    def load_provider_conversion_configs(self):
+    def load_provider_conversion_configs(
+        self, conversion_configs_path: str = BASE_CONVERSION_CONFIGS
+    ):
         plans = {}
 
-        for provider in os.listdir(BASE_CONVERSION_CONFIGS):
+        for provider in os.listdir(conversion_configs_path):
             # collect all plans specific to vendor
             provider_plans: List[ConversionPlan] = []
 
-            provider_base_path = os.path.join(BASE_CONVERSION_CONFIGS, provider)
+            provider_base_path = os.path.join(conversion_configs_path, provider)
             for provider_config_name in os.listdir(provider_base_path):
                 if not provider_config_name.endswith(".yaml"):
                     # ignores non yaml files, which may be reference datasets
@@ -100,7 +103,9 @@ class FocusConverter:
                     provider_base_path, provider_config_name
                 )
                 logging.debug(f"Reading plan from path: {provider_config_name}")
-                provider_plans.append(ConversionPlan.load_yaml(provider_config_path))
+                provider_plans.append(
+                    ConversionPlan.load_yaml(config_path=provider_config_path)
+                )
 
             plans[provider] = sorted(
                 provider_plans,
@@ -164,6 +169,22 @@ class FocusConverter:
             # process data based on conversion type
             command_class = command_classes.get(plan.conversion_type)
             if (
+                isinstance(plan.conversion_type, str)
+                and plan.conversion_type in focus_converter_provider_plugins
+            ):
+                expr = (
+                    focus_converter_provider_plugins[plan.conversion_type]
+                    .conversion_plan_hook(
+                        plan=plan,
+                        column_validator=self.__column_validator__,
+                    )
+                    .alias(column_alias)
+                )
+                column_exprs.append(expr)
+                self.__column_validator__.map_non_sql_plan(
+                    plan=plan, column_alias=column_alias
+                )
+            elif (
                 command_class.categorty(self) == "column"
                 or command_class.categorty(self) == "datetime"
             ):
