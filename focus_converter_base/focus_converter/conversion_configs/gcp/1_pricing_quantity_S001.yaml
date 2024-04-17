@@ -1,4 +1,4 @@
-plan_name: Unnest price.pricing_unit_quantity to get PricingQuantity
+plan_name: Unnest usage.amount_in_pricing_units to get PricingQuantity
 conversion_type: unnest
-column: price.pricing_unit_quantity
+column: usage.amount_in_pricing_units
 focus_column: PricingQuantity
