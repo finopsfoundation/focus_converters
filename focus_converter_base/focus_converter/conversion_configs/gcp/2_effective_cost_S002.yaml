@@ -1,26 +1,12 @@
-# sql query to compute effective_cost multiplied by usage.amount ONLY WHEN usage unit and pricing unit are the same. Otherwise show N/A
-
-#-- Enumerate known credit types
-#	-- https://cloud.google.com/billing/docs/how-to/export-data-bigquery-tables#standard-usage-cost-data-schema
-#	CAST(SUM((SELECT SUM(amount) FROM UNNEST(credits) WHERE type != 'RESELLER_MARGIN')) AS FLOAT64) AS credit_total,
-#	SUM(CAST(cost AS FLOAT64)) AS amortized_cost,
-#	SUM(COALESCE(CAST(cost AS FLOAT64), 0.0)) + CAST(SUM(COALESCE((SELECT SUM(amount) FROM UNNEST(credits) WHERE type != 'RESELLER_MARGIN'), 0.0)) AS FLOAT64) AS net_amortized_cost,
-#	CAST(SUM((SELECT SUM(amount) FROM UNNEST(credits) WHERE type = 'COMMITTED_USAGE_DISCOUNT')) AS FLOAT64) AS credit_committed_usage_discount,
-#	CAST(SUM((SELECT SUM(amount) FROM UNNEST(credits) WHERE type = 'COMMITTED_USAGE_DISCOUNT_DOLLAR_BASE')) AS FLOAT64) AS credit_committed_usage_discount_dollar_base,
-#	CAST(SUM((SELECT SUM(amount) FROM UNNEST(credits) WHERE type = 'DISCOUNT')) AS FLOAT64) AS credit_discount,
-#	CAST(SUM((SELECT SUM(amount) FROM UNNEST(credits) WHERE type = 'FREE_TIER')) AS FLOAT64) AS credit_free_tier,
-#	CAST(SUM((SELECT SUM(amount) FROM UNNEST(credits) WHERE type = 'PROMOTION')) AS FLOAT64) AS credit_promotion,
-#	CAST(NULL AS FLOAT64) AS credit_reseller_margin,
-#	CAST(SUM((SELECT SUM(amount) FROM UNNEST(credits) WHERE type = 'SUBSCRIPTION_BENEFIT')) AS FLOAT64) AS credit_subscription_benefit,
-#	CAST(SUM((SELECT SUM(amount) FROM UNNEST(credits) WHERE type = 'SUSTAINED_USAGE_DISCOUNT')) AS FLOAT64) AS credit_sustained_usage_discount,
-
-plan_name: compute effective_cost
+plan_name: Compute net effective cost
 conversion_type: sql_query
-column: Placeholder
+column: credits
 focus_column: EffectiveCost
-conversion_args: "SELECT
+conversion_args: >
+    SELECT
     *,
-    cost + tmp_net_EffectiveCost AS EffectiveCost
-FROM
-    {{ TABLE_NAME }} AS Usage
-"
+    CASE
+        WHEN tmp_credits_amount_EffectiveCost + cost > 0 THEN tmp_credits_amount_EffectiveCost + cost
+        ELSE 0
+    END AS EffectiveCost
+    FROM {{ TABLE_NAME }}

@@ -1,24 +1,8 @@
-# plan from             plan=ConversionPlan(
-#                column="nested_field.child",
-#                config_file_name="D0001-S000.yaml",
-#                plan_name="test-plan",
-#                dimension_id=1,
-#                priority=0,
-#                conversion_type=STATIC_CONVERSION_TYPES.UNNEST_COLUMN,
-#                focus_column=FocusColumnNames.PROVIDER,
-#                conversion_args={
-#                    "children_type": "list",
-#                    "aggregation_operation": "sum",
-#                },
-#            ),
-#            column_alias="unnested",
-#            column_validator=ColumnValidator(),
-
-plan_name: Compute net effective cost
+plan_name: convert credits.amount to credits_amount
 conversion_type: unnest
 column: credits.amount
 focus_column: EffectiveCost
-column_prefix: tmp_net
+column_prefix: tmp_credits_amount
 conversion_args:
-  children_type: list
-  aggregation_operation: sum
+    children_type: list
+    aggregation_operation: sum

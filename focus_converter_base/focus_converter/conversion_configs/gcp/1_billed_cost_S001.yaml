@@ -1,8 +1,4 @@
-plan_name: convert credits.amount to credits_amount
-conversion_type: unnest
-column: credits.amount
+plan_name: rename cost to BilledCost
+conversion_type: rename_column
+column: cost
 focus_column: BilledCost
-column_prefix: tmp_credits_amount
-conversion_args:
-    children_type: list
-    aggregation_operation: sum
