@@ -162,8 +162,14 @@ class ColumnValidator:
         for source, target, edge_data in self.__network_graph__.edges(data=True):
             plan: ConversionPlan = edge_data.get("plan")
             if plan:
+                plan_name = (
+                    plan.conversion_type
+                    if isinstance(plan.conversion_type, str)
+                    else plan.conversion_type.name
+                )
+
                 graph_uml.write(
-                    f"\t{source} -- {plan.conversion_type.name}:{plan.config_file_name} --> {target}\n"
+                    f"\t{source} -- {plan_name}:{plan.config_file_name} --> {target}\n"
                 )
             else:
                 graph_uml.write(f"\t{source} --> {target}\n")

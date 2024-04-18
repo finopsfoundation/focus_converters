@@ -18,6 +18,7 @@ from pytz.exceptions import UnknownTimeZoneError
 from typing_extensions import Annotated
 
 from focus_converter.conversion_functions import STATIC_CONVERSION_TYPES
+from focus_converter.models import focus_converter_provider_plugins
 from focus_converter.models.focus_column_names import FocusColumnNames
 
 
@@ -115,7 +116,7 @@ class ConversionPlan(BaseModel):
     # TODO: Add option to allow query from multiple columns
     column: str
 
-    conversion_type: STATIC_CONVERSION_TYPES
+    conversion_type: Union[str, STATIC_CONVERSION_TYPES]
     conversion_args: Annotated[Any, Field(validate_default=True)] = None
 
     # converted focus column name
@@ -124,6 +125,16 @@ class ConversionPlan(BaseModel):
     # optional column fix useful for intermediate columns to be dropped from final dataset
     # this is optional, but if defined should have the suffix `tmp`
     column_prefix: Optional[str] = None
+
+    @field_validator("conversion_type")
+    @classmethod
+    def validate_conversion_type(cls, v: Any, field_info: ValidationInfo):
+        if isinstance(v, str):
+            if v in focus_converter_provider_plugins:
+                return v
+            else:
+                return STATIC_CONVERSION_TYPES(v)
+        return v
 
     @field_validator("conversion_args")
     @classmethod
@@ -185,6 +196,19 @@ class ConversionPlan(BaseModel):
                 raise ValueError(
                     e, f"Missing or bad set column dtype argument: {field_info.data}"
                 )
+        elif field_info.data.get("conversion_type") in focus_converter_provider_plugins:
+            # if the plan_name is a plugin, validate the conversion_args
+            model = focus_converter_provider_plugins[
+                field_info.data.get("conversion_type")
+            ].get_arguments_model()
+            if model:
+                try:
+                    model.model_validate(v)
+                except ValidationError as e:
+                    raise ValueError(
+                        e,
+                        f"Missing or bad plugin argument: {field_info.data}",
+                    )
         return v
 
     @field_validator("column_prefix")

@@ -21,6 +21,7 @@ class FocusColumnNames(Enum):
 
     BILLING_PERIOD_START = "BillingPeriodStart"
     BILLING_PERIOD_END = "BillingPeriodEnd"
+    BILLING_CURRENCY = "BillingCurrency"
 
     PROVIDER = "Provider"
     PUBLISHER = "Publisher"
@@ -29,9 +30,15 @@ class FocusColumnNames(Enum):
     BILLING_ACCOUNT_ID = "BillingAccountId"
     BILLING_ACCOUNT_NAME = "BillingAccountName"
 
+    LIST_UNIT_PRICE = "ListUnitPrice"
+    LIST_COST = "ListCost"
+
     BILLED_COST = "BilledCost"
-    BILLING_CURRENCY = "BillingCurrency"
     EFFECTIVE_COST = "EffectiveCost"
+
+    PRICING_QUANTITY = "PricingQuantity"
+    PRICING_UNIT = "PricingUnit"
+    PRICING_CATEGORY = "PricingCategory"
 
     REGION = "Region"
 
@@ -54,15 +61,8 @@ class FocusColumnNames(Enum):
     COMMITMENT_DISCOUNT_TYPE = "CommitmentDiscountType"
     COMMITMENT_DISCOUNT_CATEGORY = "CommitmentDiscountCategory"
 
-    PRICING_QUANTITY = "PricingQuantity"
-    PRICING_UNIT = "PricingUnit"
-    PRICING_CATEGORY = "PricingCategory"
-
     SKU_ID = "SkuId"
     SKU_PRICE_ID = "SkuPriceId"
-
-    LIST_UNIT_PRICE = "ListUnitPrice"
-    LIST_COST = "ListCost"
 
     USAGE_QUANTITY = "UsageQuantity"
     USAGE_UNIT = "UsageUnit"
