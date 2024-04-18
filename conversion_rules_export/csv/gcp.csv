@@ -8,20 +8,14 @@ CommitmentDiscountCategory,0,Not Defined,Not Defined,Not Defined,Not Defined
 CommitmentDiscountId,0,Not Defined,Not Defined,Not Defined,Not Defined
 CommitmentDiscountName,0,Not Defined,Not Defined,Not Defined,Not Defined
 CommitmentDiscountType,0,Not Defined,Not Defined,Not Defined,Not Defined
-EffectiveCost,0,Not Defined,Not Defined,Not Defined,Not Defined
 InvoiceIssuer,0,Not Defined,Not Defined,Not Defined,Not Defined
-ListCost,0,Not Defined,Not Defined,Not Defined,Not Defined
 ListUnitPrice,0,Not Defined,Not Defined,Not Defined,Not Defined
 PricingCategory,0,Not Defined,Not Defined,Not Defined,Not Defined
-PricingUnit,0,Not Defined,Not Defined,Not Defined,Not Defined
-ResourceName,0,Not Defined,Not Defined,Not Defined,Not Defined
 ResourceType,0,Not Defined,Not Defined,Not Defined,Not Defined
-ServiceName,0,Not Defined,Not Defined,Not Defined,Not Defined
 SubAccountId,0,Not Defined,Not Defined,Not Defined,Not Defined
 SubAccountName,0,Not Defined,Not Defined,Not Defined,Not Defined
 AvailabilityZone,1,location.zone,Not Defined,UNNEST_COLUMN,
-BilledCost,1,credits.amount,Not Defined,UNNEST_COLUMN,"{'children_type': 'list', 'aggregation_operation': 'sum'}"
-BilledCost,2,tmp_credits_amount_BilledCost,Not Defined,SQL_QUERY,"SELECT *, (cost + tmp_credits_amount_BilledCost) AS BilledCost from {{ TABLE_NAME }}"
+BilledCost,1,cost,Not Defined,RENAME_COLUMN,
 BillingAccountId,1,billing_account_id,string,RENAME_COLUMN,
 BillingCurrency,1,currency,Not Defined,RENAME_COLUMN,
 BillingPeriodEnd,1,invoice.month,Not Defined,UNNEST_COLUMN,
@@ -38,11 +32,21 @@ ChargePeriodStart,1,usage_start_time,Not Defined,RENAME_COLUMN,
 ChargePeriodStart,2,ChargePeriodStart,Not Defined,ASSIGN_UTC_TIMEZONE,
 ChargeType,1,cost_type,Not Defined,SQL_CONDITION,"conditions:
 - WHEN cost_type = 'tax' THEN 'Tax'
-- WHEN cost_type = 'regular' THEN 'Purchase'
+- WHEN cost_type = 'regular' THEN 'Usage'
 - WHEN cost_type = 'adjustment' THEN 'Adjustment'
+- WHEN cost_type = 'credit' THEN 'Adjustment'
+- WHEN cost_type = 'rounding_error' THEN 'Adjustment'
 default_value: '''Usage'''
 "
+EffectiveCost,1,credits.amount,Not Defined,UNNEST_COLUMN,"{'children_type': 'list', 'aggregation_operation': 'sum'}"
+EffectiveCost,2,credits,Not Defined,SQL_QUERY,"SELECT *, CASE
+    WHEN tmp_credits_amount_EffectiveCost + cost > 0 THEN tmp_credits_amount_EffectiveCost + cost
+    ELSE 0
+END AS EffectiveCost FROM {{ TABLE_NAME }}
+"
+ListCost,1,cost_at_list,Not Defined,RENAME_COLUMN,
 PricingQuantity,1,usage.amount_in_pricing_units,Not Defined,UNNEST_COLUMN,
+PricingUnit,1,usage.pricing_unit,Not Defined,UNNEST_COLUMN,
 Provider,1,NA,Not Defined,ASSIGN_STATIC_VALUE,"static_value: Google Cloud
 "
 Publisher,1,seller_name,Not Defined,SQL_CONDITION,"conditions:
@@ -56,11 +60,13 @@ Region,3,tmp_region_Region,Not Defined,SQL_CONDITION,"conditions:
 default_value: tmp_location_Region
 "
 ResourceId,1,resource.global_name,Not Defined,UNNEST_COLUMN,
+ResourceName,1,resource.name,Not Defined,UNNEST_COLUMN,
 ServiceCategory,1,service.description,Not Defined,UNNEST_COLUMN,
 ServiceCategory,2,tmp_description_ServiceCategory,Not Defined,LOOKUP,"destination_value: ServiceCategory
 reference_dataset_path: conversion_configs/gcp/mapping_files/gcp_category_mapping.csv
 source_value: ConsumedService
 "
+ServiceName,1,service.description,Not Defined,UNNEST_COLUMN,
 SkuId,1,sku.id,Not Defined,UNNEST_COLUMN,
 SkuPriceId,1,price.tier_start_amount,Not Defined,UNNEST_COLUMN,
 UsageQuantity,1,usage.amount,Not Defined,UNNEST_COLUMN,
