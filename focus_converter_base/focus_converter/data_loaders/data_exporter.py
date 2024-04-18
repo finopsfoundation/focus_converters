@@ -7,6 +7,8 @@ import polars as pl
 import pyarrow.parquet as pq
 from pyarrow import Table
 
+from focus_converter.models.focus_column_names import FocusColumnNames
+
 
 def __writer_process__(
     export_path, queue: multiprocessing.Queue, basename_template: str
@@ -74,10 +76,34 @@ class DataExporter:
         del self.__queue__
         self.__queue__ = None
 
+    def __re_order_columns__(self):
+        """
+        Applies a new column ordering to allow easy reading
+        """
+        pass
+
     def collect(self, lf: pl.LazyFrame, collected_columns: List[str]):
         if not self.__export_include_source_columns__:
             # collect only applied columns
-            lf = lf.select(collected_columns)
+            sorted_column_list = [
+                focus_column.value
+                for focus_column in FocusColumnNames
+                if focus_column.value in collected_columns
+            ]
+        else:
+            # collect focus columns first
+            sorted_column_list = [
+                focus_column.value
+                for focus_column in FocusColumnNames
+                if focus_column.value in lf.columns
+            ]
+
+            # now collect all original provided columns
+            sorted_column_list += [
+                column for column in lf.columns if column not in sorted_column_list
+            ]
+
+        lf = lf.select(sorted_column_list)
 
         # compute final dataframe
         df: pl.DataFrame = lf.collect(streaming=True)
