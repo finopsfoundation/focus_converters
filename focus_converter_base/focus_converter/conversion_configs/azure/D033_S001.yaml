@@ -1,0 +1,11 @@
+plan_name: Convert ChargeType to ChargeCategory 
+conversion_type: sql_condition
+conversion_args:
+    conditions:
+        - WHEN ChargeType = 'Usage' THEN 'Usage'
+        - WHEN ChargeType = 'Purchase' THEN 'Purchase'
+        - WHEN ChargeType = 'Tax' THEN 'Tax'
+        - WHEN ChargeType = 'UnusedReservation' OR ChargeType = 'UnusedSavingsPlan' THEN 'Usage'
+    default_value: "'Adjustment'"
+column: ChargeType
+focus_column: ChargeCategory

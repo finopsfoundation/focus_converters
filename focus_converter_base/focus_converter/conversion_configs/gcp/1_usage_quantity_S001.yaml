@@ -1,0 +1,4 @@
+plan_name: Unnest usage.amount to get UsageQuantity
+conversion_type: unnest
+column: usage.amount
+focus_column: UsageQuantity

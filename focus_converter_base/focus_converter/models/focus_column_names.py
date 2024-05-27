@@ -17,6 +17,7 @@ class FocusColumnNames(Enum):
     CHARGE_FREQUENCY = "ChargeFrequency"
     CHARGE_SUB_CATEGORY = "ChargeSubcategory"
     CHARGE_DESCRIPTION = "ChargeDescription"
+    CHARGE_CATEGORY = "ChargeCategory"
 
     BILLING_PERIOD_START = "BillingPeriodStart"
     BILLING_PERIOD_END = "BillingPeriodEnd"
@@ -29,7 +30,6 @@ class FocusColumnNames(Enum):
     BILLING_ACCOUNT_NAME = "BillingAccountName"
 
     BILLED_COST = "BilledCost"
-    BILLED_CURRENCY = "BilledCurrency"
     BILLING_CURRENCY = "BillingCurrency"
     EFFECTIVE_COST = "EffectiveCost"
 
@@ -47,6 +47,7 @@ class FocusColumnNames(Enum):
 
     RESOURCE_NAME = "ResourceName"
     RESOURCE_ID = "ResourceId"
+    RESOURCE_TYPE = "ResourceType"
 
     COMMITMENT_DISCOUNT_NAME = "CommitmentDiscountName"
     COMMITMENT_DISCOUNT_ID = "CommitmentDiscountId"

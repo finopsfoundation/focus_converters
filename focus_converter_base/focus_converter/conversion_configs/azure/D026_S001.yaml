@@ -1,0 +1,9 @@
+plan_name: convert benefitId to CommitmentDiscountType
+conversion_type: sql_condition
+conversion_args:
+    conditions:
+        - WHEN LOWER(benefitId) LIKE '%/microsoft.capacity/%' THEN 'Reservation' 
+        - WHEN LOWER(benefitId) LIKE '%/microsoft.billingbenefits/%' THEN 'Savings Plan'
+    default_value: 'NULL'
+column: benefitId
+focus_column: CommitmentDiscountType

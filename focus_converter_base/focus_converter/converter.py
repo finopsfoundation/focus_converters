@@ -29,6 +29,7 @@ from focus_converter.conversion_strategy import (
     LookupMapValuesCommand,
     SQLEvalConditionsCommand,
     SQLEvalQueryCommand,
+    StringFunctionsCommand,
 )
 from focus_converter.data_loaders.data_exporter import DataExporter
 from focus_converter.data_loaders.data_loader import DataLoader
@@ -64,7 +65,11 @@ class FocusConverter:
     # converted column prefix to be added to converted columns
     __converted_column_prefix__: Optional[str] = None
 
-    def __init__(self, column_prefix=None, converted_column_prefix=None):
+    __basename_template__: Optional[str] = None
+
+    def __init__(
+        self, column_prefix=None, converted_column_prefix=None, basename_template=None
+    ):
         self.__temporary_columns__ = []
         self.__column_prefix__ = column_prefix
         self.__converted_column_prefix__ = converted_column_prefix
@@ -75,6 +80,8 @@ class FocusConverter:
 
         # deferred column plans, these plans are applied after lazyframe is loaded
         self.__deferred_column_plans__ = DeferredColumnFunctions()
+
+        self.__basename_template__ = basename_template
 
     def load_provider_conversion_configs(self):
         plans = {}
@@ -142,6 +149,8 @@ class FocusConverter:
             # Deferred column plans
             STATIC_CONVERSION_TYPES.APPLY_DEFAULT_IF_COLUMN_MISSING: DeferredColumnPlanApplyDefaultColumnCommand,
             STATIC_CONVERSION_TYPES.SET_COLUMN_DTYPES: DeferredColumnMapDTypePlanCommand,
+            # String based plans
+            STATIC_CONVERSION_TYPES.STRING_FUNCTIONS: StringFunctionsCommand,
         }
 
         for plan in self.plans[provider]:
@@ -178,6 +187,13 @@ class FocusConverter:
                     column_alias,
                     self.__column_validator__,
                     self.__deferred_column_plans__,
+                )
+            elif command_class.categorty(self) == "string":
+                command_class().execute(
+                    plan,
+                    column_alias,
+                    self.__column_validator__,
+                    column_exprs,
                 )
             else:
                 raise NotImplementedError(
@@ -287,21 +303,9 @@ class FocusConverter:
         return self.apply_plan(lf=lf)
 
     def convert(self):
-        error = None
-
         for lf in self.data_loader.data_scanner():
-            try:
-                lf = self.__process_lazy_frame__(lf=lf)
-                self.data_exporter.collect(
-                    lf=lf, collected_columns=list(set(self.h_collected_columns))
-                )
-            except Exception as e:
-                error = e
-                break
-
-        if error is not None:
-            # cleanup data export now that we have to close all subprocesses
-            if self.data_exporter:
-                self.data_exporter.close()
-
-            raise error
+            lf = self.__process_lazy_frame__(lf=lf)
+            self.data_exporter.collect(
+                lf=lf, collected_columns=list(set(self.h_collected_columns))
+            )
+        self.data_exporter.close()

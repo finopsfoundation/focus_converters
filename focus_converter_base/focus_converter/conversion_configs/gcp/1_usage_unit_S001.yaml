@@ -1,0 +1,4 @@
+plan_name: Unnest usage.unit to get UsageUnit
+conversion_type: unnest
+column: usage.unit
+focus_column: UsageUnit

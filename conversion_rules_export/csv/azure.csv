@@ -1,13 +1,10 @@
 FOCUS Dimension,Transform Step,Source Column,Source Column Type,Transform Type,Filters/Process/Etc.
-BilledCurrency,0,Not Defined,Not Defined,Not Defined,Not Defined
 ChargeType,0,Not Defined,Not Defined,Not Defined,Not Defined
-CommitmentDiscountCategory,0,Not Defined,Not Defined,Not Defined,Not Defined
-CommitmentDiscountId,0,Not Defined,Not Defined,Not Defined,Not Defined
-CommitmentDiscountType,0,Not Defined,Not Defined,Not Defined,Not Defined
 ListCost,0,Not Defined,Not Defined,Not Defined,Not Defined
 ListUnitPrice,0,Not Defined,Not Defined,Not Defined,Not Defined
 PricingQuantity,0,Not Defined,Not Defined,Not Defined,Not Defined
 PricingUnit,0,Not Defined,Not Defined,Not Defined,Not Defined
+ResourceType,0,Not Defined,Not Defined,Not Defined,Not Defined
 SkuId,0,Not Defined,Not Defined,Not Defined,Not Defined
 AvailabilityZone,1,AvailabilityZone,Not Defined,RENAME_COLUMN,
 BilledCost,1,CostInBillingCurrency,Not Defined,RENAME_COLUMN,
@@ -20,6 +17,13 @@ BillingPeriodEnd,3,BillingPeriodEnd,Not Defined,RENAME_COLUMN,
 BillingPeriodStart,1,BillingPeriodStartDate,Not Defined,PARSE_DATETIME,%m/%d/%Y
 BillingPeriodStart,2,BillingPeriodStart,Not Defined,ASSIGN_UTC_TIMEZONE,
 BillingPeriodStart,3,BillingPeriodStart,Not Defined,RENAME_COLUMN,
+ChargeCategory,1,ChargeType,Not Defined,SQL_CONDITION,"conditions:
+- WHEN ChargeType = 'Usage' THEN 'Usage'
+- WHEN ChargeType = 'Purchase' THEN 'Purchase'
+- WHEN ChargeType = 'Tax' THEN 'Tax'
+- WHEN ChargeType = 'UnusedReservation' OR ChargeType = 'UnusedSavingsPlan' THEN 'Usage'
+default_value: '''Adjustment'''
+"
 ChargeDescription,1,ProductName,Not Defined,RENAME_COLUMN,
 ChargeFrequency,1,Frequency,Not Defined,SQL_CONDITION,"conditions:
 - WHEN Frequency = 'OneTime' THEN 'One-Time'
@@ -42,7 +46,18 @@ ChargeSubcategory,1,ChargeType,Not Defined,SQL_CONDITION,"conditions:
 - WHEN ChargeType = 'RoundingAdjustment' THEN 'Rounding Error'
 default_value: '''Other'''
 "
+CommitmentDiscountCategory,1,benefitId,Not Defined,SQL_CONDITION,"conditions:
+- WHEN LOWER(benefitId) LIKE '%/microsoft.capacity/%' THEN 'Usage'
+- WHEN LOWER(benefitId) LIKE '%/microsoft.billingbenefits/%' THEN 'Spend'
+default_value: 'NULL'
+"
+CommitmentDiscountId,1,benefitId,Not Defined,RENAME_COLUMN,
 CommitmentDiscountName,1,benefitName,Not Defined,RENAME_COLUMN,
+CommitmentDiscountType,1,benefitId,Not Defined,SQL_CONDITION,"conditions:
+- WHEN LOWER(benefitId) LIKE '%/microsoft.capacity/%' THEN 'Reservation'
+- WHEN LOWER(benefitId) LIKE '%/microsoft.billingbenefits/%' THEN 'Savings Plan'
+default_value: 'NULL'
+"
 EffectiveCost,1,CostInBillingCurrency,Not Defined,RENAME_COLUMN,
 InvoiceIssuer,1,NA,Not Defined,ASSIGN_STATIC_VALUE,"static_value: Microsoft
 "

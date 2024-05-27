@@ -1,0 +1,4 @@
+plan_name: convert usage/billedQuantity to UsageQuantity
+conversion_type: rename_column
+column: usage/billedQuantity
+focus_column: UsageQuantity

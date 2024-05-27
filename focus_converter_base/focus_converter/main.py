@@ -1,6 +1,7 @@
 import io
 import json
 import os
+from sys import argv
 
 import typer
 from focus_validator.validator import Validator
@@ -19,8 +20,79 @@ from focus_converter.common.cli_options import (
 )
 from focus_converter.converter import FocusConverter
 from focus_converter.data_loaders.data_loader import DataFormats
+from focus_converter.data_loaders.provider_sensor import ProviderSensor
 
 app = typer.Typer(name="FOCUS converters", add_completion=False)
+
+
+@app.command(
+    "convert-auto",
+    help="Converts source cost data to FOCUS format automatically by reading data source to compute right provider and data format",
+)
+def main_auto(
+    data_path: DATA_PATH,
+    export_path: EXPORT_PATH_OPTION,
+    export_include_source_columns: EXPORT_INCLUDE_SOURCE_COLUMNS = True,
+    column_prefix: Annotated[
+        str,
+        typer.Option(
+            help="Optional prefix to add to generated column names",
+            rich_help_panel="Column Prefix",
+        ),
+    ] = (None,),
+    converted_column_prefix: Annotated[
+        str,
+        typer.Option(
+            help="Optional prefix to add to generated column names",
+            rich_help_panel="Column Prefix",
+        ),
+    ] = ((None,),),
+    validate: Annotated[
+        bool,
+        typer.Option(
+            help="Validate generated data to match FOCUS spec.",
+            rich_help_panel="Validation",
+        ),
+    ] = False,
+    basename_template: Annotated[
+        str,
+        typer.Option(
+            help="Specify a template string for output filename as opposed to guid-{i}.",
+            rich_help_panel="Data Export",
+        ),
+    ] = None,
+):
+    provider_sensor = ProviderSensor(base_path=data_path)
+    provider_sensor.load()
+
+    converter = FocusConverter(
+        column_prefix=column_prefix, converted_column_prefix=converted_column_prefix
+    )
+    converter.load_provider_conversion_configs()
+    converter.load_data(
+        data_path=data_path,
+        data_format=provider_sensor.data_format,
+        parquet_data_format=provider_sensor.parquet_data_format,
+    )
+    converter.configure_data_export(
+        export_path=export_path,
+        export_include_source_columns=export_include_source_columns,
+        basename_template=basename_template,
+    )
+    converter.prepare_horizontal_conversion_plan(provider=provider_sensor.provider)
+    converter.convert()
+
+    if validate:
+        for segment_file_name in os.listdir(export_path):
+            file_path = os.path.join(export_path, segment_file_name)
+            validator = Validator(
+                data_filename=file_path,
+                output_type="console",
+                output_destination=None,
+            )
+            validator.load()
+            validator.validate()
+            break
 
 
 @app.command("convert", help="Converts source cost data to FOCUS format")
@@ -59,6 +131,13 @@ def main(
             rich_help_panel="Validation",
         ),
     ] = "0.5",
+    basename_template: Annotated[
+        str,
+        typer.Option(
+            help="Specify a template string for output filename as opposed to `guid-{i}`.",
+            rich_help_panel="Data Export",
+        ),
+    ] = None,
 ):
     # compute function for conversion
 
@@ -77,6 +156,7 @@ def main(
     converter.configure_data_export(
         export_path=export_path,
         export_include_source_columns=export_include_source_columns,
+        basename_template=basename_template,
     )
     converter.prepare_horizontal_conversion_plan(provider=provider)
     converter.convert()
@@ -114,4 +194,8 @@ def list_providers():
 
 
 if __name__ == "__main__":
-    app()
+    if len(argv) == 1:
+        # if no command specified, let the utility print the whole help message
+        app(["--help"])
+    else:
+        app()

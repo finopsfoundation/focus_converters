@@ -6,6 +6,7 @@ from focus_converter.conversion_functions.datetime_functions import (
 )
 from focus_converter.conversion_functions.lookup_function import LookupFunction
 from focus_converter.conversion_functions.sql_functions import SQLFunctions
+from focus_converter.conversion_functions.string_functions import StringFunctions
 
 
 # Define a Command interface with a method called execute().
@@ -231,3 +232,17 @@ class DeferredColumnMapDTypePlanCommand(Command):
 
     def categorty(self):
         return "deferred"
+
+
+class StringFunctionsCommand(Command):
+    def execute(self, plan, column_alias, column_validator, column_exprs):
+        column_exprs.append(
+            StringFunctions.convert(
+                plan=plan,
+                column_alias=column_alias,
+                column_validator=column_validator,
+            )
+        )
+
+    def categorty(self):
+        return "string"

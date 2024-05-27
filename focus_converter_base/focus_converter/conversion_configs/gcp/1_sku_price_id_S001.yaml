@@ -1,0 +1,4 @@
+plan_name: Unnest price.tier_start_amount to get SkuPriceId
+conversion_type: unnest
+column: price.tier_start_amount
+focus_column: SkuPriceId

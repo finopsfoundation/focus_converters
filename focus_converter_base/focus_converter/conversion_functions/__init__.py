@@ -35,6 +35,9 @@ class STATIC_CONVERSION_TYPES(Enum):
     # set column dtypes
     SET_COLUMN_DTYPES = "set_column_dtypes"
 
+    # string functions
+    STRING_FUNCTIONS = "string_functions"
+
 
 __all__ = [
     "STATIC_CONVERSION_TYPES",

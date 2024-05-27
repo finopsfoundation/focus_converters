@@ -1,15 +1,17 @@
 import pathlib
 import tempfile
-from unittest import TestCase
+
+import polars as pl
+import pyarrow.dataset as ds
 
 from focus_converter.converter import FocusConverter
 from focus_converter.data_loaders.data_loader import DataFormats
-from focus_converter.utils.profiler import Profiler
 
-class TestAWSSampleCSV(TestCase):
+
+class TestAWSSampleCSV:
     def test_sample_csv_dataset(self):
         with tempfile.TemporaryDirectory() as temp_dir:
-            export_path = pathlib.Path(temp_dir) / "aws_sample_csv_dataset"
+            export_path = pathlib.Path(temp_dir).joinpath("aws_sample_csv_dataset")
 
             converter = FocusConverter(
                 column_prefix=None  # Optional column prefix if needed else can be set to None
@@ -25,11 +27,10 @@ class TestAWSSampleCSV(TestCase):
                 export_include_source_columns=False,
             )
             converter.prepare_horizontal_conversion_plan(provider="aws-cur")
-            
-            
-            # Run the method to be profiled
-            self.execute_converter(converter)
 
-    @Profiler(csv_format=True)
-    def execute_converter(self, converter):
-        converter.convert()
+            # Run the method to be profiled
+            converter.convert()
+
+            dataset = ds.dataset(temp_dir, format="parquet")
+            df = pl.scan_pyarrow_dataset(dataset).collect()
+            assert len(df.columns) > 0

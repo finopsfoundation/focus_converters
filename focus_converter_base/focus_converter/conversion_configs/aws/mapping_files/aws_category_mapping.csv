@@ -53,6 +53,7 @@ AmazonWorkLink,Business Applications
 AmazonWorkMail,Business Applications
 AmazonWorkSpacesWeb,Business Applications
 Compute,Business Applications
+ComputeSavingsPlans,Compute
 ContactLensAmazonConnect,Business Applications
 CustomerProfiles,Business Applications
 AWSBudgets,Management and Governance
@@ -122,6 +123,7 @@ IoTDeviceManagement,Internet of Things
 IoTTwinMaker,Internet of Things
 AWSDeepRacer,AI and Machine Learning
 AmazonA2I,AI and Machine Learning
+AmazonBedrock,AI and Machine Learning
 AmazonCodeWhisperer,AI and Machine Learning
 AmazonDevOpsGuru,AI and Machine Learning
 AmazonEI,AI and Machine Learning
