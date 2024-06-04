@@ -17,7 +17,7 @@ plan_name: sample
 priority: 1
 column: {{ random_column_alias }}
 conversion_type: map_values
-focus_column: Region
+focus_column: RegionId
 conversion_args:
     default_value: 4_not_mapped
     value_list:
@@ -34,7 +34,7 @@ plan_name: sample
 priority: 1
 column: {{ random_column_alias }}
 conversion_type: map_values
-focus_column: Region
+focus_column: RegionId
 conversion_args:
     apply_default_if_null: false
     default_value: 4_not_mapped
@@ -52,7 +52,7 @@ plan_name: sample
 priority: 1
 column: test_column
 conversion_type: map_values
-focus_column: Region
+focus_column: RegionId
 """
 
 VALUE_MAPPING_SAMPLE_TEMPLATE_YAML = Template(VALUE_MAPPING_SAMPLE_TEMPLATE_YAML_JINJA)

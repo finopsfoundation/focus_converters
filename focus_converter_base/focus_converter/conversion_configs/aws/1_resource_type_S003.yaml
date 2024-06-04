@@ -1,4 +1,4 @@
-plan_name: add default value to SavingsPlanArn if not present in CUR dataset
+plan_name: Get resource type from resource Id
 conversion_type: sql_query
 column: NA
 focus_column: ResourceType

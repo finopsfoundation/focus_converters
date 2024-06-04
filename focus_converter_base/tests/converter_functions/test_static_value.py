@@ -17,7 +17,7 @@ plan_name: sample
 priority: 1
 column: test_column
 conversion_type: static_value
-focus_column: Region
+focus_column: RegionId
 conversion_args:
     static_value: {{ random_static_value }}
 """
@@ -27,7 +27,7 @@ plan_name: sample
 priority: 1
 column: test_column
 conversion_type: static_value
-focus_column: Region
+focus_column: RegionId
 """
 
 STATIC_VALUE_SAMPLE_TEMPLATE_YAML_JINJA = Template(STATIC_VALUE_SAMPLE_TEMPLATE_YAML)

@@ -1,4 +1,4 @@
-plan_name: convert UnitOfMeasure to UsageUnit
+plan_name: convert UnitOfMeasure to ConsumedUnit
 conversion_type: map_values
 conversion_args:
   value_list:
@@ -632,4 +632,4 @@ conversion_args:
       value: Units
   default_value: Units
 column: UnitOfMeasure
-focus_column: UsageUnit
+focus_column: ConsumedUnit

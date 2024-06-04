@@ -1,4 +1,4 @@
-plan_name: convert product/region to Region
+plan_name: convert product/region to RegionId
 conversion_type: rename_column
 column: product/region
-focus_column: Region
+focus_column: RegionId

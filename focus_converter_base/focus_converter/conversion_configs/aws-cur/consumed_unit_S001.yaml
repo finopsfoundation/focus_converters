@@ -1,0 +1,5 @@
+# TODO: work out if there is a better location to source the actual consumed unit
+plan_name: convert pricing/unit to ConsumedUnit
+conversion_type: rename_column
+column: pricing/unit
+focus_column: ConsumedUnit
