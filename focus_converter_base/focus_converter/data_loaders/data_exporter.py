@@ -1,9 +1,10 @@
 import multiprocessing
 import re
+from enum import Enum
 from queue import Empty
 from typing import List
-from enum import Enum
 from uuid import uuid4
+
 import polars as pl
 import pyarrow.parquet as pq
 from pyarrow import Table, csv
