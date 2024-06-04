@@ -1,17 +1,27 @@
 import multiprocessing
 import re
+from enum import Enum
 from queue import Empty
 from typing import List
+from uuid import uuid4
 
 import polars as pl
 import pyarrow.parquet as pq
-from pyarrow import Table
+from pyarrow import Table, csv
 
 from focus_converter.models.focus_column_names import FocusColumnNames
 
 
+class ExportDataFormats(Enum):
+    CSV = "csv"
+    PARQUET = "parquet"
+
+
 def __writer_process__(
-    export_path, queue: multiprocessing.Queue, basename_template: str
+    queue: multiprocessing.Queue,
+    export_path: str,
+    basename_template: str,
+    export_format: ExportDataFormats = ExportDataFormats.PARQUET,
 ):
     while True:
         try:
@@ -22,12 +32,19 @@ def __writer_process__(
         if not isinstance(table, Table):
             break
 
-        pq.write_to_dataset(
-            root_path=export_path,
-            compression="snappy",
-            table=table,
-            basename_template=basename_template,
-        )
+        if export_format == ExportDataFormats.PARQUET:
+            pq.write_to_dataset(
+                root_path=export_path,
+                compression="snappy",
+                table=table,
+                basename_template=basename_template,
+            )
+        elif export_format == ExportDataFormats.CSV:
+            if not basename_template:
+                basename_template = str(uuid4()).replace("-", "") + ".csv"
+            csv.write_csv(table, export_path + basename_template.replace("-{i}", ""))
+        else:
+            raise Exception("Unknown output format")
 
 
 class DataExporter:
@@ -37,11 +54,15 @@ class DataExporter:
         export_include_source_columns: bool,
         basename_template: str = None,
         process_count: int = multiprocessing.cpu_count(),
+        export_format: ExportDataFormats = ExportDataFormats.PARQUET,
     ):
         self.__export_path__ = export_path
         self.__export_include_source_columns__ = export_include_source_columns
-        if basename_template and not re.search(r"-{i}\.parquet$", basename_template):
-            basename_template += "-{i}.parquet"
+        self.__export_format__ = export_format
+        if basename_template and not re.search(
+            rf"-{{i}}\.{self.__export_format__.value}$", basename_template
+        ):
+            basename_template += "-{i}." + str(self.__export_format__.value)
         self.__basename_template__ = basename_template
         self.__queue__ = queue = multiprocessing.Queue(maxsize=process_count)
 
@@ -52,6 +73,7 @@ class DataExporter:
                 kwargs={
                     "queue": queue,
                     "export_path": self.__export_path__,
+                    "export_format": self.__export_format__,
                     "basename_template": self.__basename_template__,
                 },
             )

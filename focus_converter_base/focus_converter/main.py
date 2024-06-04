@@ -12,6 +12,7 @@ from typing_extensions import Annotated
 from focus_converter.common.cli_options import (
     DATA_FORMAT_OPTION,
     DATA_PATH,
+    EXPORT_DATA_FORMAT,
     EXPORT_INCLUDE_SOURCE_COLUMNS,
     EXPORT_PATH_OPTION,
     PARQUET_DATA_FORMAT_OPTION,
@@ -32,6 +33,7 @@ app = typer.Typer(name="FOCUS converters", add_completion=False)
 def main_auto(
     data_path: DATA_PATH,
     export_path: EXPORT_PATH_OPTION,
+    export_format: EXPORT_DATA_FORMAT = "parquet",
     export_include_source_columns: EXPORT_INCLUDE_SOURCE_COLUMNS = True,
     column_prefix: Annotated[
         str,
@@ -57,7 +59,7 @@ def main_auto(
     basename_template: Annotated[
         str,
         typer.Option(
-            help="Specify a template string for output filename as opposed to guid-{i}.",
+            help="Specify a template string for output filename as opposed to `guid-{i}`.",
             rich_help_panel="Data Export",
         ),
     ] = None,
@@ -78,6 +80,7 @@ def main_auto(
         export_path=export_path,
         export_include_source_columns=export_include_source_columns,
         basename_template=basename_template,
+        export_format=export_format,
     )
     converter.prepare_horizontal_conversion_plan(provider=provider_sensor.provider)
     converter.convert()
@@ -101,6 +104,7 @@ def main(
     export_path: EXPORT_PATH_OPTION,
     data_format: DATA_FORMAT_OPTION,
     data_path: DATA_PATH,
+    export_format: EXPORT_DATA_FORMAT = "parquet",
     parquet_data_format: PARQUET_DATA_FORMAT_OPTION = None,
     export_include_source_columns: EXPORT_INCLUDE_SOURCE_COLUMNS = True,
     column_prefix: Annotated[
@@ -150,6 +154,7 @@ def main(
         export_path=export_path,
         export_include_source_columns=export_include_source_columns,
         basename_template=basename_template,
+        export_format=export_format,
     )
     converter.prepare_horizontal_conversion_plan(provider=provider)
     converter.convert()
