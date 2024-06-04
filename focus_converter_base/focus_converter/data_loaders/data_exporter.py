@@ -18,7 +18,10 @@ class ExportDataFormats(Enum):
 
 
 def __writer_process__(
-    queue: multiprocessing.Queue, export_path, export_format, basename_template: str
+    queue: multiprocessing.Queue,
+    export_path: str,
+    basename_template: str,
+    export_format: ExportDataFormats = ExportDataFormats.PARQUET,
 ):
     while True:
         try:
@@ -51,13 +54,13 @@ class DataExporter:
         export_include_source_columns: bool,
         basename_template: str = None,
         process_count: int = multiprocessing.cpu_count(),
-        export_format: str = "parquet",
+        export_format: ExportDataFormats = ExportDataFormats.PARQUET,
     ):
         self.__export_path__ = export_path
         self.__export_include_source_columns__ = export_include_source_columns
         self.__export_format__ = export_format
         if basename_template and not re.search(
-            f"-{{i}}\.{self.__export_format__.value}$", basename_template
+            rf"-{{i}}\.{self.__export_format__.value}$", basename_template
         ):
             basename_template += "-{i}." + str(self.__export_format__.value)
         self.__basename_template__ = basename_template
