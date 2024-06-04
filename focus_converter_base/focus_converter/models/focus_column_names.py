@@ -15,7 +15,6 @@ class FocusColumnNames(Enum):
     CHARGE_PERIOD_START = "ChargePeriodStart"
     CHARGE_PERIOD_END = "ChargePeriodEnd"
     CHARGE_FREQUENCY = "ChargeFrequency"
-    CHARGE_SUB_CATEGORY = "ChargeSubcategory"
     CHARGE_DESCRIPTION = "ChargeDescription"
     CHARGE_CATEGORY = "ChargeCategory"
 
@@ -33,9 +32,7 @@ class FocusColumnNames(Enum):
     BILLING_CURRENCY = "BillingCurrency"
     EFFECTIVE_COST = "EffectiveCost"
 
-    REGION = "Region"
-
-    CHARGE_TYPE = "ChargeType"
+    REGION = "RegionId"
 
     SERVICE_CATEGORY = "ServiceCategory"
     SERVICE_NAME = "ServiceName"
@@ -64,8 +61,8 @@ class FocusColumnNames(Enum):
     LIST_UNIT_PRICE = "ListUnitPrice"
     LIST_COST = "ListCost"
 
-    USAGE_QUANTITY = "UsageQuantity"
-    USAGE_UNIT = "UsageUnit"
+    CONSUMED_QUANTITY = "ConsumedQuantity"
+    CONSUMED_UNIT = "ConsumedUnit"
 
 
 FOCUS_DATETIME_ISO_FORMAT = "%Y-%m-%dT%H:%M:%SZ"
@@ -92,7 +89,7 @@ def get_dtype_for_focus_column_name(focus_column_name: FocusColumnNames):
         or focus_column_name == FocusColumnNames.LIST_COST
         or focus_column_name == FocusColumnNames.LIST_UNIT_PRICE
         or focus_column_name == FocusColumnNames.PRICING_QUANTITY
-        or focus_column_name == FocusColumnNames.USAGE_QUANTITY
+        or focus_column_name == FocusColumnNames.CONSUMED_QUANTITY
     ):
         return pl.Float64
     else:

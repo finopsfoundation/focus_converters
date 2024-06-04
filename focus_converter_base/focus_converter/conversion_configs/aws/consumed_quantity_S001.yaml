@@ -1,0 +1,5 @@
+# TODO: work out if there is a better location to source the actual consumed amount
+plan_name: convert LineItem/UsageAmount to ConsumedQuantity
+conversion_type: rename_column
+column: line_item_usage_amount
+focus_column: ConsumedQuantity

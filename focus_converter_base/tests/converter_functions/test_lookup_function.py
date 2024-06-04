@@ -19,7 +19,7 @@ plan_name: sample
 priority: 1
 column: {{ random_column_alias }}
 conversion_type: lookup
-focus_column: Region
+focus_column: RegionId
 conversion_args:
     reference_dataset_path: {{ test_reference_dataset_path }}
     source_value: {{ source_value }}
@@ -33,7 +33,7 @@ plan_name: sample
 priority: 1
 column: test_column
 conversion_type: lookup
-focus_column: Region
+focus_column: RegionId
 """
 
 VALUE_MAPPING_SAMPLE_TEMPLATE_YAML = Template(VALUE_LOOKUP_SAMPLE_TEMPLATE_YAML_JINJA)
@@ -168,7 +168,7 @@ class TestMappingFunction(TestCase):
         priority: 1
         column: product_code
         conversion_type: lookup
-        focus_column: Region
+        focus_column: RegionId
         conversion_args:
             reference_dataset_path: conversion_configs/aws/mapping_files/aws_category_mapping.csv
             source_value: a

@@ -1,6 +1,6 @@
-plan_name: calculate ChargeType using conditions
+plan_name: calculate ChargeCategory using conditions
 column: lineItem/LineItemType
-focus_column: ChargeType
+focus_column: ChargeCategory
 conversion_type: sql_condition
 conversion_args:
     conditions:

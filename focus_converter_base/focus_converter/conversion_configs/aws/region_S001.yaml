@@ -1,4 +1,4 @@
-plan_name: convert product_region to Region
+plan_name: convert product_region to RegionId
 conversion_type: sql_condition
 conversion_args:
     conditions:
@@ -6,4 +6,4 @@ conversion_args:
         - WHEN product_region_code is not null THEN product_region_code
     default_value: "null"
 column: NA
-focus_column: Region
+focus_column: RegionId

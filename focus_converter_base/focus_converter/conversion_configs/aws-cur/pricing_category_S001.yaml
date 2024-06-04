@@ -4,10 +4,10 @@ conversion_args: >
     SELECT
     *,
     CASE
-        WHEN ("product/PurchaseOption" = 'On-Demand') THEN 'On-Demand'
-        WHEN ("product/PurchaseOption" = 'Reserved Instances') THEN 'Commitment-Based'
+        WHEN ("product/PurchaseOption" = 'On-Demand') THEN 'Standard'
+        WHEN ("product/PurchaseOption" = 'Reserved Instances') THEN 'Committed'
         WHEN ("product/PurchaseOption" = 'Spot Instances') THEN 'Dynamic'
-        WHEN ("product/PurchaseOption" = 'Dedicated Hosts') THEN 'On-Demand'
+        WHEN ("product/PurchaseOption" = 'Dedicated Hosts') THEN 'Standard'
         ELSE NULL
     END AS PricingCategory
     FROM {{ TABLE_NAME }}
