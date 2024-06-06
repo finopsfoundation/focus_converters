@@ -19,7 +19,7 @@ This represents only this projects progress in covering each providers with the 
 
 ![alt text](gcp_progress_pie_chart.png)
 
-Information about native support can be found here: https://cloud.google.com/blog/topics/cost-management/working-with-finops-foundation-on-open-cloud-billing-data
+Information about native support can be found here: https://cloud.google.com/blog/topics/cost-management/new-bigquery-cloud-billing-view-based-on-focus
 
 ---
 
@@ -34,3 +34,4 @@ Information about native support can be found here: https://azure.microsoft.com/
 #### Oracle Cloud
 
 ![alt text](oci_progress_pie_chart.png)
+Information about native support can be found here: https://blogs.oracle.com/cloud-infrastructure/post/announcing-focus-support-for-oci-cost-reports
