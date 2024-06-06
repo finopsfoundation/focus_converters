@@ -1,0 +1,34 @@
+name: Publish
+on:
+  create:
+    tags:
+      - 'v\d\.\d\.\d'
+      - 'v\d\.\d\.\d-(dev|rc)\d'
+
+jobs:
+  publish:
+    permissions:
+      id-token: write
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Copy converter_base to current directory Windows
+        if: ${{ matrix.os == 'windows-latest' }}
+        run: |
+          xcopy /E /I /Y focus_converter_base\* .\
+      - name: Copy converter_base to current directory Linux, MacOS
+        if: ${{ matrix.os != 'windows-latest' }}
+        run: |
+          cp -r focus_converter_base/* ./
+      - name: Set up Python 3.9
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.9
+      - name: Install poetry
+        uses: abatilo/actions-poetry@v2
+      - name: Install dependencies
+        run: |
+          find -type l -exec bash -c 'ln -f "$(readlink -m "$0")" "$0"' {} \;
+          poetry build
+      - name: Publish package distributions to PyPI
+        uses: pypa/gh-action-pypi-publish@release/v1

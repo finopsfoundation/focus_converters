@@ -1,0 +1,5 @@
+# config to rename cost_at_list to ListCost
+plan_name: rename cost_at_list to ListCost
+conversion_type: rename_column
+column: cost_at_list
+focus_column: ListCost

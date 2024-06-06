@@ -1,0 +1,4 @@
+plan_name: rename cost to BilledCost
+conversion_type: rename_column
+column: cost
+focus_column: BilledCost

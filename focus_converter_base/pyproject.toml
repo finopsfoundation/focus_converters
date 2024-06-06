@@ -1,0 +1,64 @@
+[tool.poetry]
+name = "focus_converter"
+version = "1.0.0"
+description = ""
+authors = ["Varun Mittal <varunmittal91@gmail.com>", "Mike Fuller <mike@finops.org>"]
+readme = "README.md"
+packages = [{ include = "focus_converter" }]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+polars = "0.20.10"
+pydantic = "^2.1.1"
+pandas = "^2.0.3"
+pyarrow = "^14"
+typer = "^0.9.0"
+rich = "^13.5.2"
+networkx = "^3.1"
+tqdm = "^4.66.1"
+sqlglot = "^18.7.0"
+# TODO(joshk): Change this to ^1 after release of the validator.
+focus-validator = "*"
+jinja2 = "^3.1.2"
+pillow = "^10.1.0"
+
+
+[tool.poetry.group.notebook]
+optional = true
+
+[tool.poetry.group.notebook.dependencies]
+jupyterlab = {version = "^4.0.9", optional = true}
+
+
+[tool.poetry.group.dev.dependencies]
+black = { extras = ["d"], version = "^23.7.0" }
+bumpversion = "^0.6.0"
+flake8 = "^6.0.0"
+isort = "^5.12.0"
+mypy = "^1.4.1"
+pre-commit = "^3.3.3"
+pytest = "^7.4.0"
+pytest-cov = "^4.1.0"
+types-python-dateutil = "^2.8.19.14"
+types-setuptools = "^68.0.0.3"
+faker = "^19.3.1"
+matplotlib = "^3.7.2"
+types-pyyaml = "^6.0.12.12"
+types-pytz = "^2023.3.1.1"
+types-requests = "^2.31.0.4"
+types-tqdm = "^4.66.0.2"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.scripts]
+focus-converter = "focus_converter.main:app"
+focus-export-conversion-rules = "focus_converter.utils.export_conversion_rules:app"
+focus-generate-progress-pie-chart = "focus_converter.utils.generate_per_provider_progress:app"
+focus-export-converted-sample-data = "focus_converter.utils.export_converted_sample_data:app"
+
+[tool.pytest.ini_options]
+log_cli = true
+log_cli_level = "INFO"

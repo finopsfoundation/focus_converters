@@ -1,0 +1,4 @@
+plan_name: convert line_item_resource_id to ResourceId
+conversion_type: rename_column
+column: lineItem/ResourceId
+focus_column: ResourceId

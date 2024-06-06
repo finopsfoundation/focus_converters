@@ -1,0 +1,4 @@
+plan_name: convert CostInBillingCurrency to BilledCost
+conversion_type: rename_column
+column: CostInBillingCurrency
+focus_column: BilledCost

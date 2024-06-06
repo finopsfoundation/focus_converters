@@ -1,0 +1,34 @@
+plan_name: adds dtypes to the columns required for the conversion
+conversion_type: set_column_dtypes
+column: PlaceHolder
+focus_column: PlaceHolder
+conversion_args:
+    dtype_args:
+        -   column_name: lineItem/UnblendedCost
+            dtype: float
+        -   column_name: savingsPlan/UsedCommitment
+            dtype: float
+        -   column_name: savingsPlan/UsedCommitment
+            dtype: float
+        -   column_name: savingsPlan/TotalCommitmentToDate
+            dtype: float
+        -   column_name: reservation/UnusedAmortizedUpfrontFeeForBillingPeriod
+            dtype: float
+        -   column_name: reservation/UnusedRecurringFee
+            dtype: float
+        -   column_name: pricing/publicOnDemandRate
+            dtype: float
+        -   column_name: lineItem/ResourceId
+            dtype: string
+        -   column_name: bill/BillingPeriodStartDate
+            dtype: datetime
+        -   column_name: bill/BillingPeriodEndDate
+            dtype: datetime
+        -   column_name: lineItem/UsageEndDate
+            dtype: datetime
+        -   column_name: lineItem/UsageStartDate
+            dtype: datetime
+        -   column_name: bill/PayerAccountId
+            dtype: string
+        -   column_name: product/PurchaseOption
+            dtype: string

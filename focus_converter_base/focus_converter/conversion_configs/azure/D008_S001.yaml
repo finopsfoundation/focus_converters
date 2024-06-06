@@ -1,0 +1,4 @@
+plan_name: convert SubscriptionId to SubAccountId
+conversion_type: rename_column
+column: SubscriptionId
+focus_column: SubAccountId

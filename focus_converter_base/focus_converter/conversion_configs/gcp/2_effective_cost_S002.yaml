@@ -1,0 +1,12 @@
+plan_name: Compute net effective cost
+conversion_type: sql_query
+column: credits
+focus_column: EffectiveCost
+conversion_args: >
+    SELECT
+    *,
+    CASE
+        WHEN tmp_credits_amount_EffectiveCost + cost > 0 THEN tmp_credits_amount_EffectiveCost + cost
+        ELSE 0
+    END AS EffectiveCost
+    FROM {{ TABLE_NAME }}

@@ -1,0 +1,4 @@
+plan_name: convert lineItem/CurrencyCode to BillingCurrency
+conversion_type: rename_column
+column: lineItem/CurrencyCode
+focus_column: BillingCurrency

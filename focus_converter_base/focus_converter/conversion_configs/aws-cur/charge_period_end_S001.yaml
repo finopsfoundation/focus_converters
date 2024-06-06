@@ -1,0 +1,4 @@
+plan_name: convert lineItem/UsageEndDate to ChargePeriodEnd
+conversion_type: assign_utc_timezone
+column: lineItem/UsageEndDate
+focus_column: ChargePeriodEnd

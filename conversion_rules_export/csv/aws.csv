@@ -1,0 +1,133 @@
+FOCUS Dimension,Transform Step,Source Column,Source Column Type,Transform Type,Filters/Process/Etc.
+BillingAccountName,0,Not Defined,Not Defined,Not Defined,Not Defined
+ChargeCategory,0,Not Defined,Not Defined,Not Defined,Not Defined
+CommitmentDiscountName,0,Not Defined,Not Defined,Not Defined,Not Defined
+SubAccountId,0,Not Defined,Not Defined,Not Defined,Not Defined
+SubAccountName,0,Not Defined,Not Defined,Not Defined,Not Defined
+AvailabilityZone,1,line_item_availability_zone,Not Defined,RENAME_COLUMN,
+BilledCost,1,NA,Not Defined,SQL_CONDITION,"conditions:
+- WHEN line_item_net_unblended_cost is not null THEN line_item_net_unblended_cost
+default_value: line_item_unblended_cost
+"
+BillingAccountId,1,bill_payer_account_id,Not Defined,RENAME_COLUMN,
+BillingCurrency,1,line_item_currency_code,Not Defined,RENAME_COLUMN,
+BillingPeriodEnd,1,bill_billing_period_end_date,Not Defined,ASSIGN_UTC_TIMEZONE,
+BillingPeriodStart,1,bill_billing_period_start_date,Not Defined,ASSIGN_UTC_TIMEZONE,
+ChargeDescription,1,line_item_line_item_description,Not Defined,RENAME_COLUMN,
+ChargeFrequency,1,bill_bill_type,Not Defined,MAP_VALUES,"default_value: ''
+value_list:
+- key: Refund
+  value: One-Time
+- key: Purchase
+  value: One-Time
+- key: Anniversary
+  value: Recurring
+"
+ChargePeriodEnd,1,line_item_usage_end_date,Not Defined,ASSIGN_UTC_TIMEZONE,
+ChargePeriodStart,1,line_item_usage_start_date,Not Defined,ASSIGN_UTC_TIMEZONE,
+ChargeSubcategory,1,NA,Not Defined,SQL_CONDITION,"conditions:
+- WHEN ChargeType = 'Usage' AND savings_plan_savings_plan_arn is not null OR reservation_reservation_arn
+  is not null THEN 'Used Commitment'
+- WHEN ChargeType = 'Usage' THEN 'On-Demand'
+- WHEN ChargeType = 'Adjustment' AND line_item_line_item_type = 'BundledDiscount'
+  THEN 'Credit'
+- WHEN ChargeType = 'Adjustment' AND line_item_line_item_type = 'Credit' THEN 'Credit'
+- WHEN ChargeType = 'Adjustment' AND line_item_line_item_type = 'Discount' THEN 'Credit'
+- WHEN ChargeType = 'Adjustment' AND line_item_line_item_type = 'DiscountedUsage'
+  THEN 'Credit'
+- WHEN ChargeType = 'Adjustment' AND line_item_line_item_type = 'Refund' THEN 'Refund'
+- WHEN ChargeType = 'Adjustment' THEN 'General Adjustment'
+default_value: 'NULL'
+"
+ChargeType,1,line_item_line_item_type,Not Defined,SQL_CONDITION,"conditions:
+- WHEN line_item_line_item_type = 'Tax' THEN 'Tax'
+- WHEN line_item_line_item_type = 'Fee' THEN 'Purchase'
+- WHEN line_item_line_item_type = 'SavingsPlanUpfrontFee' THEN 'Purchase'
+- WHEN line_item_line_item_type = 'RIFee' THEN 'Purchase'
+- WHEN line_item_line_item_type = 'SavingsPlanRecurringFee' THEN 'Purchase'
+- WHEN line_item_line_item_type = 'Usage' THEN 'Usage'
+- WHEN line_item_line_item_type = 'SavingsPlanCoveredUsage' THEN 'Usage'
+- WHEN line_item_line_item_type = 'SavingsPlanNegation' THEN 'Usage'
+- WHEN line_item_line_item_type = 'DiscountedUsage' THEN 'Usage'
+- WHEN line_item_line_item_type = 'BundledDiscount' THEN 'Usage'
+- WHEN line_item_line_item_type = 'Discount' THEN 'Usage'
+- WHEN line_item_line_item_type = 'PrivateRateDiscount' THEN 'Usage'
+- WHEN line_item_line_item_type = 'EdpDiscount' THEN 'Usage'
+- WHEN line_item_line_item_type = 'Credit' THEN 'Adjustment'
+- WHEN line_item_line_item_type = 'Refund' THEN 'Adjustment'
+default_value: ''''''
+"
+CommitmentDiscountCategory,1,NA,Not Defined,SQL_CONDITION,"conditions:
+- WHEN savings_plan_savings_plan_arn is not null THEN 'Spend'
+- WHEN reservation_reservation_arn is not null THEN 'Usage'
+default_value: 'null'
+"
+CommitmentDiscountId,1,NA,Not Defined,SQL_CONDITION,"conditions:
+- WHEN savings_plan_savings_plan_arn is not null THEN savings_plan_savings_plan_arn
+default_value: reservation_reservation_arn
+"
+CommitmentDiscountType,1,NA,Not Defined,SQL_CONDITION,"conditions:
+- WHEN savings_plan_savings_plan_arn is not null THEN 'Savings Plan'
+- WHEN reservation_reservation_arn is not null THEN 'Reserved Instances (RI)'
+default_value: 'null'
+"
+EffectiveCost,1,NA,Not Defined,SQL_QUERY,"SELECT *, CASE
+    WHEN (line_item_line_item_type = 'SavingsPlanCoveredUsage') THEN savings_plan_savings_plan_effective_cost
+    WHEN (line_item_line_item_type = 'SavingsPlanRecurringFee') THEN (savings_plan_total_commitment_to_date - savings_plan_used_commitment)
+    WHEN (line_item_line_item_type = 'SavingsPlanNegation') THEN 0
+    WHEN (line_item_line_item_type = 'SavingsPlanUpfrontFee') THEN 0
+    WHEN (line_item_line_item_type = 'DiscountedUsage') THEN reservation_effective_cost
+    WHEN (line_item_line_item_type = 'RIFee') THEN (reservation_unused_amortized_upfront_fee_for_billing_period + reservation_unused_recurring_fee)
+    WHEN ((line_item_line_item_type = 'Fee') AND (reservation_reservation_a_r_n <> '')) THEN 0
+    ELSE line_item_unblended_cost
+END AS EffectiveCost FROM {{ TABLE_NAME }}
+"
+InvoiceIssuer,1,bill_invoicing_entity,Not Defined,RENAME_COLUMN,
+ListCost,1,NA,Not Defined,SQL_CONDITION,"conditions:
+- WHEN pricing_public_on_demand_rate is not null THEN pricing_public_on_demand_rate
+  * line_item_usage_amount
+default_value: pricing_public_on_demand_cost
+"
+ListUnitPrice,1,pricing_public_on_demand_rate,float,RENAME_COLUMN,
+PricingCategory,1,NA,Not Defined,SQL_QUERY,"SELECT *, CASE
+    WHEN (""product_purchase_option"" = 'On-Demand') THEN 'On-Demand'
+    WHEN (""product_purchase_option"" = 'Reserved Instances') THEN 'Commitment-Based'
+    WHEN (""product_purchase_option"" = 'Spot Instances') THEN 'Dynamic'
+    WHEN (""product_purchase_option"" = 'Dedicated Hosts') THEN 'On-Demand'
+    ELSE NULL
+END AS PricingCategory FROM {{ TABLE_NAME }}
+"
+PricingQuantity,1,line_item_usage_amount,Not Defined,SQL_CONDITION,"conditions:
+- WHEN reservation_total_reserved_units is not null THEN reservation_total_reserved_units
+default_value: line_item_usage_amount
+"
+PricingUnit,1,pricing_unit,Not Defined,RENAME_COLUMN,
+Provider,1,NA,Not Defined,ASSIGN_STATIC_VALUE,"static_value: AWS
+"
+Publisher,1,line_item_legal_entity,Not Defined,RENAME_COLUMN,
+Region,1,NA,Not Defined,SQL_CONDITION,"conditions:
+- WHEN product_region is not null THEN product_region
+- WHEN product_region_code is not null THEN product_region_code
+default_value: 'null'
+"
+ResourceId,1,line_item_resource_id,string,RENAME_COLUMN,
+ResourceName,1,line_item_resource_id,string,STRING_FUNCTIONS,"{'steps': [{'operation_type': 'split', 'split_by': ':', 'index': 6}, 'title']}"
+ResourceType,1,line_item_resource_id,string,STRING_FUNCTIONS,"{'steps': [{'operation_type': 'split', 'split_by': ':', 'index': 5}]}"
+ResourceType,2,line_item_resource_id,string,STRING_FUNCTIONS,"{'steps': [{'operation_type': 'split', 'split_by': ':', 'index': 6}]}"
+ResourceType,3,NA,Not Defined,SQL_QUERY,"SELECT *, CASE
+    WHEN tmp_resource_id_ResourceType IS NOT NULL THEN tmp_resource_type_ResourceType
+    ELSE NULL
+END AS ResourceType FROM {{ TABLE_NAME }}
+"
+ServiceCategory,1,line_item_product_code,Not Defined,LOOKUP,"destination_value: ServiceCategory
+reference_dataset_path: conversion_configs/aws/mapping_files/aws_category_mapping.csv
+source_value: product_code
+"
+ServiceName,1,line_item_product_code,Not Defined,RENAME_COLUMN,
+SkuId,1,product_sku,Not Defined,RENAME_COLUMN,
+SkuPriceId,1,NA,Not Defined,SQL_CONDITION,"conditions:
+- WHEN pricing_rate_code is not null THEN pricing_rate_code
+default_value: pricing_rate_id
+"
+UsageQuantity,1,line_item_usage_amount,Not Defined,RENAME_COLUMN,
+UsageUnit,1,pricing_unit,Not Defined,RENAME_COLUMN,

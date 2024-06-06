@@ -1,0 +1,6 @@
+plan_name: Assign InvoiceIssuer
+conversion_type: static_value
+conversion_args:
+    static_value: Microsoft
+column: NA
+focus_column: InvoiceIssuer

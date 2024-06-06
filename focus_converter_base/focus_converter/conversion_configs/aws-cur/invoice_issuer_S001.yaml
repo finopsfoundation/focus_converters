@@ -1,0 +1,4 @@
+plan_name: convert bill_invoicing_entity to InvoiceIssuer
+conversion_type: rename_column
+column: bill/InvoicingEntity
+focus_column: InvoiceIssuer

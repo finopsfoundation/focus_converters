@@ -1,0 +1,12 @@
+plan_name: Get resource type from resource Id
+conversion_type: sql_query
+column: NA
+focus_column: ResourceType
+conversion_args: >
+    SELECT
+    *,
+    CASE
+        WHEN tmp_resource_id_ResourceType IS NOT NULL THEN tmp_resource_type_ResourceType
+        ELSE NULL
+    END AS ResourceType
+    FROM {{ TABLE_NAME }}

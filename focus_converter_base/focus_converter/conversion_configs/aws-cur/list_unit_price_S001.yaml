@@ -1,0 +1,4 @@
+plan_name: convert Pricing/publicOnDemandRate to ListUnitPrice
+conversion_type: rename_column
+column: pricing/publicOnDemandRate
+focus_column: ListUnitPrice

@@ -1,0 +1,4 @@
+plan_name: Unnest resource.name to get ResourceName
+conversion_type: unnest
+column: resource.name
+focus_column: ResourceName

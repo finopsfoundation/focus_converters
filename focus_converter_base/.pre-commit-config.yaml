@@ -1,0 +1,41 @@
+# See https://pre-commit.com/ for usage and config
+repos:
+  - repo: https://github.com/python-poetry/poetry
+    rev: '1.5.0'
+    hooks:
+      - id: poetry-check
+  - repo: https://github.com/pycqa/isort
+    rev: 5.12.0
+    hooks:
+      - id: isort
+        name: isort (python)
+        stages: [ commit ]
+        language: system
+        types: [ python ]
+  - repo: https://github.com/psf/black
+    rev: 23.3.0
+    hooks:
+      - id: black
+        name: black
+        stages: [ commit ]
+        types: [ python ]
+  - repo: https://github.com/pycqa/flake8
+    rev: '6.0.0'  # pick a git hash / tag to point to
+    hooks:
+      - id: flake8
+  - repo: local
+    hooks:
+      - id: pytest
+        name: pytest
+        stages: [ commit ]
+        language: system
+        entry: pytest tests
+        types: [ python ]
+        pass_filenames: false
+      - id: pytest-cov
+        name: pytest
+        stages: [ push ]
+        language: system
+        entry: pytest --cov --cov-fail-under=100 tests
+        types: [ python ]
+        pass_filenames: false

@@ -1,0 +1,8 @@
+plan_name: Generate ServiceCategory for gcp data using a lookup.
+column: tmp_description_ServiceCategory
+conversion_type: lookup
+focus_column: ServiceCategory
+conversion_args:
+    reference_dataset_path: "conversion_configs/gcp/mapping_files/gcp_category_mapping.csv"
+    source_value: ConsumedService
+    destination_value: ServiceCategory

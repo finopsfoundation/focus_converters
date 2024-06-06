@@ -1,0 +1,4 @@
+plan_name: convert lineItem/tenantId to SubAccountId
+conversion_type: rename_column
+column: lineItem/tenantId
+focus_column: SubAccountId

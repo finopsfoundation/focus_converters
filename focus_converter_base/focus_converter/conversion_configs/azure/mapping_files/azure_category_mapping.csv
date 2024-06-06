@@ -1,0 +1,98 @@
+ConsumedService,ServiceCategory
+microsoft.apimanagement,Integration
+microsoft.appconfiguration,Web
+microsoft.compute,Compute
+microsoft.containerinstance,Compute
+microsoft.containerservice,Compute
+microsoft.datafactory,Integration
+microsoft.dbformysql,Databases
+microsoft.dbforpostgressql,Databases
+microsoft.digitaltwins,Internet of Things
+microsoft.eventgrid,Integration
+microsoft.insights,Management and Governance
+microsoft.keyvault,Security
+microsoft.loadtestservice,Developer Tools
+microsoft.logic,Integration
+microsoft.machinelearningservices,AI and Machine Learning
+microsoft.network,Networking
+microsoft.operationalinsights,Management and Governance
+microsoft.recoveryservices,Management and Governance
+microsoft.search,Web
+microsoft.security,Security
+microsoft.servicebus,Integration
+microsoft.storagesync,Storage
+microsoft.sql,Databases
+microsoft.storage,Storage
+microsoft.synapse,Analytics
+microsoft.virtual network,Networking
+microsoft.web,Web
+microsoft.automation,Developer Tools
+microsoft.migrate,Migration
+microsoft.classiccompute,Compute
+microsoft.classicnetwork,Networking
+microsoft.operationsmanagement,Management and Governance
+microsoft.datalakeanalytics,Analytics
+microsoft.changeanalysis,Management and Governance
+microsoft.devices,Other
+microsoft.management,Other
+microsoft.kusto,Analytics
+microsoft.servicefabric,Integration
+microsoft.cdn,Web
+microsoft.notificationhubs,Other
+microsoft.media,Media
+microsoft.cognitiveservices,AI and Machine Learning
+microsoft.cache,Storage
+microsoft.streamanalytics,Analytics
+microsoft.eventhub,Integration
+microsoft.relay,Networking
+microsoft.mixedreality,Internet of Things
+microsoft.datamigration,Migration
+microsoft.botservice,AI and Machine Learning
+microsoft.datalakestore,Storage
+microsoft.maps,Developer Tools
+microsoft.storagecache,Storage
+microsoft.securityinsights,Security
+microsoft.notebooks,Analytics
+microsoft.avs,Compute
+microsoft.marketplacenotifications,Other
+microsoft.guestconfiguration,Identity
+microsoft.servicelinker,Integration
+microsoft.desktopvirtualization,Compute
+microsoft.diagnostics,Developer Tools
+microsoft.datashare,Integration
+microsoft.maintenance,Other
+microsoft.offazure,Migration
+microsoft.iotsecurity,Internet of Things
+microsoft.machinelearning,AI and Machine Learning
+microsoft.commerce,Other
+microsoft.classicstorage,Storage
+microsoft.domainregistration,Networking
+microsoft.costmanagementexports,Management and Governance
+microsoft.solutions,Other
+microsoft.databricks,AI and Machine Learning
+microsoft.capacity,Other
+microsoft.saas,Other
+microsoft.managedidentity,Security
+microsoft.containerregistry,Storage
+microsoft.sqlvirtualmachine,Databases
+microsoft.policyinsights,Management and Governance
+microsoft.devtestlab,Developer Tools
+microsoft.blueprint,Management and Governance
+microsoft.advisor,Management and Governance
+microsoft.alertsmanagement,Management and Governance
+microsoft.documentdb,Databases
+microsoft.hdinsight,Analytics
+microsoft.costmanagement,Management and Governance
+microsoft.portal,Other
+microsoft.resourcehealth,Management and Governance
+microsoft.visualstudio,Developer Tools
+microsoft.adhybridhealthservice,Identity
+microsoft.authorization,Identity
+microsoft.classicsubscription,Other
+microsoft.consumption,Other
+microsoft.marketplaceordering,Other
+microsoft.resourcegraph,Developer Tools
+microsoft.resourcenotifications,Management and Governance
+microsoft.resources,Other
+microsoft.serialconsole,Compute
+microsoft.support,Other

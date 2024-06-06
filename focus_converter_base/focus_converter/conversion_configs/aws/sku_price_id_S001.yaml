@@ -1,0 +1,8 @@
+plan_name: convert Pricing/RateCode, Pricing/RateId to SkuPriceId
+conversion_type: sql_condition
+conversion_args:
+    conditions:
+        - WHEN pricing_rate_code is not null THEN pricing_rate_code
+    default_value: pricing_rate_id
+column: NA
+focus_column: SkuPriceId

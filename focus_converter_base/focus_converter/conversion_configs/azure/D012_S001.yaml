@@ -1,0 +1,4 @@
+plan_name: convert ResourceName to ResourceName
+conversion_type: rename_column
+column: ResourceName
+focus_column: ResourceName

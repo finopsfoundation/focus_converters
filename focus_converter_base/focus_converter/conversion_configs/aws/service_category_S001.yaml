@@ -1,0 +1,8 @@
+plan_name: Generate ServiceCategory for aws data using a map.
+column: line_item_product_code
+conversion_type: lookup
+focus_column: ServiceCategory
+conversion_args:
+    reference_dataset_path: "conversion_configs/aws/mapping_files/aws_category_mapping.csv"
+    source_value: product_code
+    destination_value: ServiceCategory

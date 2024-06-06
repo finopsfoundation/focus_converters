@@ -1,0 +1,4 @@
+plan_name: convert line_item_usage_account_id to SubAccountID
+conversion_type: rename_column
+column: line_item_usage_account_id
+focus_column: SubAccountId

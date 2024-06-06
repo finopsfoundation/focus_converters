@@ -1,0 +1,6 @@
+plan_name: Assign SkuPriceId
+conversion_type: static_value
+conversion_args:
+    static_value: null
+column: NA
+focus_column: SkuPriceId

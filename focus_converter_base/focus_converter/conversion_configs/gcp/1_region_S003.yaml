@@ -1,0 +1,8 @@
+plan_name: convert tmp-region-RegionId to RegionId based on tmp-region-Region or tmp-location-RegionId
+conversion_type: sql_condition
+conversion_args:
+    conditions:
+        - WHEN tmp_region_RegionId is not null THEN tmp_region_RegionId
+    default_value: tmp_location_RegionId
+column: tmp_region_RegionId
+focus_column: RegionId

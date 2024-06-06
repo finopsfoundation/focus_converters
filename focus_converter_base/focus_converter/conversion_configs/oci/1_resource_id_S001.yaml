@@ -1,0 +1,4 @@
+plan_name: convert product/resourceId to ResourceId
+conversion_type: rename_column
+column: product/resourceId
+focus_column: ResourceId

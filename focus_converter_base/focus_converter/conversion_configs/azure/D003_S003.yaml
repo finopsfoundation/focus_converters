@@ -1,0 +1,4 @@
+plan_name: convert ChargePeriodEnd to ChargePeriodEnd
+conversion_type: rename_column
+column: ChargePeriodEnd
+focus_column: ChargePeriodEnd

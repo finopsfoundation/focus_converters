@@ -1,0 +1,4 @@
+plan_name: convert usage_end_time to ChargePeriodEnd
+conversion_type: rename_column
+column: usage_end_time
+focus_column: ChargePeriodEnd

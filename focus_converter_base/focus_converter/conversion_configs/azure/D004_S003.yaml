@@ -1,0 +1,4 @@
+plan_name: convert BillingPeriodEnd to BillingPeriodEnd
+conversion_type: rename_column
+column: BillingPeriodEnd
+focus_column: BillingPeriodEnd

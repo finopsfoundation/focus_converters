@@ -1,0 +1,4 @@
+plan_name: convert  bill/BillingPeriodEndDate to BillingPeriodEnd
+conversion_type: assign_utc_timezone
+column:  bill/BillingPeriodEndDate
+focus_column: BillingPeriodEnd

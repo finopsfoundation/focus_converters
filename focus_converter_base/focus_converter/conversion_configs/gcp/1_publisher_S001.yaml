@@ -1,0 +1,8 @@
+plan_name: convert seller/static value to Publisher
+conversion_type: sql_condition
+conversion_args:
+    conditions:
+        - WHEN seller_name is not NULL THEN seller_name
+    default_value: "'Google Cloud'"
+column: seller_name
+focus_column: Publisher

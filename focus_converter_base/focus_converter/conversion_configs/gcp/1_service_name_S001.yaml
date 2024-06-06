@@ -1,0 +1,4 @@
+plan_name: Unnest service.description to get ServiceName
+conversion_type: unnest
+column: service.description
+focus_column: ServiceName

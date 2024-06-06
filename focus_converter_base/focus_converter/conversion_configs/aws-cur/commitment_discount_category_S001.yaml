@@ -1,0 +1,10 @@
+# fails if the column is not present, TODO: add a default value
+plan_name: convert ReservationARN/SavingsPlanArn to CommitmentDiscountCategory
+conversion_type: sql_condition
+conversion_args:
+    conditions:
+        - WHEN "savingsPlan/SavingsPlanARN" is not null THEN 'Spend'
+        - WHEN "reservation/ReservationARN" is not null THEN 'Usage'
+    default_value: "null"
+column: NA
+focus_column: CommitmentDiscountCategory

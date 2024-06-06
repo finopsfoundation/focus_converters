@@ -1,0 +1,7 @@
+# fails if the column is not present, TODO: add a default value
+plan_name: add default value to reservation/ReservationARN if not present in CUR dataset
+conversion_type: apply_default_if_column_missing
+column: reservation/ReservationARN
+focus_column: PlaceHolder
+conversion_args:
+    data_type: string
