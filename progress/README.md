@@ -1,6 +1,8 @@
 ## Progress per provider
 ---
 
+This represents only this projects progress in covering each providers with the FOCUS columns and requirements. Please check if your provider has native support for FOCUS and preference using their native support over this converter.
+
 #### AWS Parquet
 
 ![alt text](aws-cur_progress_pie_chart.png)
@@ -17,11 +19,15 @@
 
 ![alt text](gcp_progress_pie_chart.png)
 
+Information about native support can be found here: https://cloud.google.com/blog/topics/cost-management/working-with-finops-foundation-on-open-cloud-billing-data
+
 ---
 
 #### Microsoft Azure
 
 ![alt text](azure_progress_pie_chart.png)
+
+Information about native support can be found here: https://azure.microsoft.com/en-us/blog/focus-a-new-specification-for-cloud-cost-transparency/
 
 ---
 
