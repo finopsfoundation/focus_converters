@@ -50,6 +50,7 @@ class FocusColumnNames(Enum):
     COMMITMENT_DISCOUNT_ID = "CommitmentDiscountId"
     COMMITMENT_DISCOUNT_TYPE = "CommitmentDiscountType"
     COMMITMENT_DISCOUNT_CATEGORY = "CommitmentDiscountCategory"
+    COMMITMENT_DISCOUNT_NAME = "CommitmentDiscountName"
 
     PRICING_QUANTITY = "PricingQuantity"
     PRICING_UNIT = "PricingUnit"
