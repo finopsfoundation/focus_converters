@@ -1,0 +1,8 @@
+plan_name: Generate ResourceType for azure data using a map.
+column: tmp_lower_ResourceType
+conversion_type: lookup
+focus_column: ResourceType
+conversion_args:
+    reference_dataset_path: "conversion_configs/azure/mapping_files/azure_resource_type_mapping.csv"
+    source_value: ResourceTypeSplit
+    destination_value: SingularDisplayName
