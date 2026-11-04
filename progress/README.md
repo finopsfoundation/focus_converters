@@ -7,11 +7,15 @@ This represents only this projects progress in covering each providers with the 
 
 ![alt text](aws-cur_progress_pie_chart.png)
 
+Information about native support can be found here: https://aws.amazon.com/blogs/aws-cloud-financial-management/announcing-data-exports-for-focus-1-0-preview-in-aws-billing-and-cost-management/
+
 ---
 
 #### AWS CSV
 
 ![alt text](aws_progress_pie_chart.png)
+
+Information about native support can be found here: https://aws.amazon.com/blogs/aws-cloud-financial-management/announcing-data-exports-for-focus-1-0-preview-in-aws-billing-and-cost-management/
 
 ---
 
